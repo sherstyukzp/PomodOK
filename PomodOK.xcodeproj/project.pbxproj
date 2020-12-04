@@ -1,0 +1,376 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		C40606D0250B851E008302F5 /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40606CF250B851E008302F5 /* UserSettings.swift */; };
+		C464FB962502974100E0336E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C464FB952502974100E0336E /* AppDelegate.swift */; };
+		C464FB982502974100E0336E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C464FB972502974100E0336E /* SceneDelegate.swift */; };
+		C464FB9B2502974100E0336E /* PomodOK.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C464FB992502974100E0336E /* PomodOK.xcdatamodeld */; };
+		C464FB9D2502974100E0336E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C464FB9C2502974100E0336E /* ContentView.swift */; };
+		C464FB9F2502974C00E0336E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C464FB9E2502974C00E0336E /* Assets.xcassets */; };
+		C464FBA22502974C00E0336E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C464FBA12502974C00E0336E /* Preview Assets.xcassets */; };
+		C464FBA52502974C00E0336E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C464FBA32502974C00E0336E /* LaunchScreen.storyboard */; };
+		C464FBB52505522B00E0336E /* StatisticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C464FBB42505522B00E0336E /* StatisticsView.swift */; };
+		C464FBB72505524700E0336E /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C464FBB62505524700E0336E /* SettingsView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		C40606CF250B851E008302F5 /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
+		C464FB922502974100E0336E /* PomodOK.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PomodOK.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C464FB952502974100E0336E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		C464FB972502974100E0336E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		C464FB9A2502974100E0336E /* PomodOK.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PomodOK.xcdatamodel; sourceTree = "<group>"; };
+		C464FB9C2502974100E0336E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		C464FB9E2502974C00E0336E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		C464FBA12502974C00E0336E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		C464FBA42502974C00E0336E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		C464FBA62502974C00E0336E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C464FBB42505522B00E0336E /* StatisticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsView.swift; sourceTree = "<group>"; };
+		C464FBB62505524700E0336E /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		C464FB8F2502974100E0336E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		C464FB892502974100E0336E = {
+			isa = PBXGroup;
+			children = (
+				C464FB942502974100E0336E /* PomodOK */,
+				C464FB932502974100E0336E /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		C464FB932502974100E0336E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C464FB922502974100E0336E /* PomodOK.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C464FB942502974100E0336E /* PomodOK */ = {
+			isa = PBXGroup;
+			children = (
+				C464FB952502974100E0336E /* AppDelegate.swift */,
+				C464FB972502974100E0336E /* SceneDelegate.swift */,
+				C464FB9C2502974100E0336E /* ContentView.swift */,
+				C464FBB42505522B00E0336E /* StatisticsView.swift */,
+				C464FBB62505524700E0336E /* SettingsView.swift */,
+				C40606CF250B851E008302F5 /* UserSettings.swift */,
+				C464FB9E2502974C00E0336E /* Assets.xcassets */,
+				C464FBA32502974C00E0336E /* LaunchScreen.storyboard */,
+				C464FBA62502974C00E0336E /* Info.plist */,
+				C464FB992502974100E0336E /* PomodOK.xcdatamodeld */,
+				C464FBA02502974C00E0336E /* Preview Content */,
+			);
+			path = PomodOK;
+			sourceTree = "<group>";
+		};
+		C464FBA02502974C00E0336E /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				C464FBA12502974C00E0336E /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		C464FB912502974100E0336E /* PomodOK */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C464FBA92502974C00E0336E /* Build configuration list for PBXNativeTarget "PomodOK" */;
+			buildPhases = (
+				C464FB8E2502974100E0336E /* Sources */,
+				C464FB8F2502974100E0336E /* Frameworks */,
+				C464FB902502974100E0336E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PomodOK;
+			productName = PomodOK;
+			productReference = C464FB922502974100E0336E /* PomodOK.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		C464FB8A2502974100E0336E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1170;
+				LastUpgradeCheck = 1170;
+				ORGANIZATIONNAME = "Ярослав Шерстюк";
+				TargetAttributes = {
+					C464FB912502974100E0336E = {
+						CreatedOnToolsVersion = 11.7;
+					};
+				};
+			};
+			buildConfigurationList = C464FB8D2502974100E0336E /* Build configuration list for PBXProject "PomodOK" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = C464FB892502974100E0336E;
+			productRefGroup = C464FB932502974100E0336E /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				C464FB912502974100E0336E /* PomodOK */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		C464FB902502974100E0336E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C464FBA52502974C00E0336E /* LaunchScreen.storyboard in Resources */,
+				C464FBA22502974C00E0336E /* Preview Assets.xcassets in Resources */,
+				C464FB9F2502974C00E0336E /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		C464FB8E2502974100E0336E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C464FBB72505524700E0336E /* SettingsView.swift in Sources */,
+				C464FB9B2502974100E0336E /* PomodOK.xcdatamodeld in Sources */,
+				C464FBB52505522B00E0336E /* StatisticsView.swift in Sources */,
+				C464FB962502974100E0336E /* AppDelegate.swift in Sources */,
+				C464FB9D2502974100E0336E /* ContentView.swift in Sources */,
+				C40606D0250B851E008302F5 /* UserSettings.swift in Sources */,
+				C464FB982502974100E0336E /* SceneDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		C464FBA32502974C00E0336E /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C464FBA42502974C00E0336E /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		C464FBA72502974C00E0336E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.7;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		C464FBA82502974C00E0336E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.7;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		C464FBAA2502974C00E0336E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "\"PomodOK/Preview Content\"";
+				DEVELOPMENT_TEAM = U6LJ73DDJU;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = PomodOK/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.ukropsoft.PomodOK;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		C464FBAB2502974C00E0336E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "\"PomodOK/Preview Content\"";
+				DEVELOPMENT_TEAM = U6LJ73DDJU;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = PomodOK/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.ukropsoft.PomodOK;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C464FB8D2502974100E0336E /* Build configuration list for PBXProject "PomodOK" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C464FBA72502974C00E0336E /* Debug */,
+				C464FBA82502974C00E0336E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C464FBA92502974C00E0336E /* Build configuration list for PBXNativeTarget "PomodOK" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C464FBAA2502974C00E0336E /* Debug */,
+				C464FBAB2502974C00E0336E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		C464FB992502974100E0336E /* PomodOK.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				C464FB9A2502974100E0336E /* PomodOK.xcdatamodel */,
+			);
+			currentVersion = C464FB9A2502974100E0336E /* PomodOK.xcdatamodel */;
+			path = PomodOK.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = C464FB8A2502974100E0336E /* Project object */;
+}
