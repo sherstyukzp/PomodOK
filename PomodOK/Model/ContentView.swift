@@ -11,14 +11,21 @@
 
 import SwiftUI
 import Combine
+import CoreData
 import AVFoundation
 import AudioToolbox
 
 struct ContentView : View {
     
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    @Environment(\.managedObjectContext) private var viewContext
     
     @ObservedObject var userSettings = UserSettings()
+    
+    @FetchRequest(
+        sortDescriptors: [NSSortDescriptor(keyPath: \Item.timestamp, ascending: true)],
+        animation: .default)
+    private var items: FetchedResults<Item>
     
     @State var showingStatisticsView = false
     @State private var showingSettingsView = false
@@ -42,7 +49,15 @@ struct ContentView : View {
     @State var showAlert = false
     @State private var showShortBreak = false
     
+    @State private var date = Date()
+    @State private var day = ""
+    
+    //--- Sound ID
     let systemSoundID: SystemSoundID = 1313
+    
+    
+    
+    
         
     var body: some View {
         ZStack {
@@ -162,7 +177,7 @@ struct ContentView : View {
                                 .frame(width: 100, height: 50)
                             }
                             .sheet(isPresented: $showingStatisticsView) {
-                                StatisticsView()
+                                StatisticView()
                             }
                             
                             Spacer()
@@ -326,6 +341,8 @@ struct ContentView : View {
                             sound == true ? AudioServicesPlaySystemSound (systemSoundID): nil
                             //--- Вибро после завершения таймера
                             vibration == true ? AudioServicesPlaySystemSound(kSystemSoundID_Vibrate): nil
+                            
+                            addItem()
                         }
                     }
                 }
@@ -345,6 +362,40 @@ struct ContentView : View {
         self.sound = UserDefaults.standard.object(forKey: "soundEnabled") as? Bool ?? false
         self.vibration = UserDefaults.standard.object(forKey: "vibrationEnabled") as? Bool ?? false
 
+    }
+    
+    private func addItem() {
+        withAnimation {
+            let newItem = Item(context: viewContext)
+            newItem.timestamp = self.date
+            newItem.hour = itemFormatterHour.string(from: date)
+            newItem.dayWeek = itemFormatterNameDayOfTheWeek.string(from: date)
+            newItem.month = itemFormatterNameMonthNumber.string(from: date)
+
+            do {
+                try viewContext.save()
+            } catch {
+                // Replace this implementation with code to handle the error appropriately.
+                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+                let nsError = error as NSError
+                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+            }
+        }
+    }
+
+    private func deleteItems(offsets: IndexSet) {
+        withAnimation {
+            offsets.map { items[$0] }.forEach(viewContext.delete)
+
+            do {
+                try viewContext.save()
+            } catch {
+                // Replace this implementation with code to handle the error appropriately.
+                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+                let nsError = error as NSError
+                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+            }
+        }
     }
     
     // Метод для отображения минут и секунд
@@ -373,6 +424,76 @@ struct ContentView : View {
     }
     
 }
+
+
+//----
+private let itemFormatter: DateFormatter = {
+    
+    let formatter = DateFormatter()
+    formatter.dateStyle = .long
+    formatter.timeStyle = .short
+    return formatter
+
+}()
+
+
+private let itemFormatterHour: DateFormatter = {
+    
+    let date = Date()
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "HH"
+    let hourString = dateFormatter.string(from: date)
+    
+    return dateFormatter
+
+}()
+
+// Метод получения название дня недели (формат: Sunday)
+private let itemFormatterNameDayOfTheWeek: DateFormatter = {
+    
+    let date = Date()
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "EEEE"
+    let dayOfTheWeekString = dateFormatter.string(from: date)
+    
+    return dateFormatter
+}()
+
+// Метод получения название месяца (формат: October)
+private let itemFormatterNameMonth: DateFormatter = {
+    
+    let date = Date()
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "LLLL"
+    let monthString = dateFormatter.string(from: date)
+    
+    return dateFormatter
+}()
+
+// Метод получения название месяца (формат: 12)
+private let itemFormatterNameMonthNumber: DateFormatter = {
+    
+    let date = Date()
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "MM" // format January, February, March,
+    //let name = dateFormatter.string(from: date)
+    let index = Calendar.current.component(.month, from: date)
+
+    return dateFormatter
+}()
+
+// Метод получения года (формат: 2020)
+private let itemFormatterNameYear: DateFormatter = {
+    
+    let date = Date()
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "yyyy"
+
+    let yearString = dateFormatter.string(from: date)
+    
+    return dateFormatter
+}()
+//---
 
 
 struct ContentView_Previews: PreviewProvider {
