@@ -13,51 +13,31 @@ struct StatisticView: View {
     
     @Environment(\.managedObjectContext) private var viewContext
 
-    @State private var date = Date()
-    @State var date2 = Date()
-    
     @FetchRequest(
         entity: Item.entity(),
         sortDescriptors: [NSSortDescriptor(keyPath: \Item.timestamp, ascending: false)]
     )
     
+    //MARK: - Variables
     var items: FetchedResults<Item>
- 
     
-    var dateFormatter: DateFormatter {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .long
-        formatter.timeStyle = .short
-        return formatter
-      }
-    
-    // Метод получения название месяца (формат: October)
-    private let itemFormatterNameMonth: DateFormatter = {
+    @State private var date = Date()
         
-        let date = Date()
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "LLLL"
-        let monthString = dateFormatter.string(from: date)
-        
-        return dateFormatter
-    }()
-    
 //    func update(_ result : FetchedResults<Item>)-> [[Item]]{
 //          return  Dictionary(grouping: result){ (element : Item)  in
 //            dateFormatter.string(from: element.timestamp!)
 //          }.values.sorted() { $0[0].timestamp! < $1[0].timestamp! }
 //        }
     
+    //MARK: - Body
     var body: some View {
             NavigationView {
                 VStack {
                     
                     StatisticMonth()
                     StatisticChartView()
-                    
                 }
                 .navigationBarTitle(Text("Statistic"), displayMode: .inline)
-                
             }
         }
 }

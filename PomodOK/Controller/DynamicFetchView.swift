@@ -10,6 +10,8 @@ import CoreData
 import SwiftUI
 
 struct DynamicFetchView<T: NSManagedObject, Content: View>: View {
+    
+    //MARK: - Variables
     let fetchRequest: FetchRequest<T>
     let content: (FetchedResults<T>) -> Content
 

@@ -27,6 +27,7 @@ struct ContentView : View {
         animation: .default)
     private var items: FetchedResults<Item>
     
+    //MARK: - Variables
     @State var showingStatisticsView = false
     @State private var showingSettingsView = false
     
@@ -55,10 +56,7 @@ struct ContentView : View {
     //--- Sound ID
     let systemSoundID: SystemSoundID = 1313
     
-    
-    
-    
-        
+    //MARK: - Body
     var body: some View {
         ZStack {
             
@@ -159,7 +157,8 @@ struct ContentView : View {
                     }
                     Spacer()
                     Spacer()
-                    // Нижний бар
+
+                    //MARK: - Tab bar
                     HStack {
                         //Кнопка Статистика
                             Button(action: {
@@ -181,7 +180,8 @@ struct ContentView : View {
                             }
                             
                             Spacer()
-                        // Кнопка старт таймера
+                        
+                        //MARK: - Button Start Timer
                             Button(action: {
                                 
                                 if self.count == self.retrieved {
@@ -207,7 +207,7 @@ struct ContentView : View {
                             .shadow(radius: 5)
                             
                             Spacer()
-                        // Кнопка Настройки
+                        //MARK: - Button Settings
                             Button(action: {
                                 self.showingSettingsView.toggle()
                             }) {
@@ -350,27 +350,30 @@ struct ContentView : View {
         }
         
         
-        
     }
     
     // Загрузка минут таймера, если настройки не менялись принимается значение по умолчанию 25 минут
     func loadData() {
-        
-        print ("👉 loadData")
         self.retrieved = (UserDefaults.standard.object(forKey: "workSession") as? Int ?? 25) * 60
         self.notifications = UserDefaults.standard.object(forKey: "notificationsEnabled") as? Bool ?? false
         self.sound = UserDefaults.standard.object(forKey: "soundEnabled") as? Bool ?? false
         self.vibration = UserDefaults.standard.object(forKey: "vibrationEnabled") as? Bool ?? false
+        
+        print ("👉 loadData")
 
     }
     
+    //MARK: - Core Data
+    //MARK: - Save Item
     private func addItem() {
         withAnimation {
             let newItem = Item(context: viewContext)
             newItem.timestamp = self.date
-            newItem.hour = itemFormatterHour.string(from: date)
-            newItem.dayWeek = itemFormatterNameDayOfTheWeek.string(from: date)
-            newItem.month = itemFormatterNameMonthNumber.string(from: date)
+            newItem.hour = ItemFormatter.init().itemFormatterHour.string(from: date)
+            newItem.hour = ItemFormatter.init().itemFormatterNameDayOfTheWeek.string(from: date)
+            newItem.month = ItemFormatter.init().itemFormatterNameMonthNumber.string(from: date)
+            
+            print ("👉 SaveData")
 
             do {
                 try viewContext.save()
@@ -382,7 +385,8 @@ struct ContentView : View {
             }
         }
     }
-
+    
+    //MARK: - Delete Item
     private func deleteItems(offsets: IndexSet) {
         withAnimation {
             offsets.map { items[$0] }.forEach(viewContext.delete)
@@ -408,7 +412,8 @@ struct ContentView : View {
         return "\(minuteStamp):\(secondStamp)"
     }
     
-    // Метод сробатывания уведомления когда приложение свёрнуто
+    //MARK: - Notification
+    // Method for triggering notification when the application is minimized
     func Notify() {
         
         let content = UNMutableNotificationContent()
@@ -424,76 +429,6 @@ struct ContentView : View {
     }
     
 }
-
-
-//----
-private let itemFormatter: DateFormatter = {
-    
-    let formatter = DateFormatter()
-    formatter.dateStyle = .long
-    formatter.timeStyle = .short
-    return formatter
-
-}()
-
-
-private let itemFormatterHour: DateFormatter = {
-    
-    let date = Date()
-    let dateFormatter = DateFormatter()
-    dateFormatter.dateFormat = "HH"
-    let hourString = dateFormatter.string(from: date)
-    
-    return dateFormatter
-
-}()
-
-// Метод получения название дня недели (формат: Sunday)
-private let itemFormatterNameDayOfTheWeek: DateFormatter = {
-    
-    let date = Date()
-    let dateFormatter = DateFormatter()
-    dateFormatter.dateFormat = "EEEE"
-    let dayOfTheWeekString = dateFormatter.string(from: date)
-    
-    return dateFormatter
-}()
-
-// Метод получения название месяца (формат: October)
-private let itemFormatterNameMonth: DateFormatter = {
-    
-    let date = Date()
-    let dateFormatter = DateFormatter()
-    dateFormatter.dateFormat = "LLLL"
-    let monthString = dateFormatter.string(from: date)
-    
-    return dateFormatter
-}()
-
-// Метод получения название месяца (формат: 12)
-private let itemFormatterNameMonthNumber: DateFormatter = {
-    
-    let date = Date()
-    let dateFormatter = DateFormatter()
-    dateFormatter.dateFormat = "MM" // format January, February, March,
-    //let name = dateFormatter.string(from: date)
-    let index = Calendar.current.component(.month, from: date)
-
-    return dateFormatter
-}()
-
-// Метод получения года (формат: 2020)
-private let itemFormatterNameYear: DateFormatter = {
-    
-    let date = Date()
-    let dateFormatter = DateFormatter()
-    dateFormatter.dateFormat = "yyyy"
-
-    let yearString = dateFormatter.string(from: date)
-    
-    return dateFormatter
-}()
-//---
 
 
 struct ContentView_Previews: PreviewProvider {

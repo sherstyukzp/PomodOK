@@ -9,6 +9,8 @@
 import CoreData
 
 struct PersistenceController {
+    
+    //MARK: - Variables
     static let shared = PersistenceController()
 
     static var preview: PersistenceController = {
