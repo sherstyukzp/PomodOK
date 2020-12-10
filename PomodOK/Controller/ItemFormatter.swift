@@ -19,6 +19,7 @@ class ItemFormatter {
 
     }()
     
+    // Метод получения название часа (формат: 24)
     let itemFormatterHour: DateFormatter = {
         
         let date = Date()

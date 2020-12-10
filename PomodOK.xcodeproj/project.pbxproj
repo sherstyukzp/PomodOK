@@ -7,7 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C40354AC25821BDC003DF1AC /* BarMonthsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40354AB25821BDC003DF1AC /* BarMonthsView.swift */; };
+		C40354AF25821C1F003DF1AC /* BarDaysView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40354AE25821C1F003DF1AC /* BarDaysView.swift */; };
+		C40354B225821C61003DF1AC /* BarHoursView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40354B125821C61003DF1AC /* BarHoursView.swift */; };
+		C40354B525821D16003DF1AC /* StatisticChartHoursView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40354B425821D15003DF1AC /* StatisticChartHoursView.swift */; };
+		C40354B825821E97003DF1AC /* StatisticChartDaysView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40354B725821E97003DF1AC /* StatisticChartDaysView.swift */; };
+		C40354BB25821F70003DF1AC /* StatisticChartMonthsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40354BA25821F70003DF1AC /* StatisticChartMonthsView.swift */; };
 		C40606D0250B851E008302F5 /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40606CF250B851E008302F5 /* UserSettings.swift */; };
+		C427373925822A1800CC0DCF /* StatisticChartYearsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C427373825822A1800CC0DCF /* StatisticChartYearsView.swift */; };
+		C427373C25822ABB00CC0DCF /* BarYearsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C427373B25822ABA00CC0DCF /* BarYearsView.swift */; };
+		C427374025822D6000CC0DCF /* AllEntriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C427373F25822D6000CC0DCF /* AllEntriesView.swift */; };
 		C458F30D257E5BD900E35AD9 /* ItemFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C458F30C257E5BD900E35AD9 /* ItemFormatter.swift */; };
 		C464FB962502974100E0336E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C464FB952502974100E0336E /* AppDelegate.swift */; };
 		C464FB982502974100E0336E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C464FB972502974100E0336E /* SceneDelegate.swift */; };
@@ -20,12 +29,19 @@
 		C464FBB72505524700E0336E /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C464FBB62505524700E0336E /* SettingsView.swift */; };
 		C4EB80CE257A6B900045B192 /* DynamicFetchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4EB80CD257A6B900045B192 /* DynamicFetchView.swift */; };
 		C4EB80D1257A6BB10045B192 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4EB80D0257A6BB10045B192 /* Persistence.swift */; };
-		C4EB80D4257A6C4F0045B192 /* StatisticChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4EB80D3257A6C4F0045B192 /* StatisticChartView.swift */; };
-		C4EB80D7257A6C710045B192 /* StatisticMonth.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4EB80D6257A6C710045B192 /* StatisticMonth.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C40354AB25821BDC003DF1AC /* BarMonthsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarMonthsView.swift; sourceTree = "<group>"; };
+		C40354AE25821C1F003DF1AC /* BarDaysView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarDaysView.swift; sourceTree = "<group>"; };
+		C40354B125821C61003DF1AC /* BarHoursView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarHoursView.swift; sourceTree = "<group>"; };
+		C40354B425821D15003DF1AC /* StatisticChartHoursView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticChartHoursView.swift; sourceTree = "<group>"; };
+		C40354B725821E97003DF1AC /* StatisticChartDaysView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticChartDaysView.swift; sourceTree = "<group>"; };
+		C40354BA25821F70003DF1AC /* StatisticChartMonthsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticChartMonthsView.swift; sourceTree = "<group>"; };
 		C40606CF250B851E008302F5 /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
+		C427373825822A1800CC0DCF /* StatisticChartYearsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticChartYearsView.swift; sourceTree = "<group>"; };
+		C427373B25822ABA00CC0DCF /* BarYearsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarYearsView.swift; sourceTree = "<group>"; };
+		C427373F25822D6000CC0DCF /* AllEntriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllEntriesView.swift; sourceTree = "<group>"; };
 		C458F30C257E5BD900E35AD9 /* ItemFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemFormatter.swift; sourceTree = "<group>"; };
 		C464FB922502974100E0336E /* PomodOK.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PomodOK.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C464FB952502974100E0336E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -40,8 +56,6 @@
 		C464FBB62505524700E0336E /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		C4EB80CD257A6B900045B192 /* DynamicFetchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicFetchView.swift; sourceTree = "<group>"; };
 		C4EB80D0257A6BB10045B192 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
-		C4EB80D3257A6C4F0045B192 /* StatisticChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticChartView.swift; sourceTree = "<group>"; };
-		C4EB80D6257A6C710045B192 /* StatisticMonth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticMonth.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,8 +134,15 @@
 		C4EB80E4257A77FA0045B192 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				C4EB80D3257A6C4F0045B192 /* StatisticChartView.swift */,
-				C4EB80D6257A6C710045B192 /* StatisticMonth.swift */,
+				C40354B425821D15003DF1AC /* StatisticChartHoursView.swift */,
+				C40354B725821E97003DF1AC /* StatisticChartDaysView.swift */,
+				C40354BA25821F70003DF1AC /* StatisticChartMonthsView.swift */,
+				C427373825822A1800CC0DCF /* StatisticChartYearsView.swift */,
+				C40354B125821C61003DF1AC /* BarHoursView.swift */,
+				C40354AE25821C1F003DF1AC /* BarDaysView.swift */,
+				C40354AB25821BDC003DF1AC /* BarMonthsView.swift */,
+				C427373B25822ABA00CC0DCF /* BarYearsView.swift */,
+				C427373F25822D6000CC0DCF /* AllEntriesView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -197,17 +218,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C4EB80D4257A6C4F0045B192 /* StatisticChartView.swift in Sources */,
-				C4EB80D7257A6C710045B192 /* StatisticMonth.swift in Sources */,
+				C40354AF25821C1F003DF1AC /* BarDaysView.swift in Sources */,
+				C40354AC25821BDC003DF1AC /* BarMonthsView.swift in Sources */,
 				C4EB80D1257A6BB10045B192 /* Persistence.swift in Sources */,
+				C427373C25822ABB00CC0DCF /* BarYearsView.swift in Sources */,
 				C464FBB72505524700E0336E /* SettingsView.swift in Sources */,
 				C464FB9B2502974100E0336E /* PomodOK.xcdatamodeld in Sources */,
+				C40354BB25821F70003DF1AC /* StatisticChartMonthsView.swift in Sources */,
+				C427373925822A1800CC0DCF /* StatisticChartYearsView.swift in Sources */,
 				C458F30D257E5BD900E35AD9 /* ItemFormatter.swift in Sources */,
 				C464FBB52505522B00E0336E /* StatisticsView.swift in Sources */,
 				C4EB80CE257A6B900045B192 /* DynamicFetchView.swift in Sources */,
 				C464FB962502974100E0336E /* AppDelegate.swift in Sources */,
 				C464FB9D2502974100E0336E /* ContentView.swift in Sources */,
 				C40606D0250B851E008302F5 /* UserSettings.swift in Sources */,
+				C427374025822D6000CC0DCF /* AllEntriesView.swift in Sources */,
+				C40354B825821E97003DF1AC /* StatisticChartDaysView.swift in Sources */,
+				C40354B525821D16003DF1AC /* StatisticChartHoursView.swift in Sources */,
+				C40354B225821C61003DF1AC /* BarHoursView.swift in Sources */,
 				C464FB982502974100E0336E /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

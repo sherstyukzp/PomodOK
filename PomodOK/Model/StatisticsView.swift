@@ -22,6 +22,7 @@ struct StatisticView: View {
     var items: FetchedResults<Item>
     
     @State private var date = Date()
+    @State private var MaterialType = 0
         
 //    func update(_ result : FetchedResults<Item>)-> [[Item]]{
 //          return  Dictionary(grouping: result){ (element : Item)  in
@@ -34,10 +35,31 @@ struct StatisticView: View {
             NavigationView {
                 VStack {
                     
-                    StatisticMonth()
-                    StatisticChartView()
+                    Picker("Numbers", selection: $MaterialType) {
+                                        Text("Hours").tag(0)
+                                        Text("Days").tag(1)
+                                        Text("Months").tag(2)
+                                        Text("Years").tag(3)
+                                        Text("All").tag(4)
+                    }.pickerStyle(SegmentedPickerStyle()).padding()
+                    
+                    if MaterialType == 0 {
+                                        StatisticChartHoursView()
+                                    } else if MaterialType == 1 {
+                                        StatisticChartDaysView()
+                                    }
+                                    else if MaterialType == 2 {
+                                        StatisticChartMonthsView()
+                                    }
+                                    else if MaterialType == 3 {
+                                        StatisticChartYearsView()
+                                    }
+                                    else {
+                                        AllEntriesView()
+                                    }
+                    
                 }
-                .navigationBarTitle(Text("Statistic"), displayMode: .inline)
+                .navigationBarTitle(Text("Statistics"), displayMode: .large)
             }
         }
 }

@@ -352,7 +352,8 @@ struct ContentView : View {
         
     }
     
-    // Загрузка минут таймера, если настройки не менялись принимается значение по умолчанию 25 минут
+    //MARK: - UserDefaults
+    // Loading timer minutes, if the settings have not been changed, the default value is 25 minutes
     func loadData() {
         self.retrieved = (UserDefaults.standard.object(forKey: "workSession") as? Int ?? 25) * 60
         self.notifications = UserDefaults.standard.object(forKey: "notificationsEnabled") as? Bool ?? false
@@ -370,8 +371,9 @@ struct ContentView : View {
             let newItem = Item(context: viewContext)
             newItem.timestamp = self.date
             newItem.hour = ItemFormatter.init().itemFormatterHour.string(from: date)
-            newItem.hour = ItemFormatter.init().itemFormatterNameDayOfTheWeek.string(from: date)
+            newItem.dayWeek = ItemFormatter.init().itemFormatterNameDayOfTheWeek.string(from: date)
             newItem.month = ItemFormatter.init().itemFormatterNameMonthNumber.string(from: date)
+            newItem.year = ItemFormatter.init().itemFormatterNameYear.string(from: date)
             
             print ("👉 SaveData")
 
