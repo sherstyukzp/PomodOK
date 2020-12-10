@@ -18,7 +18,7 @@ struct BarMonthsView : View {
         
         VStack {
             
-            Text(String(format: "%.0f", Double(percent))).foregroundColor(Color.white.opacity(0.5))
+            Text(String(format: "%.0f", Double(percent))).foregroundColor(Color.yellow.opacity(0.5))
             
             Rectangle().fill(Color.red).frame(width: UIScreen.main.bounds.width / 12 - 12, height: getHeight())
             

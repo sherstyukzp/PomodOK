@@ -29,6 +29,7 @@ struct StatisticChartHoursView: View {
                 
             }
         }
+        Spacer()
     }
 }
 

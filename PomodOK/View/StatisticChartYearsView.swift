@@ -29,6 +29,7 @@ struct StatisticChartYearsView: View {
                 
             }
         }
+        Spacer()
     }
 }
 

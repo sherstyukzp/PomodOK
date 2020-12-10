@@ -31,6 +31,7 @@ struct StatisticChartMonthsView: View {
                 
             }
         }
+        Spacer()
     }
 }
 

@@ -30,6 +30,7 @@ struct StatisticChartDaysView: View {
                 }
             }
         }
+        Spacer()
     }
 }
 
