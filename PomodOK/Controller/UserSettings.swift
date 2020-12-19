@@ -31,7 +31,6 @@ class UserSettings: ObservableObject {
         }
     }
     
-    
     @Published var workSession: Int {
         didSet {
             UserDefaults.standard.set(workSession, forKey: "workSession")

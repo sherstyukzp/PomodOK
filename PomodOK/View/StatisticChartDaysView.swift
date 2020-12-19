@@ -10,10 +10,11 @@ import SwiftUI
 
 struct StatisticChartDaysView: View {
     
-    //MARK: - Variables
+    // MARK: - Variables
     let days: [String] = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
     let daysShort: [String] = ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"]
     
+    // MARK: - Body
     var body: some View {
         
         Text("Statistics for the week")

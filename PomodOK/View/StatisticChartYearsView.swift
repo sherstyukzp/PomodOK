@@ -9,9 +9,11 @@
 import SwiftUI
 
 struct StatisticChartYearsView: View {
-    //MARK: - Variables
+    
+    // MARK: - Variables
     let yearsShort: [String] = ["2020", "2021", "2022", "2023", "2024", "2025"]
     
+    // MARK: - Body
     var body: some View {
         
         Text("Statistics for the year")

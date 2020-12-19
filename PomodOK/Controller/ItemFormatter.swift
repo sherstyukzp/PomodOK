@@ -28,7 +28,6 @@ class ItemFormatter {
         let hourString = dateFormatter.string(from: date)
         
         return dateFormatter
-
     }()
 
     // Метод получения название дня недели (формат: Sunday)
@@ -76,6 +75,5 @@ class ItemFormatter {
         
         return dateFormatter
     }()
-    //---
     
 }

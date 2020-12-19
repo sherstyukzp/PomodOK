@@ -18,7 +18,7 @@ struct StatisticView: View {
         sortDescriptors: [NSSortDescriptor(keyPath: \Item.timestamp, ascending: false)]
     )
     
-    //MARK: - Variables
+    // MARK: - Variables
     var items: FetchedResults<Item>
     
     @State private var date = Date()
@@ -30,7 +30,7 @@ struct StatisticView: View {
 //          }.values.sorted() { $0[0].timestamp! < $1[0].timestamp! }
 //        }
     
-    //MARK: - Body
+    // MARK: - Body
     var body: some View {
             NavigationView {
                 VStack {

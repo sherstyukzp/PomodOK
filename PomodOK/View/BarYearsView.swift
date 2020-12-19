@@ -9,17 +9,17 @@
 import SwiftUI
 
 struct BarYearsView: View {
+    
+    // MARK: - Variables
     var percent : CGFloat = 0
     var yearChart = ""
     
+    // MARK: - Body
     var body : some View {
         
         VStack {
-            
             Text(String(format: "%.0f", Double(percent))).foregroundColor(Color.yellow.opacity(0.5))
-            
             Rectangle().fill(Color.red).frame(width: UIScreen.main.bounds.width / 12 - 12, height: getHeight())
-            
             Text(yearChart).foregroundColor(Color.yellow.opacity(0.5))
         }
     }

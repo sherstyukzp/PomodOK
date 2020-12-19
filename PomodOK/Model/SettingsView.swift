@@ -13,16 +13,18 @@ import SwiftUI
 struct SettingsView: View {
    
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    
     @ObservedObject var userSettings = UserSettings()
     
+    // MARK: - Variables
+    let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as! String
+    let buildNumber = Bundle.main.infoDictionary?["CFBundleVersion"] as! String
     
     init()
     {
         UISwitch.appearance().onTintColor = .red
     }
 
-    //MARK: - Body
+    // MARK: - Body
     var body: some View {
         
         NavigationView {
@@ -32,15 +34,12 @@ struct SettingsView: View {
                     Toggle(isOn: $userSettings.isNotificationsEnabled) {
                         Text("Push notifications")
                     }
-                    
                     Toggle(isOn: $userSettings.isSoundEnabled) {
                         Text("Sound")
                     }
-                    
                     Toggle(isOn: $userSettings.isVibrationEnabled) {
                         Text("Vibration")
                     }
-
                 }
                 
                 Section(header: Text("TIMER")) {
@@ -48,26 +47,28 @@ struct SettingsView: View {
                     Stepper(value: $userSettings.workSession, in: 0...60) {
                         Text("Work Session \(userSettings.workSession) min")
                     }
-                    
                     Stepper(value: $userSettings.shortBreak, in: 0...60) {
                         Text("Short Break \(userSettings.shortBreak) min")
                     }
-
                     Stepper(value: $userSettings.longBreak, in: 0...60) {
                         Text("Long Break \(userSettings.longBreak) min")
                     }
                 }
+                
+                Section(header: Text("About")) {
+                                    HStack {
+                                        Text("Software Version")
+                                        Spacer()
+                                        Text("\(appVersion) (\(buildNumber))")
+                                    }
+                                }
             }
-                 
             .navigationBarTitle(Text("Settings"), displayMode: .large)
             .navigationBarItems(trailing:
                     // Butoon Save
                     Button(action: {
-
                         self.presentationMode.wrappedValue.dismiss()
-
                     }) {
-
                         Text("Save")
                             .bold()
                             .foregroundColor(Color(.red))
@@ -78,7 +79,6 @@ struct SettingsView: View {
             //print ("onDisappear")
             //UserDefaults.standard.set(self.retrieved, forKey: "workSession")
         }
-       
     }
 }
 

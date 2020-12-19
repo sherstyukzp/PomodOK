@@ -27,7 +27,7 @@ struct ContentView : View {
         animation: .default)
     private var items: FetchedResults<Item>
     
-    //MARK: - Variables
+    // MARK: - Variables
     @State var showingStatisticsView = false
     @State private var showingSettingsView = false
     
@@ -56,7 +56,7 @@ struct ContentView : View {
     //--- Sound ID
     let systemSoundID: SystemSoundID = 1313
     
-    //MARK: - Body
+    // MARK: - Body
     var body: some View {
         ZStack {
             
@@ -158,7 +158,7 @@ struct ContentView : View {
                     Spacer()
                     Spacer()
 
-                    //MARK: - Tab bar
+                    // MARK: - Tab bar
                     HStack {
                         //Кнопка Статистика
                             Button(action: {
@@ -181,7 +181,7 @@ struct ContentView : View {
                             
                             Spacer()
                         
-                        //MARK: - Button Start Timer
+                        // MARK: - Button Start Timer
                             Button(action: {
                                 
                                 if self.count == self.retrieved {
@@ -207,7 +207,7 @@ struct ContentView : View {
                             .shadow(radius: 5)
                             
                             Spacer()
-                        //MARK: - Button Settings
+                        // MARK: - Button Settings
                             Button(action: {
                                 self.showingSettingsView.toggle()
                             }) {
@@ -258,7 +258,6 @@ struct ContentView : View {
                             .foregroundColor(Color(.gray))
                         }
                 )
-            
             }
             // Экран Short Break
             ZStack {
@@ -296,7 +295,6 @@ struct ContentView : View {
                             RoundedRectangle(cornerRadius: 20.0)
                                 .stroke(lineWidth: 2.0)
                                 .shadow(color: .blue, radius: 20.0)
-                                
                         )
                     }
                     Spacer()
@@ -348,11 +346,9 @@ struct ContentView : View {
                 }
             }
         }
-        
-        
     }
     
-    //MARK: - UserDefaults
+    // MARK: - UserDefaults
     // Loading timer minutes, if the settings have not been changed, the default value is 25 minutes
     func loadData() {
         self.retrieved = (UserDefaults.standard.object(forKey: "workSession") as? Int ?? 25) * 60
@@ -364,8 +360,8 @@ struct ContentView : View {
 
     }
     
-    //MARK: - Core Data
-    //MARK: - Save Item
+    // MARK: - Core Data
+    // MARK: - Save Item
     private func addItem() {
         withAnimation {
             let newItem = Item(context: viewContext)
@@ -388,7 +384,7 @@ struct ContentView : View {
         }
     }
     
-    //MARK: - Delete Item
+    // MARK: - Delete Item
     private func deleteItems(offsets: IndexSet) {
         withAnimation {
             offsets.map { items[$0] }.forEach(viewContext.delete)
@@ -414,7 +410,7 @@ struct ContentView : View {
         return "\(minuteStamp):\(secondStamp)"
     }
     
-    //MARK: - Notification
+    // MARK: - Notification
     // Method for triggering notification when the application is minimized
     func Notify() {
         
@@ -429,7 +425,6 @@ struct ContentView : View {
         
         UNUserNotificationCenter.current().add(req, withCompletionHandler: nil)
     }
-    
 }
 
 

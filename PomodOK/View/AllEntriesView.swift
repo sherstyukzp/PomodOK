@@ -11,6 +11,7 @@ import CoreData
 
 struct AllEntriesView: View {
     
+    // MARK: - Variables
     @Environment(\.managedObjectContext) private var viewContext
 
     @FetchRequest(
@@ -20,6 +21,7 @@ struct AllEntriesView: View {
     
     @State private var date = Date()
     
+    // MARK: - Body
     var body: some View {
         VStack {
             List {

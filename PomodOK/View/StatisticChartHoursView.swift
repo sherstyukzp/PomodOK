@@ -10,9 +10,10 @@ import SwiftUI
 
 struct StatisticChartHoursView: View {
     
-    //MARK: - Variables
+    // MARK: - Variables
     let hours: [String] = ["06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22"]
     
+    // MARK: - Body
     var body: some View {
         Text("Statistics for the hours")
             .padding()
