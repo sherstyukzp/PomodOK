@@ -18,6 +18,7 @@ struct StatisticChartDaysView: View {
     var body: some View {
         
         Text("Statistics for the week")
+            .font(Font.system(size:24, design: .default))
             .padding()
         
         HStack(alignment: .bottom, spacing: 8) {

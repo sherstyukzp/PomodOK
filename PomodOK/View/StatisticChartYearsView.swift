@@ -17,6 +17,7 @@ struct StatisticChartYearsView: View {
     var body: some View {
         
         Text("Statistics for the year")
+            .font(Font.system(size:24, design: .default))
             .padding()
         HStack(alignment: .bottom, spacing: 8) {
             
@@ -28,7 +29,6 @@ struct StatisticChartYearsView: View {
                     BarYearsView(percent: CGFloat(events.count) , yearChart: year).frame(alignment: .bottom)
                     
                 }
-                
             }
         }
         Spacer()

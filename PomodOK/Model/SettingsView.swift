@@ -44,13 +44,13 @@ struct SettingsView: View {
                 
                 Section(header: Text("TIMER")) {
 
-                    Stepper(value: $userSettings.workSession, in: 0...60) {
+                    Stepper(value: $userSettings.workSession, in: 1...60) {
                         Text("Work Session \(userSettings.workSession) min")
                     }
-                    Stepper(value: $userSettings.shortBreak, in: 0...60) {
+                    Stepper(value: $userSettings.shortBreak, in: 1...60) {
                         Text("Short Break \(userSettings.shortBreak) min")
                     }
-                    Stepper(value: $userSettings.longBreak, in: 0...60) {
+                    Stepper(value: $userSettings.longBreak, in: 1...60) {
                         Text("Long Break \(userSettings.longBreak) min")
                     }
                 }

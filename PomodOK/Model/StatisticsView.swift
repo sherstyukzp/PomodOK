@@ -11,6 +11,7 @@ import CoreData
 
 struct StatisticView: View {
     
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @Environment(\.managedObjectContext) private var viewContext
 
     @FetchRequest(
@@ -23,6 +24,8 @@ struct StatisticView: View {
     
     @State private var date = Date()
     @State private var MaterialType = 0
+    @State private var showingTimer = true
+    @State private var time = 1500
         
 //    func update(_ result : FetchedResults<Item>)-> [[Item]]{
 //          return  Dictionary(grouping: result){ (element : Item)  in
@@ -58,8 +61,22 @@ struct StatisticView: View {
                                         AllEntriesView()
                                     }
                     
+                    if showingTimer {
+                        TimerView(showTimer: $showingTimer, timerValue: $time, backgroundColor: Color(UIColor.red), vibrationAtTheEnd: true)
+                         }
+                    
                 }
                 .navigationBarTitle(Text("Statistics"), displayMode: .large)
+                .navigationBarItems(trailing:
+                        // Butoon Save
+                        Button(action: {
+                            self.presentationMode.wrappedValue.dismiss()
+                        }) {
+                            Text("Close")
+                                .bold()
+                                .foregroundColor(Color(.red))
+                        }
+                )
             }
         }
 }

@@ -25,6 +25,7 @@ struct ContentView : View {
     @FetchRequest(
         sortDescriptors: [NSSortDescriptor(keyPath: \Item.timestamp, ascending: true)],
         animation: .default)
+    
     private var items: FetchedResults<Item>
     
     // MARK: - Variables
@@ -43,6 +44,7 @@ struct ContentView : View {
     
     //--- Settings
     @State var retrieved = 0
+    @State var shortBreak = 0
     @State var sound = true
     @State var vibration = true
     @State var notifications = true
@@ -52,6 +54,7 @@ struct ContentView : View {
     
     @State private var date = Date()
     @State private var day = ""
+    @State private var textSession = "Work session"
     
     //--- Sound ID
     let systemSoundID: SystemSoundID = 1313
@@ -63,51 +66,13 @@ struct ContentView : View {
             NavigationView {
                 
                 VStack {
-                    //Панель с количеством завершенных томатов
-                    ZStack {
-                        Rectangle()
-                        .fill(Color("redColor"))
-                        .frame(height: 6)
-                        .shadow(color: Color("redColor").opacity(0.4), radius: 5, x: 0, y: 5)
-                        
-                        HStack {
-                            Image(systemName: self.tomato1 ? "checkmark.circle.fill" : "circle")
-                                .resizable()
-                                .foregroundColor(Color("redColor"))
-                                .frame(width: 40, height: 40, alignment: .center)
-                                .background(Color(.white))
-                                .cornerRadius(40/2)
-                                .shadow(color: Color("redColor").opacity(0.4), radius: 5, x: 0, y: 5)
-                            Spacer()
-                            Image(systemName: self.tomato2 ? "checkmark.circle.fill" : "circle")
-                                .resizable()
-                                .foregroundColor(Color("redColor"))
-                                .frame(width: 40, height: 40, alignment: .center)
-                                .background(Color(.white))
-                                .cornerRadius(40/2)
-                                .shadow(color: Color("redColor").opacity(0.4), radius: 5, x: 0, y: 5)
-                            Spacer()
-                            Image(systemName: self.tomato3 ? "checkmark.circle.fill" : "circle")
-                                .resizable()
-                                .foregroundColor(Color("redColor"))
-                                .frame(width: 40, height: 40, alignment: .center)
-                                .background(Color(.white))
-                                .cornerRadius(40/2)
-                                .shadow(color: Color("redColor").opacity(0.4), radius: 5, x: 0, y: 5)
-                            Spacer()
-                            Image(systemName: self.tomato4 ? "checkmark.circle.fill" : "circle")
-                                .resizable()
-                                .foregroundColor(Color("redColor"))
-                                .frame(width: 40, height: 40, alignment: .center)
-                                .background(Color(.white))
-                                .cornerRadius(40/2)
-                                .shadow(color: Color("redColor").opacity(0.4), radius: 5, x: 0, y: 5)
-                        }
-                    }.padding()
-                    Spacer()
+                    // Панель с количеством завершенных томатов
+                    PanelPomodoroView(tomato1: $tomato1, tomato2: $tomato2, tomato3: $tomato3, tomato4: $tomato4)
                     
+                    Spacer()
+                
                     ZStack {
-                        
+
                         GeometryReader { geometry in
                                         VStack {
                                             RoundedRectangle(cornerRadius: 25, style: .continuous)
@@ -115,36 +80,34 @@ struct ContentView : View {
                                             .shadow(color: Color("redColor").opacity(0.4), radius: 5, x: 0, y: 5)
                                         }.foregroundColor(.white)
                                     }.padding()
-                        
                         VStack {
                             Text("Work session")
                             .foregroundColor(Color.white)
                             .font(.system(size: 30))
                             .fontWeight(.medium)
                             .padding()
-                            
+
                         // Прогресс таймера
                             ZStack {
-                            
                                 Circle()
                                 .trim(from: 0, to: 1)
                                     .stroke(Color.black.opacity(0.09), style: StrokeStyle(lineWidth: 30, lineCap: .round))
                                 .frame(width: 240, height: 240)
-                                
+
                                 Circle()
                                     .trim(from: 0, to: self.to)
                                     .stroke(Color.white, style: StrokeStyle(lineWidth: 30, lineCap: .round))
                                 .frame(width: 240, height: 240)
                                 .rotationEffect(.init(degrees: -90))
-                                
+
                                 // Секунды
                                 VStack {
                                     Text(secondsToMinutesAndSeconds(seconds: retrieved - count))
-                                        
+
                                         .font(.system(size: 60))
                                         .foregroundColor(.white)
                                         .fontWeight(.bold)
-                                    
+
                                     Text("Of \(retrieved / 60) min")
                                         .font(.title)
                                         .foregroundColor(.white)
@@ -153,14 +116,14 @@ struct ContentView : View {
                             }
                             .padding(.bottom, 30)
                         }
-                        
+
                     }
                     Spacer()
                     Spacer()
 
                     // MARK: - Tab bar
                     HStack {
-                        //Кнопка Статистика
+                        // Кнопка Статистика
                             Button(action: {
                                 self.showingStatisticsView.toggle()
                             }) {
@@ -178,7 +141,6 @@ struct ContentView : View {
                             .sheet(isPresented: $showingStatisticsView) {
                                 StatisticView()
                             }
-                            
                             Spacer()
                         
                         // MARK: - Button Start Timer
@@ -227,7 +189,6 @@ struct ContentView : View {
                                 self.loadData()
                             }) { SettingsView() }
                         
-                        
                         }
                         .frame(minHeight: 70)
             
@@ -249,11 +210,9 @@ struct ContentView : View {
                             }
                             
                         }) {
-                            
                             HStack {
                                 Image(systemName: "arrow.clockwise")
                                 Text("Reset")
-
                             }
                             .foregroundColor(Color(.gray))
                         }
@@ -263,13 +222,13 @@ struct ContentView : View {
             ZStack {
                 
                 VStack {
-                    
                     Spacer()
-                    Text ("Relax for another 10 minutes")
+                    Text ("Relax for another \(shortBreak / 60) minutes")
                         .font(.system(size: 50))
                         .foregroundColor(.gray)
                         .multilineTextAlignment(.leading)
                         .padding(.horizontal, 20.0)
+                        
                     
                     Spacer()
                     
@@ -305,23 +264,22 @@ struct ContentView : View {
             }.background(Color(#colorLiteral(red: 0.9685428739, green: 0.9686816335, blue: 0.9685124755, alpha: 1)))
                 .edgesIgnoringSafeArea(.all)
                 .offset(x: 0, y: self.showShortBreak ? 0 : UIApplication.shared.keyWindow?.frame.height ?? 0)
-
+//---------
+            
             .onAppear(perform: {
                 print ("onAppear perform")
                 UNUserNotificationCenter.current().requestAuthorization(options: [.badge,.sound,.alert]) { (_, _) in
                 }
-            
             })
             .onReceive(self.time) { (_) in
-                
+
                 if self.start {
-                    
                     if self.count != self.retrieved {
 
                         self.count += 1
-                        
+
                         withAnimation(.default){
-                            
+
                             self.to = CGFloat(self.count) / CGFloat(self.retrieved)
                         }
                     }
@@ -330,7 +288,7 @@ struct ContentView : View {
                         self.start.toggle()
                         //--- Уведомление когда приложение свёрнуто
                         notifications == true ? self.Notify(): nil
-                        
+
                         //----
                         withAnimation {
                             self.showAlert.toggle()
@@ -339,7 +297,7 @@ struct ContentView : View {
                             sound == true ? AudioServicesPlaySystemSound (systemSoundID): nil
                             //--- Вибро после завершения таймера
                             vibration == true ? AudioServicesPlaySystemSound(kSystemSoundID_Vibrate): nil
-                            
+
                             addItem()
                         }
                     }
@@ -352,9 +310,10 @@ struct ContentView : View {
     // Loading timer minutes, if the settings have not been changed, the default value is 25 minutes
     func loadData() {
         self.retrieved = (UserDefaults.standard.object(forKey: "workSession") as? Int ?? 25) * 60
-        self.notifications = UserDefaults.standard.object(forKey: "notificationsEnabled") as? Bool ?? false
-        self.sound = UserDefaults.standard.object(forKey: "soundEnabled") as? Bool ?? false
-        self.vibration = UserDefaults.standard.object(forKey: "vibrationEnabled") as? Bool ?? false
+        self.shortBreak = (UserDefaults.standard.object(forKey: "shortBreak") as? Int ?? 5) * 60
+        self.notifications = UserDefaults.standard.object(forKey: "notificationsEnabled") as? Bool ?? true
+        self.sound = UserDefaults.standard.object(forKey: "soundEnabled") as? Bool ?? true
+        self.vibration = UserDefaults.standard.object(forKey: "vibrationEnabled") as? Bool ?? true
         
         print ("👉 loadData")
 
@@ -425,6 +384,16 @@ struct ContentView : View {
         
         UNUserNotificationCenter.current().add(req, withCompletionHandler: nil)
     }
+    
+    
+    /// Converts Int (time) to string.
+    func timeString(time: TimeInterval) -> String {
+        let minute = Int(time) / 60 % 60
+        let second = Int(time) % 60
+        
+        return String(format: "%02i:%02i", minute, second)
+    }
+    
 }
 
 

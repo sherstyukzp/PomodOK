@@ -19,9 +19,9 @@ struct BarDaysView : View {
     var body : some View {
         
         VStack {
-            Text(String(format: "%.0f", Double(percent))).foregroundColor(Color.yellow.opacity(0.5))
+            Text(String(format: "%.0f", Double(percent))).foregroundColor(Color.black.opacity(0.5))
             Rectangle().fill(Color.red).frame(width: UIScreen.main.bounds.width / 7 - 12, height: getHeight())
-            Text(dayChart).foregroundColor(Color.yellow.opacity(0.5))
+            Text(dayChart).foregroundColor(Color.black.opacity(0.5))
         }
     }
     

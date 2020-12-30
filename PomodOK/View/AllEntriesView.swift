@@ -26,7 +26,7 @@ struct AllEntriesView: View {
         VStack {
             List {
                 ForEach(items) { item in
-                    Text("Item at \(item.timestamp!, formatter: ItemFormatter.init().itemFormatter)  Month \(item.hour ?? "")")
+                    Text("Item at \(item.timestamp!, formatter: ItemFormatter.init().itemFormatter)")
                 }
                 .onDelete(perform: deleteItems)
             }
