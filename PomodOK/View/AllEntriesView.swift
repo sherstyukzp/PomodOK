@@ -21,15 +21,36 @@ struct AllEntriesView: View {
     
     @State private var date = Date()
     
+    var dateFormatter: DateFormatter {
+      let formatter = DateFormatter()
+      formatter.dateStyle = .short
+      return formatter
+    }
+
+      func update(_ result : FetchedResults<Item>)-> [[Item]] {
+        return  Dictionary(grouping: result){ (element : Item)  in
+            dateFormatter.string(from: element.timestamp!)
+        }.values.map{$0}
+      }
+    
     // MARK: - Body
     var body: some View {
         VStack {
+            
             List {
-                ForEach(items) { item in
-                    Text("Item at \(item.timestamp!, formatter: ItemFormatter.init().itemFormatter)")
-                }
-                .onDelete(perform: deleteItems)
-            }
+                    ForEach(update(items), id: \.self) { (section: [Item]) in
+                        Section(header: Text( self.dateFormatter.string(from: section[0].timestamp!))) {
+                            ForEach(section, id: \.self) { item in
+                        HStack {
+                            Text("Item at \(item.timestamp!, formatter: ItemFormatter.init().itemFormatter)")
+                        }
+                        
+                        }
+                            .onDelete(perform: deleteItems)
+                      }
+                    }.id(items.count)
+                  }
+            
             VStack {
 
                 DatePicker(selection: $date, in: ...Date(), displayedComponents: [.hourAndMinute, .date]) {

@@ -29,6 +29,7 @@ struct StatisticChartDaysView: View {
                                  sortDescriptors: [NSSortDescriptor(keyPath: \Item.timestamp, ascending: false)]) { (events: FetchedResults<Item>) in
                     
                     BarDaysView(percent: CGFloat(events.count) , dayChart: day).frame(alignment: .bottom)
+                    
                 }
             }
         }

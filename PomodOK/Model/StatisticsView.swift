@@ -61,9 +61,9 @@ struct StatisticView: View {
                                         AllEntriesView()
                                     }
                     
-                    if showingTimer {
-                        TimerView(showTimer: $showingTimer, timerValue: $time, backgroundColor: Color(UIColor.red), vibrationAtTheEnd: true)
-                         }
+//                    if showingTimer {
+//                        TimerView(showTimer: $showingTimer, timerValue: $time, backgroundColor: Color(UIColor.red), vibrationAtTheEnd: true)
+//                         }
                     
                 }
                 .navigationBarTitle(Text("Statistics"), displayMode: .large)
