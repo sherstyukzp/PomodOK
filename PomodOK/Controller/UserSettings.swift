@@ -48,6 +48,18 @@ class UserSettings: ObservableObject {
             UserDefaults.standard.set(longBreak, forKey: "longBreak")
         }
     }
+    
+    @Published var isSetupApp: Int {
+        didSet {
+            UserDefaults.standard.set(isSetupApp, forKey: "setupApp")
+        }
+    }
+    
+    @Published var isSavedVersion: String {
+        didSet {
+            UserDefaults.standard.set(isSavedVersion, forKey: "savedVersion")
+        }
+    }
 
     init() {
         self.isNotificationsEnabled = UserDefaults.standard.object(forKey: "notificationsEnabled") as? Bool ?? true
@@ -57,6 +69,9 @@ class UserSettings: ObservableObject {
         self.workSession = UserDefaults.standard.object(forKey: "workSession") as? Int ?? 25
         self.shortBreak = UserDefaults.standard.object(forKey: "shortBreak") as? Int ?? 5
         self.longBreak = UserDefaults.standard.object(forKey: "longBreak") as? Int ?? 15
+        
+        self.isSetupApp = UserDefaults.standard.object(forKey: "setupApp") as? Int ?? 0
+        self.isSavedVersion = UserDefaults.standard.string(forKey: "savedVersion") ?? "nil"
         
     }
 }

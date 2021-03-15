@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		05CBAA0125FF59D00082FFF6 /* WhatsNew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05CBAA0025FF59D00082FFF6 /* WhatsNew.swift */; };
+		05CBAA0425FF5A1F0082FFF6 /* WhatsNew.txt in Resources */ = {isa = PBXBuildFile; fileRef = 05CBAA0325FF5A1F0082FFF6 /* WhatsNew.txt */; };
+		05CBAA0825FF5AC60082FFF6 /* AppReviewRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05CBAA0725FF5AC60082FFF6 /* AppReviewRequest.swift */; };
 		C40354AC25821BDC003DF1AC /* BarMonthsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40354AB25821BDC003DF1AC /* BarMonthsView.swift */; };
 		C40354AF25821C1F003DF1AC /* BarDaysView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40354AE25821C1F003DF1AC /* BarDaysView.swift */; };
 		C40354B225821C61003DF1AC /* BarHoursView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40354B125821C61003DF1AC /* BarHoursView.swift */; };
@@ -34,6 +37,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		05CBAA0025FF59D00082FFF6 /* WhatsNew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WhatsNew.swift; path = PomodOK/Model/WhatsNew.swift; sourceTree = SOURCE_ROOT; };
+		05CBAA0325FF5A1F0082FFF6 /* WhatsNew.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = WhatsNew.txt; sourceTree = "<group>"; };
+		05CBAA0725FF5AC60082FFF6 /* AppReviewRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppReviewRequest.swift; path = PomodOK/Model/AppReviewRequest.swift; sourceTree = SOURCE_ROOT; };
 		C40354AB25821BDC003DF1AC /* BarMonthsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarMonthsView.swift; sourceTree = "<group>"; };
 		C40354AE25821C1F003DF1AC /* BarDaysView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarDaysView.swift; sourceTree = "<group>"; };
 		C40354B125821C61003DF1AC /* BarHoursView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarHoursView.swift; sourceTree = "<group>"; };
@@ -117,6 +123,7 @@
 		C4EB80E1257A77110045B192 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				05CBAA0725FF5AC60082FFF6 /* AppReviewRequest.swift */,
 				C4EB80CD257A6B900045B192 /* DynamicFetchView.swift */,
 				C4EB80D0257A6BB10045B192 /* Persistence.swift */,
 				C40606CF250B851E008302F5 /* UserSettings.swift */,
@@ -128,11 +135,6 @@
 		C4EB80E2257A77890045B192 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				C464FB9C2502974100E0336E /* ContentView.swift */,
-				C4C0989D259C934500529107 /* PanelPomodoroView.swift */,
-				C40687D1259C8438003BDCC0 /* TimerView.swift */,
-				C464FBB42505522B00E0336E /* StatisticsView.swift */,
-				C464FBB62505524700E0336E /* SettingsView.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -140,6 +142,13 @@
 		C4EB80E4257A77FA0045B192 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				C464FB9C2502974100E0336E /* ContentView.swift */,
+				C464FBB62505524700E0336E /* SettingsView.swift */,
+				C4C0989D259C934500529107 /* PanelPomodoroView.swift */,
+				C40687D1259C8438003BDCC0 /* TimerView.swift */,
+				C464FBB42505522B00E0336E /* StatisticsView.swift */,
+				05CBAA0025FF59D00082FFF6 /* WhatsNew.swift */,
+				05CBAA0325FF5A1F0082FFF6 /* WhatsNew.txt */,
 				C40354B425821D15003DF1AC /* StatisticChartHoursView.swift */,
 				C40354B725821E97003DF1AC /* StatisticChartDaysView.swift */,
 				C40354BA25821F70003DF1AC /* StatisticChartMonthsView.swift */,
@@ -212,6 +221,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C464FBA52502974C00E0336E /* LaunchScreen.storyboard in Resources */,
+				05CBAA0425FF5A1F0082FFF6 /* WhatsNew.txt in Resources */,
 				C464FBA22502974C00E0336E /* Preview Assets.xcassets in Resources */,
 				C464FB9F2502974C00E0336E /* Assets.xcassets in Resources */,
 			);
@@ -232,10 +242,12 @@
 				C464FB9B2502974100E0336E /* PomodOK.xcdatamodeld in Sources */,
 				C40354BB25821F70003DF1AC /* StatisticChartMonthsView.swift in Sources */,
 				C427373925822A1800CC0DCF /* StatisticChartYearsView.swift in Sources */,
+				05CBAA0125FF59D00082FFF6 /* WhatsNew.swift in Sources */,
 				C458F30D257E5BD900E35AD9 /* ItemFormatter.swift in Sources */,
 				C4C0989E259C934500529107 /* PanelPomodoroView.swift in Sources */,
 				C464FBB52505522B00E0336E /* StatisticsView.swift in Sources */,
 				C40687D2259C8438003BDCC0 /* TimerView.swift in Sources */,
+				05CBAA0825FF5AC60082FFF6 /* AppReviewRequest.swift in Sources */,
 				C4EB80CE257A6B900045B192 /* DynamicFetchView.swift in Sources */,
 				C464FB962502974100E0336E /* AppDelegate.swift in Sources */,
 				C464FB9D2502974100E0336E /* ContentView.swift in Sources */,
@@ -381,6 +393,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 102;
 				DEVELOPMENT_ASSET_PATHS = "\"PomodOK/Preview Content\"";
 				DEVELOPMENT_TEAM = U6LJ73DDJU;
 				ENABLE_PREVIEWS = YES;
@@ -389,7 +402,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.ukropsoft.PomodOK;
+				MARKETING_VERSION = 1.0.2;
+				PRODUCT_BUNDLE_IDENTIFIER = com.YaroslavSherstyuk.PomodOK;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -401,6 +415,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 102;
 				DEVELOPMENT_ASSET_PATHS = "\"PomodOK/Preview Content\"";
 				DEVELOPMENT_TEAM = U6LJ73DDJU;
 				ENABLE_PREVIEWS = YES;
@@ -409,7 +424,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.ukropsoft.PomodOK;
+				MARKETING_VERSION = 1.0.2;
+				PRODUCT_BUNDLE_IDENTIFIER = com.YaroslavSherstyuk.PomodOK;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

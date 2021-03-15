@@ -9,7 +9,9 @@
 // https://www.simpleswiftguide.com/how-to-use-userdefaults-in-swiftui/
 
 import SwiftUI
+import StoreKit
 
+@available(iOS 14.0, *)
 struct SettingsView: View {
    
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
@@ -61,7 +63,19 @@ struct SettingsView: View {
                                         Spacer()
                                         Text("\(appVersion) (\(buildNumber))")
                                     }
-                                }
+                    
+                    HStack {
+                        NavigationLink(destination: WhatsNew()) {
+                            Text("What's new?")
+                        }
+                    }
+                    
+                    Button(action: {
+                        if let windowScene = UIApplication.shared.windows.first?.windowScene { SKStoreReviewController.requestReview(in: windowScene) }
+                     }) {
+                         Text("Rate the application")
+                     }
+                }
             }
             .navigationBarTitle(Text("Settings"), displayMode: .large)
             .navigationBarItems(trailing:
@@ -75,16 +89,18 @@ struct SettingsView: View {
                     }
             )
         }
-        .onDisappear() {
-            //print ("onDisappear")
-            //UserDefaults.standard.set(self.retrieved, forKey: "workSession")
-        }
     }
+    
 }
+
 
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        SettingsView()
+        if #available(iOS 14.0, *) {
+            SettingsView()
+        } else {
+            // Fallback on earlier versions
+        }
     }
 
 }

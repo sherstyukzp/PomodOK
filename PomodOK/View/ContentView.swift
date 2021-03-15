@@ -15,7 +15,9 @@ import CoreData
 import AVFoundation
 import AudioToolbox
 
+@available(iOS 14.0, *)
 struct ContentView : View {
+    
     
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @Environment(\.managedObjectContext) private var viewContext
@@ -56,8 +58,36 @@ struct ContentView : View {
     @State private var day = ""
     @State private var textSession = "Work session"
     
+    @State private var setupApp = UserDefaults.standard.integer(forKey: "setupApp")
+    // Variable to trigger WhatsNew Screen
+    @State private var savedVersion = UserDefaults.standard.string(forKey: "savedVersion")
+    
+    @State private var showWhatsNew = false
+    
     //--- Sound ID
     let systemSoundID: SystemSoundID = 1313
+    
+    // Получить текущую версию приложения
+        func getCurrentAppVersion() -> String {
+            let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"]
+            let version = (appVersion as! String)
+
+            return version
+        }
+    
+    // Проверьте, было ли приложение запущено после обновления
+    func checkForUpdate() {
+        let version = getCurrentAppVersion()
+        
+        if savedVersion == version {
+            print("App is up to date!")
+        } else {
+            
+            // Переключите, чтобы отображать экран "Что нового" как модальный
+            self.showWhatsNew.toggle()
+            UserDefaults.standard.set(version, forKey: "savedVersion")
+        }
+    }
     
     // MARK: - Body
     var body: some View {
@@ -304,6 +334,12 @@ struct ContentView : View {
                 }
             }
         }
+        
+        .sheet(isPresented: $showWhatsNew, content: { WhatsNew() })
+            .onAppear(perform: checkForUpdate) // Run checkForUpdate when View Appears
+            .onAppear {
+                AppReviewRequest.requestReviewIfNeeded()
+            }
     }
     
     // MARK: - UserDefaults
@@ -397,6 +433,7 @@ struct ContentView : View {
 }
 
 
+@available(iOS 14.0, *)
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
