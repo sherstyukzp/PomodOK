@@ -76,6 +76,10 @@ struct SettingsView: View {
                          Text("Rate the application")
                      }
                 }
+                
+                Section(header: Text("Contact Us")) {
+                    Link("Twitter", destination: URL(string: "https://twitter.com/PomodOk")!)
+                }
             }
             .navigationBarTitle(Text("Settings"), displayMode: .large)
             .navigationBarItems(trailing:
