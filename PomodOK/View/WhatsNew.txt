@@ -1,3 +1,1 @@
-1. Improved application operation
-2. Small changes in the interface
-3. BugFix
+1. 
