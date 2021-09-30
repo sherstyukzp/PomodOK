@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0506D1E526447ABB0077C642 /* ShortBreakView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0506D1E426447ABB0077C642 /* ShortBreakView.swift */; };
+		05BE0076270641950004D127 /* CustomTabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BE0075270641950004D127 /* CustomTabBarView.swift */; };
+		05BE007B27064F450004D127 /* HeaderSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BE007A27064F450004D127 /* HeaderSettingView.swift */; };
 		05CBAA0125FF59D00082FFF6 /* WhatsNew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05CBAA0025FF59D00082FFF6 /* WhatsNew.swift */; };
 		05CBAA0425FF5A1F0082FFF6 /* WhatsNew.txt in Resources */ = {isa = PBXBuildFile; fileRef = 05CBAA0325FF5A1F0082FFF6 /* WhatsNew.txt */; };
 		05CBAA0825FF5AC60082FFF6 /* AppReviewRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05CBAA0725FF5AC60082FFF6 /* AppReviewRequest.swift */; };
@@ -17,7 +20,6 @@
 		C40354B825821E97003DF1AC /* StatisticChartDaysView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40354B725821E97003DF1AC /* StatisticChartDaysView.swift */; };
 		C40354BB25821F70003DF1AC /* StatisticChartMonthsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40354BA25821F70003DF1AC /* StatisticChartMonthsView.swift */; };
 		C40606D0250B851E008302F5 /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40606CF250B851E008302F5 /* UserSettings.swift */; };
-		C40687D2259C8438003BDCC0 /* TimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40687D1259C8438003BDCC0 /* TimerView.swift */; };
 		C427373925822A1800CC0DCF /* StatisticChartYearsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C427373825822A1800CC0DCF /* StatisticChartYearsView.swift */; };
 		C427373C25822ABB00CC0DCF /* BarYearsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C427373B25822ABA00CC0DCF /* BarYearsView.swift */; };
 		C427374025822D6000CC0DCF /* AllEntriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C427373F25822D6000CC0DCF /* AllEntriesView.swift */; };
@@ -37,6 +39,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0506D1E426447ABB0077C642 /* ShortBreakView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortBreakView.swift; sourceTree = "<group>"; };
+		05BE0075270641950004D127 /* CustomTabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarView.swift; sourceTree = "<group>"; };
+		05BE007A27064F450004D127 /* HeaderSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderSettingView.swift; sourceTree = "<group>"; };
 		05CBAA0025FF59D00082FFF6 /* WhatsNew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WhatsNew.swift; path = PomodOK/Model/WhatsNew.swift; sourceTree = SOURCE_ROOT; };
 		05CBAA0325FF5A1F0082FFF6 /* WhatsNew.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = WhatsNew.txt; sourceTree = "<group>"; };
 		05CBAA0725FF5AC60082FFF6 /* AppReviewRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppReviewRequest.swift; path = PomodOK/Model/AppReviewRequest.swift; sourceTree = SOURCE_ROOT; };
@@ -47,7 +52,6 @@
 		C40354B725821E97003DF1AC /* StatisticChartDaysView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticChartDaysView.swift; sourceTree = "<group>"; };
 		C40354BA25821F70003DF1AC /* StatisticChartMonthsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticChartMonthsView.swift; sourceTree = "<group>"; };
 		C40606CF250B851E008302F5 /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
-		C40687D1259C8438003BDCC0 /* TimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerView.swift; sourceTree = "<group>"; };
 		C427373825822A1800CC0DCF /* StatisticChartYearsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticChartYearsView.swift; sourceTree = "<group>"; };
 		C427373B25822ABA00CC0DCF /* BarYearsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarYearsView.swift; sourceTree = "<group>"; };
 		C427373F25822D6000CC0DCF /* AllEntriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllEntriesView.swift; sourceTree = "<group>"; };
@@ -79,6 +83,50 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		05BE0074270606100004D127 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				C40606CF250B851E008302F5 /* UserSettings.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		05BE0077270642BD0004D127 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				C464FB9C2502974100E0336E /* ContentView.swift */,
+				05BE0075270641950004D127 /* CustomTabBarView.swift */,
+				C4C0989D259C934500529107 /* PanelPomodoroView.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		05BE0078270642CB0004D127 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				C464FBB62505524700E0336E /* SettingsView.swift */,
+				05BE007A27064F450004D127 /* HeaderSettingView.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		05BE0079270642DE0004D127 /* Statistics */ = {
+			isa = PBXGroup;
+			children = (
+				C464FBB42505522B00E0336E /* StatisticsView.swift */,
+				C40354B425821D15003DF1AC /* StatisticChartHoursView.swift */,
+				C40354B725821E97003DF1AC /* StatisticChartDaysView.swift */,
+				C40354BA25821F70003DF1AC /* StatisticChartMonthsView.swift */,
+				C427373825822A1800CC0DCF /* StatisticChartYearsView.swift */,
+				C40354B125821C61003DF1AC /* BarHoursView.swift */,
+				C40354AE25821C1F003DF1AC /* BarDaysView.swift */,
+				C40354AB25821BDC003DF1AC /* BarMonthsView.swift */,
+				C427373B25822ABA00CC0DCF /* BarYearsView.swift */,
+				C427373F25822D6000CC0DCF /* AllEntriesView.swift */,
+			);
+			path = Statistics;
+			sourceTree = "<group>";
+		};
 		C464FB892502974100E0336E = {
 			isa = PBXGroup;
 			children = (
@@ -102,6 +150,7 @@
 				C464FB972502974100E0336E /* SceneDelegate.swift */,
 				C4EB80E2257A77890045B192 /* Model */,
 				C4EB80E4257A77FA0045B192 /* View */,
+				05BE0074270606100004D127 /* ViewModel */,
 				C4EB80E1257A77110045B192 /* Controller */,
 				C464FB9E2502974C00E0336E /* Assets.xcassets */,
 				C464FBA32502974C00E0336E /* LaunchScreen.storyboard */,
@@ -126,7 +175,6 @@
 				05CBAA0725FF5AC60082FFF6 /* AppReviewRequest.swift */,
 				C4EB80CD257A6B900045B192 /* DynamicFetchView.swift */,
 				C4EB80D0257A6BB10045B192 /* Persistence.swift */,
-				C40606CF250B851E008302F5 /* UserSettings.swift */,
 				C458F30C257E5BD900E35AD9 /* ItemFormatter.swift */,
 			);
 			path = Controller;
@@ -142,22 +190,12 @@
 		C4EB80E4257A77FA0045B192 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				C464FB9C2502974100E0336E /* ContentView.swift */,
-				C464FBB62505524700E0336E /* SettingsView.swift */,
-				C4C0989D259C934500529107 /* PanelPomodoroView.swift */,
-				C40687D1259C8438003BDCC0 /* TimerView.swift */,
-				C464FBB42505522B00E0336E /* StatisticsView.swift */,
+				0506D1E426447ABB0077C642 /* ShortBreakView.swift */,
+				05BE0077270642BD0004D127 /* Main */,
+				05BE0079270642DE0004D127 /* Statistics */,
+				05BE0078270642CB0004D127 /* Settings */,
 				05CBAA0025FF59D00082FFF6 /* WhatsNew.swift */,
 				05CBAA0325FF5A1F0082FFF6 /* WhatsNew.txt */,
-				C40354B425821D15003DF1AC /* StatisticChartHoursView.swift */,
-				C40354B725821E97003DF1AC /* StatisticChartDaysView.swift */,
-				C40354BA25821F70003DF1AC /* StatisticChartMonthsView.swift */,
-				C427373825822A1800CC0DCF /* StatisticChartYearsView.swift */,
-				C40354B125821C61003DF1AC /* BarHoursView.swift */,
-				C40354AE25821C1F003DF1AC /* BarDaysView.swift */,
-				C40354AB25821BDC003DF1AC /* BarMonthsView.swift */,
-				C427373B25822ABA00CC0DCF /* BarYearsView.swift */,
-				C427373F25822D6000CC0DCF /* AllEntriesView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -240,15 +278,17 @@
 				C427373C25822ABB00CC0DCF /* BarYearsView.swift in Sources */,
 				C464FBB72505524700E0336E /* SettingsView.swift in Sources */,
 				C464FB9B2502974100E0336E /* PomodOK.xcdatamodeld in Sources */,
+				05BE007B27064F450004D127 /* HeaderSettingView.swift in Sources */,
 				C40354BB25821F70003DF1AC /* StatisticChartMonthsView.swift in Sources */,
 				C427373925822A1800CC0DCF /* StatisticChartYearsView.swift in Sources */,
 				05CBAA0125FF59D00082FFF6 /* WhatsNew.swift in Sources */,
 				C458F30D257E5BD900E35AD9 /* ItemFormatter.swift in Sources */,
 				C4C0989E259C934500529107 /* PanelPomodoroView.swift in Sources */,
+				05BE0076270641950004D127 /* CustomTabBarView.swift in Sources */,
 				C464FBB52505522B00E0336E /* StatisticsView.swift in Sources */,
-				C40687D2259C8438003BDCC0 /* TimerView.swift in Sources */,
 				05CBAA0825FF5AC60082FFF6 /* AppReviewRequest.swift in Sources */,
 				C4EB80CE257A6B900045B192 /* DynamicFetchView.swift in Sources */,
+				0506D1E526447ABB0077C642 /* ShortBreakView.swift in Sources */,
 				C464FB962502974100E0336E /* AppDelegate.swift in Sources */,
 				C464FB9D2502974100E0336E /* ContentView.swift in Sources */,
 				C40606D0250B851E008302F5 /* UserSettings.swift in Sources */,
@@ -398,6 +438,7 @@
 				DEVELOPMENT_TEAM = U6LJ73DDJU;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = PomodOK/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -420,6 +461,7 @@
 				DEVELOPMENT_TEAM = U6LJ73DDJU;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = PomodOK/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

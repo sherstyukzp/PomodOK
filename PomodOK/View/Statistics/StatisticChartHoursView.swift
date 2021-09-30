@@ -51,10 +51,6 @@ struct StatisticChartHoursView: View {
                 }
             }
             
-            //
-            
-            //
-            
             Text("Total today: \(items.count)")
             
         }

@@ -13,7 +13,7 @@ struct AllEntriesView: View {
     
     // MARK: - Variables
     @Environment(\.managedObjectContext) private var viewContext
-
+    
     @FetchRequest(
         sortDescriptors: [NSSortDescriptor(keyPath: \Item.timestamp, ascending: true)],
         animation: .default)
@@ -22,37 +22,35 @@ struct AllEntriesView: View {
     @State private var date = Date()
     
     var dateFormatter: DateFormatter {
-      let formatter = DateFormatter()
-      formatter.dateStyle = .short
-      return formatter
+        let formatter = DateFormatter()
+        formatter.dateStyle = .short
+        return formatter
     }
-
-      func update(_ result : FetchedResults<Item>)-> [[Item]] {
+    
+    func update(_ result : FetchedResults<Item>)-> [[Item]] {
         return  Dictionary(grouping: result){ (element : Item)  in
             dateFormatter.string(from: element.timestamp!)
         }.values.map{$0}
-      }
+    }
     
     // MARK: - Body
     var body: some View {
         VStack {
-            
             List {
-                    ForEach(update(items), id: \.self) { (section: [Item]) in
-                        Section(header: Text( self.dateFormatter.string(from: section[0].timestamp!))) {
-                            ForEach(section, id: \.self) { item in
-                        HStack {
-                            Text("Item at \(item.timestamp!, formatter: ItemFormatter.init().itemFormatter)")
+                ForEach(update(items), id: \.self) { (section: [Item]) in
+                    Section(header: Text( self.dateFormatter.string(from: section[0].timestamp!))) {
+                        ForEach(section, id: \.self) { item in
+                            HStack {
+                                Text("Item at \(item.timestamp!, formatter: ItemFormatter.init().itemFormatter)")
+                            }
                         }
-                        
-                        }
-                            .onDelete(perform: deleteItems)
-                      }
-                    }.id(items.count)
-                  }
+                        .onDelete(perform: deleteItems)
+                    }
+                }.id(items.count)
+            }
             
             VStack {
-
+                
                 DatePicker(selection: $date, in: ...Date(), displayedComponents: [.hourAndMinute, .date]) {
                     Text("Total records: \(items.count)")
                 }
@@ -75,7 +73,7 @@ struct AllEntriesView: View {
             newItem.dayWeek = ItemFormatter.init().itemFormatterNameDayOfTheWeek.string(from: date)
             newItem.month = ItemFormatter.init().itemFormatterNameMonthNumber.string(from: date)
             newItem.year = ItemFormatter.init().itemFormatterNameYear.string(from: date)
-
+            
             do {
                 try viewContext.save()
             } catch {
@@ -91,7 +89,7 @@ struct AllEntriesView: View {
     private func deleteItems(offsets: IndexSet) {
         withAnimation {
             offsets.map { items[$0] }.forEach(viewContext.delete)
-
+            
             do {
                 try viewContext.save()
             } catch {

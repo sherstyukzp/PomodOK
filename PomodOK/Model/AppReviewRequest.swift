@@ -9,7 +9,6 @@
 import SwiftUI
 import StoreKit
 
-@available(iOS 14.0, *)
 enum AppReviewRequest {
     static var threshold = 3
     @AppStorage("runsSinceLastRequest") static var runsSinceLastRequest = 0

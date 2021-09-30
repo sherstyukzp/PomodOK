@@ -11,10 +11,9 @@
 import SwiftUI
 import StoreKit
 
-@available(iOS 14.0, *)
 struct SettingsView: View {
-   
-    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    
+    @Environment(\.presentationMode) var presentationMode
     @ObservedObject var userSettings = UserSettings()
     
     // MARK: - Variables
@@ -25,14 +24,13 @@ struct SettingsView: View {
     {
         UISwitch.appearance().onTintColor = .red
     }
-
+    
     // MARK: - Body
     var body: some View {
         
         NavigationView {
-            
             Form {
-                Section(header: Text("NOTIFICATIONS")) {
+                Section(header: HeaderSettingView(imageIcon: "bell", text: "NOTIFICATIONS")) {
                     Toggle(isOn: $userSettings.isNotificationsEnabled) {
                         Text("Push notifications")
                     }
@@ -44,8 +42,8 @@ struct SettingsView: View {
                     }
                 }
                 
-                Section(header: Text("TIMER")) {
-
+                Section(header: HeaderSettingView(imageIcon: "deskclock", text: "TIMER")) {
+                    
                     Stepper(value: $userSettings.workSession, in: 1...60) {
                         Text("Work Session \(userSettings.workSession) min")
                     }
@@ -57,12 +55,12 @@ struct SettingsView: View {
                     }
                 }
                 
-                Section(header: Text("About")) {
-                                    HStack {
-                                        Text("Software Version")
-                                        Spacer()
-                                        Text("\(appVersion) (\(buildNumber))")
-                                    }
+                Section(header: HeaderSettingView(imageIcon: "info.circle", text: "About")) {
+                    HStack {
+                        Text("Software Version")
+                        Spacer()
+                        Text("\(appVersion) (\(buildNumber))")
+                    }
                     
                     HStack {
                         NavigationLink(destination: WhatsNew()) {
@@ -72,25 +70,26 @@ struct SettingsView: View {
                     
                     Button(action: {
                         if let windowScene = UIApplication.shared.windows.first?.windowScene { SKStoreReviewController.requestReview(in: windowScene) }
-                     }) {
-                         Text("Rate the application")
-                     }
+                    }) {
+                        Text("Rate the application")
+                    }
                 }
                 
-                Section(header: Text("Contact Us")) {
+                Section(header: HeaderSettingView(imageIcon: "bubble.left", text: "Contact Us")) {
                     Link("Twitter", destination: URL(string: "https://twitter.com/PomodOk")!)
                 }
             }
+            
             .navigationBarTitle(Text("Settings"), displayMode: .large)
             .navigationBarItems(trailing:
-                    // Butoon Save
-                    Button(action: {
-                        self.presentationMode.wrappedValue.dismiss()
-                    }) {
-                        Text("Save")
-                            .bold()
-                            .foregroundColor(Color(.red))
-                    }
+                                    // Butoon Close
+                                Button(action: {
+                self.presentationMode.wrappedValue.dismiss()
+            }) {
+                Text("Close")
+                    .bold()
+                    .foregroundColor(Color(.red))
+            }
             )
         }
     }
@@ -100,11 +99,7 @@ struct SettingsView: View {
 
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        if #available(iOS 14.0, *) {
-            SettingsView()
-        } else {
-            // Fallback on earlier versions
-        }
+        SettingsView()
     }
-
+    
 }

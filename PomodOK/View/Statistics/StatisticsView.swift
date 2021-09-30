@@ -11,7 +11,7 @@ import CoreData
 
 struct StatisticView: View {
     
-    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    @Environment(\.presentationMode) var presentationMode
     @Environment(\.managedObjectContext) private var viewContext
 
     @FetchRequest(
@@ -27,12 +27,6 @@ struct StatisticView: View {
     @State private var showingTimer = true
     @State private var time = 1500
         
-//    func update(_ result : FetchedResults<Item>)-> [[Item]]{
-//          return  Dictionary(grouping: result){ (element : Item)  in
-//            dateFormatter.string(from: element.timestamp!)
-//          }.values.sorted() { $0[0].timestamp! < $1[0].timestamp! }
-//        }
-    
     // MARK: - Body
     var body: some View {
             NavigationView {
@@ -60,15 +54,12 @@ struct StatisticView: View {
                                     else {
                                         AllEntriesView()
                                     }
-                    
-//                    if showingTimer {
-//                        TimerView(showTimer: $showingTimer, timerValue: $time, backgroundColor: Color(UIColor.red), vibrationAtTheEnd: true)
-//                         }
+
                     
                 }
                 .navigationBarTitle(Text("Statistics"), displayMode: .large)
                 .navigationBarItems(trailing:
-                        // Butoon Save
+                        // Butoon Close
                         Button(action: {
                             self.presentationMode.wrappedValue.dismiss()
                         }) {
