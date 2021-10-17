@@ -17,7 +17,7 @@ struct CustomTabBarView: View {
     @Binding var count: Int
     @Binding var to : CGFloat
     @Binding var showShortBreak: Bool
-    @Binding var shortBreak: Int
+    //@Binding var shortBreak: Int
     @Binding var notifications: Bool
     @Binding var sound: Bool
     @Binding var vibration: Bool
@@ -46,7 +46,7 @@ struct CustomTabBarView: View {
             
             // MARK: - Button Start Timer
             Button(action: {
-                if self.count == self.retrieved {
+                if self.count == self.retrieved * 60 {
                     self.count = 0
                     withAnimation(.default){
                         self.to = 0

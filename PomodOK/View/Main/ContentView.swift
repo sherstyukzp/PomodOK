@@ -19,9 +19,14 @@ struct ContentView : View {
     
     @Environment(\.managedObjectContext) private var viewContext
     
-    @ObservedObject var userSettings = UserSettings()
-    
     // MARK: - Variables
+    //--- Settings
+    @AppStorage("workSession") var workSession: Int = 25
+    @AppStorage("shortBreak") var shortBreak: Int = 5
+    @AppStorage("isNotificationsEnabled") var isNotificationsEnabled: Bool = true
+    @AppStorage("isSoundEnabled") var isSoundEnabled: Bool = true
+    @AppStorage("isVibrationEnabled") var isVibrationEnabled: Bool = true
+    
     @State var showingStatisticsView = false
     @State private var showingSettingsView = false
     
@@ -34,13 +39,6 @@ struct ContentView : View {
     @State var tomato2 = false
     @State var tomato3 = false
     @State var tomato4 = false
-    
-    //--- Settings
-    @State var retrieved = 0
-    @State var shortBreak = 0
-    @State var sound = true
-    @State var vibration = true
-    @State var notifications = true
     
     @State var showAlert = false
     @State private var showShortBreak = false
@@ -112,12 +110,12 @@ struct ContentView : View {
                                 
                                 // Секунды
                                 VStack {
-                                    Text(secondsToMinutesAndSeconds(seconds: retrieved - count))
+                                    Text(secondsToMinutesAndSeconds(seconds: (workSession * 60) - count))
                                         .font(.system(size: 54))
                                         .foregroundColor(.white)
                                         .fontWeight(.bold)
                                     
-                                    Text("Of \(retrieved / 60) min")
+                                    Text("Of \(workSession) min")
                                         .font(.title)
                                         .foregroundColor(.white)
                                 }
@@ -126,20 +124,14 @@ struct ContentView : View {
                     }.padding()
                     
                     // MARK: - Tab bar
-                    CustomTabBarView(showingStatisticsView: $showingStatisticsView, showingSettingsView: $showingSettingsView, start: $start, retrieved: $retrieved, count: $count, to: $to, showShortBreak: $showShortBreak, shortBreak: $shortBreak, notifications: $notifications, sound: $sound, vibration: $vibration).padding(.bottom)
+                    CustomTabBarView(showingStatisticsView: $showingStatisticsView, showingSettingsView: $showingSettingsView, start: $start, retrieved: $workSession, count: $count, to: $to, showShortBreak: $showShortBreak, notifications: $isNotificationsEnabled, sound: $isSoundEnabled, vibration: $isVibrationEnabled).padding(.bottom)
                     
                 }
-//                .alert(isPresented: $showAlert) {
-//                    Alert(title: Text("Short break?"), message: Text("Will you take a short break?"), primaryButton: .destructive(Text("Yes")) {
-//                        self.showShortBreak.toggle()
-//                    }, secondaryButton: .cancel())}
-                
                 
                 .navigationBarTitle(Text("Cycle"), displayMode: .large)
                 .navigationBarItems(trailing:
                                         // Butoon Restart
                                     Button(action: {
-                    self.loadData()
                     self.count = 0
                     withAnimation(.default){
                         self.to = 0
@@ -156,31 +148,30 @@ struct ContentView : View {
             
             .onAppear(perform: {
                 print ("👉 onAppear perform")
-                self.loadData()
                 UNUserNotificationCenter.current().requestAuthorization(options: [.badge,.sound,.alert]) { (_, _) in
                 }
             })
             .onReceive(self.time) { (_) in
                 if self.start {
-                    if self.count != self.retrieved {
+                    if self.count != self.workSession * 60 {
                         self.count += 1
                         withAnimation(.default) {
-                            self.to = CGFloat(self.count) / CGFloat(self.retrieved)
+                            self.to = CGFloat(self.count) / CGFloat(self.workSession * 60)
                         }
                     }
                     else {
                         print ("Stop")
                         self.start.toggle()
                         //--- Уведомление когда приложение свёрнуто
-                        notifications == true ? self.Notify(): nil
+                        isNotificationsEnabled == true ? self.Notify(): nil
                         //----
                         withAnimation {
                             self.showAlert.toggle()
                             print ("Stop-2")
                             //--- Воспроизведение стандартного звука после завершения таймера
-                            sound == true ? AudioServicesPlaySystemSound (systemSoundID): nil
+                            isSoundEnabled == true ? AudioServicesPlaySystemSound (systemSoundID): nil
                             //--- Вибро после завершения таймера
-                            vibration == true ? AudioServicesPlaySystemSound(kSystemSoundID_Vibrate): nil
+                            isVibrationEnabled == true ? AudioServicesPlaySystemSound(kSystemSoundID_Vibrate): nil
                             
                             addItem()
                         }
@@ -197,7 +188,7 @@ struct ContentView : View {
         }
     }
     
-
+    
     // MARK: - Save Item
     func addItem() {
         withAnimation {
@@ -252,16 +243,6 @@ struct ContentView : View {
         return String(format: "%02i:%02i", minute, second)
     }
     
-    // MARK: - UserDefaults
-    // Loading timer minutes, if the settings have not been changed, the default value is 25 minutes
-    func loadData() {
-        self.retrieved = (UserDefaults.standard.object(forKey: "workSession") as? Int ?? 25) * 60
-        self.shortBreak = (UserDefaults.standard.object(forKey: "shortBreak") as? Int ?? 5) * 60
-        self.notifications = UserDefaults.standard.object(forKey: "notificationsEnabled") as? Bool ?? true
-        self.sound = UserDefaults.standard.object(forKey: "soundEnabled") as? Bool ?? true
-        self.vibration = UserDefaults.standard.object(forKey: "vibrationEnabled") as? Bool ?? true
-        //print ("👉 loadData")
-    }
     
 }
 

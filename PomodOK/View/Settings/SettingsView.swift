@@ -16,6 +16,15 @@ struct SettingsView: View {
     @Environment(\.presentationMode) var presentationMode
     @ObservedObject var userSettings = UserSettings()
     
+    @AppStorage("isNotificationsEnabled") var isNotificationsEnabled: Bool = true
+    @AppStorage("isSoundEnabled") var isSoundEnabled: Bool = true
+    @AppStorage("isVibrationEnabled") var isVibrationEnabled: Bool = true
+    
+    @AppStorage("workSession") var workSession: Int = 25
+    @AppStorage("shortBreak") var shortBreak: Int = 5
+    @AppStorage("longBreak") var longBreak: Int = 15
+    
+    
     // MARK: - Variables
     let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as! String
     let buildNumber = Bundle.main.infoDictionary?["CFBundleVersion"] as! String
@@ -31,27 +40,28 @@ struct SettingsView: View {
         NavigationView {
             Form {
                 Section(header: HeaderSettingView(imageIcon: "bell", text: "NOTIFICATIONS")) {
-                    Toggle(isOn: $userSettings.isNotificationsEnabled) {
+                    
+                    Toggle(isOn: $isNotificationsEnabled) {
                         Text("Push notifications")
                     }
-                    Toggle(isOn: $userSettings.isSoundEnabled) {
+                    Toggle(isOn: $isSoundEnabled) {
                         Text("Sound")
                     }
-                    Toggle(isOn: $userSettings.isVibrationEnabled) {
+                    Toggle(isOn: $isVibrationEnabled) {
                         Text("Vibration")
                     }
                 }
                 
                 Section(header: HeaderSettingView(imageIcon: "deskclock", text: "TIMER")) {
                     
-                    Stepper(value: $userSettings.workSession, in: 1...60) {
-                        Text("Work Session \(userSettings.workSession) min")
+                    Stepper(value: $workSession, in: 1...60) {
+                        Text("Work Session \(workSession) min")
                     }
-                    Stepper(value: $userSettings.shortBreak, in: 1...60) {
-                        Text("Short Break \(userSettings.shortBreak) min")
+                    Stepper(value: $shortBreak, in: 1...60) {
+                        Text("Short Break \(shortBreak) min")
                     }
-                    Stepper(value: $userSettings.longBreak, in: 1...60) {
-                        Text("Long Break \(userSettings.longBreak) min")
+                    Stepper(value: $longBreak, in: 1...60) {
+                        Text("Long Break \(longBreak) min")
                     }
                 }
                 
