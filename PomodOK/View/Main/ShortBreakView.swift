@@ -9,30 +9,31 @@
 import SwiftUI
 
 struct ShortBreakView: View {
+    
+    @Environment(\.presentationMode) var presentationMode
+    @Binding var shortBreak: Int
+    @State private var timeBraak: Int = 0
+    
+    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+    
     var body: some View {
         ZStack {
             VStack {
                 Spacer()
-                Text ("Relax for another \(100 / 60) minutes")
+                Text ("Relax for another \(shortBreak) minutes")
                     .font(.system(size: 50))
                     .foregroundColor(.gray)
                     .multilineTextAlignment(.leading)
                     .padding(.horizontal, 20.0)
-                
-                
                 Spacer()
-                
                 Image("relaxing")
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                     .scaledToFit()
-                
                 Spacer()
                 
                 Button(action: {
-                    withAnimation {
-                        //
-                    }
+                    presentationMode.wrappedValue.dismiss()
                 }) {
                     HStack {
                         Text("Сancel")
@@ -52,14 +53,22 @@ struct ShortBreakView: View {
             .background(Color(#colorLiteral(red: 0.9685428739, green: 0.9686816335, blue: 0.9685124755, alpha: 1)))
             
         }.background(Color(#colorLiteral(red: 0.9685428739, green: 0.9686816335, blue: 0.9685124755, alpha: 1)))
-        .edgesIgnoringSafeArea(.all)
-        //.offset(x: 0, y: self.showShortBreak ? 0 : UIApplication.shared.keyWindow?.frame.height ?? 0)
-        
+            .edgesIgnoringSafeArea(.all)
+            .onReceive(timer) { _ in
+                
+                if timeBraak != shortBreak {
+                    timeBraak += 1
+                    print("timeBraak \(timeBraak)")
+                }
+                if timeBraak == shortBreak {
+                    presentationMode.wrappedValue.dismiss()
+                }
+            }
     }
 }
 
 struct ShortBreakView_Previews: PreviewProvider {
     static var previews: some View {
-        ShortBreakView()
+        ShortBreakView(shortBreak: .constant(5))
     }
 }

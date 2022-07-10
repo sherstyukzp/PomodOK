@@ -19,20 +19,29 @@ struct ContentView : View {
     
     @Environment(\.managedObjectContext) private var viewContext
     
+    @Environment(\.scenePhase) var scenePhase
+    
+    var notificationPublisher = NotificationManager()
+    
     // MARK: - Variables
     //--- Settings
     @AppStorage("workSession") var workSession: Int = 25
     @AppStorage("shortBreak") var shortBreak: Int = 5
+    @AppStorage("shortBreak") var longBreak: Int = 15
+    
     @AppStorage("isNotificationsEnabled") var isNotificationsEnabled: Bool = true
     @AppStorage("isSoundEnabled") var isSoundEnabled: Bool = true
     @AppStorage("isVibrationEnabled") var isVibrationEnabled: Bool = true
     
-    @State var showingStatisticsView = false
-    @State private var showingSettingsView = false
+    @State private var showingStatisticsView = false // Button Statistics
+    @State private var showingSettingsView = false // Button Settings
     
-    @State var start = false
-    @State var to : CGFloat = 0
-    @State var count = 0
+    @State private var showAlert = false // Alert
+    @State private var showShortBreak = false // show Short Break
+    
+    @State var start = false // Старт таймеру
+    @State var to : CGFloat = 0 // Повзунок часу
+    @State var count = 0 // Скільки залишилося часу
     @State var time = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     
     @State var tomato1 = true
@@ -40,16 +49,12 @@ struct ContentView : View {
     @State var tomato3 = false
     @State var tomato4 = false
     
-    @State var showAlert = false
-    @State private var showShortBreak = false
-    
     @State private var date = Date()
     
+    @State private var showWhatsNew = false // Programatic show Whats New version
     @State private var setupApp = UserDefaults.standard.integer(forKey: "setupApp")
     // Variable to trigger WhatsNew Screen
     @State private var savedVersion = UserDefaults.standard.string(forKey: "savedVersion")
-    
-    @State private var showWhatsNew = false
     
     //--- Sound ID
     let systemSoundID: SystemSoundID = 1313
@@ -77,114 +82,131 @@ struct ContentView : View {
     
     // MARK: - Body
     var body: some View {
-        ZStack {
-            NavigationView {
-                VStack {
-                    // Панель с количеством завершенных томатов
-                    PanelPomodoroView(tomato1: $tomato1, tomato2: $tomato2, tomato3: $tomato3, tomato4: $tomato4)
-                        .padding()
+        
+        NavigationView {
+            VStack {
+                // Панель с количеством завершенных томатов
+                PanelPomodoroView(tomato1: $tomato1, tomato2: $tomato2, tomato3: $tomato3, tomato4: $tomato4)
+                    .padding()
+                
+                ZStack(alignment: .center) {
+                    RoundedRectangle(cornerRadius: 25, style: .continuous)
+                        .fill(Color("redColor"))
+                        .shadow(color: Color("redColor").opacity(0.4), radius: 5, x: 0, y: 5)
                     
-                    ZStack(alignment: .center) {
-                        RoundedRectangle(cornerRadius: 25, style: .continuous)
-                            .fill(Color("redColor"))
-                            .shadow(color: Color("redColor").opacity(0.4), radius: 5, x: 0, y: 5)
-                        
-                        VStack() {
-                            Text("Work session")
-                                .foregroundColor(Color.white)
-                                .font(.system(size: 32))
-                                .fontWeight(.medium)
-                                .padding(.bottom)
-                            // Прогресс таймера
-                            ZStack {
-                                Circle()
-                                    .trim(from: 0, to: 1)
-                                    .stroke(Color.black.opacity(0.09), style: StrokeStyle(lineWidth: 30, lineCap: .round))
-                                    .frame(width: 240, height: 240)
+                    VStack {
+                        Text("Work session")
+                            .foregroundColor(Color.white)
+                            .font(.system(size: 32))
+                            .fontWeight(.medium)
+                            .padding(.bottom)
+                        // Прогресс таймера
+                        ZStack {
+                            Circle()
+                                .trim(from: 0, to: 1)
+                                .stroke(Color.black.opacity(0.09), style: StrokeStyle(lineWidth: 30, lineCap: .round))
+                                .frame(width: 240, height: 240)
+                            
+                            Circle()
+                                .trim(from: 0, to: self.to)
+                                .stroke(Color.white, style: StrokeStyle(lineWidth: 30, lineCap: .round))
+                                .frame(width: 240, height: 240)
+                                .rotationEffect(.init(degrees: -90))
+                            
+                            // Секунды
+                            VStack {
+                                Text(secondsToMinutesAndSeconds(seconds: (workSession * 60) - count))
+                                    .font(.system(size: 54))
+                                    .foregroundColor(.white)
+                                    .fontWeight(.bold)
                                 
-                                Circle()
-                                    .trim(from: 0, to: self.to)
-                                    .stroke(Color.white, style: StrokeStyle(lineWidth: 30, lineCap: .round))
-                                    .frame(width: 240, height: 240)
-                                    .rotationEffect(.init(degrees: -90))
-                                
-                                // Секунды
-                                VStack {
-                                    Text(secondsToMinutesAndSeconds(seconds: (workSession * 60) - count))
-                                        .font(.system(size: 54))
-                                        .foregroundColor(.white)
-                                        .fontWeight(.bold)
-                                    
-                                    Text("Of \(workSession) min")
-                                        .font(.title)
-                                        .foregroundColor(.white)
-                                }
+                                Text("Of \(workSession) min")
+                                    .font(.title)
+                                    .foregroundColor(.white)
                             }
                         }
-                    }.padding()
-                    
-                    // MARK: - Tab bar
-                    CustomTabBarView(showingStatisticsView: $showingStatisticsView, showingSettingsView: $showingSettingsView, start: $start, retrieved: $workSession, count: $count, to: $to, showShortBreak: $showShortBreak, notifications: $isNotificationsEnabled, sound: $isSoundEnabled, vibration: $isVibrationEnabled).padding(.bottom)
-                    
-                }
+                    }
+                }.padding()
                 
-                .navigationBarTitle(Text("Cycle"), displayMode: .large)
-                .navigationBarItems(trailing:
-                                        // Butoon Restart
-                                    Button(action: {
-                    self.count = 0
-                    withAnimation(.default){
-                        self.to = 0
-                    }
-                }) {
-                    HStack {
-                        Image(systemName: "arrow.clockwise")
-                        Text("Reset")
-                    }
-                    .foregroundColor(Color(.gray))
-                }
-                )
+                // MARK: - Tab bar
+                CustomTabBarView(showingStatisticsView: $showingStatisticsView, showingSettingsView: $showingSettingsView, start: $start, retrieved: $workSession, count: $count, to: $to, showShortBreak: $showShortBreak, notifications: $isNotificationsEnabled, sound: $isSoundEnabled, vibration: $isVibrationEnabled).padding(.bottom)
+                
             }
             
-            .onAppear(perform: {
-                print ("👉 onAppear perform")
-                UNUserNotificationCenter.current().requestAuthorization(options: [.badge,.sound,.alert]) { (_, _) in
+            .navigationBarTitle(Text("Cycle"), displayMode: .large)
+            .navigationBarItems(trailing:
+                                    // Butoon Restart
+                                Button(action: {
+                self.count = 0
+                withAnimation(.default) {
+                    self.to = 0
                 }
-            })
-            .onReceive(self.time) { (_) in
-                if self.start {
-                    if self.count != self.workSession * 60 {
-                        self.count += 1
-                        withAnimation(.default) {
-                            self.to = CGFloat(self.count) / CGFloat(self.workSession * 60)
-                        }
+                
+                notificationPublisher.deleteNotification(identifier: "timerPomodOK")
+                
+            }) {
+                HStack {
+                    Image(systemName: "arrow.clockwise")
+                    Text("Reset")
+                }
+                .foregroundColor(Color(.gray))
+            }
+            )
+        }
+        
+        
+        .onReceive(self.time) { (_) in
+            if self.start {
+                if self.count != self.workSession * 60 {
+                    self.count += 1
+                    withAnimation(.default) {
+                        self.to = CGFloat(self.count) / CGFloat(self.workSession * 60)
                     }
-                    else {
-                        print ("Stop")
-                        self.start.toggle()
-                        //--- Уведомление когда приложение свёрнуто
-                        isNotificationsEnabled == true ? self.Notify(): nil
-                        //----
-                        withAnimation {
-                            self.showAlert.toggle()
-                            print ("Stop-2")
-                            //--- Воспроизведение стандартного звука после завершения таймера
-                            isSoundEnabled == true ? AudioServicesPlaySystemSound (systemSoundID): nil
-                            //--- Вибро после завершения таймера
-                            isVibrationEnabled == true ? AudioServicesPlaySystemSound(kSystemSoundID_Vibrate): nil
-                            
-                            addItem()
-                        }
-                    }
+                } else {
+                    print ("👉  Stop")
+                    self.start.toggle()
+                    self.showAlert.toggle()
+                    print ("👉 showAlert")
+                    //--- Воспроизведение стандартного звука после завершения таймера
+                    isSoundEnabled == true ? AudioServicesPlaySystemSound (systemSoundID): nil
+                    //--- Вибро после завершения таймера
+                    isVibrationEnabled == true ? AudioServicesPlaySystemSound(kSystemSoundID_Vibrate): nil
+                    
+                    addItem()
+                    print ("👉 Save Item")
+                    
+                    
+                    notificationPublisher.deleteNotification(identifier: "timerPomodOK")
                 }
             }
         }
-        
+        .alert(isPresented: $showAlert) {
+            Alert(
+                title: Text("Timer Is Completed"),
+                message: Text("Timer Is Completed Successfully!!!"),
+                primaryButton: .default(Text("Continue"), action: {
+                    print("👉 Continue")
+                    self.count = 0
+                    withAnimation(.default) {
+                        self.to = 0
+                    }
+                    self.start.toggle()
+                }),
+                secondaryButton: .default(Text("Break"), action: {
+                    print("👉 Break")
+                    self.showShortBreak.toggle()
+                })
+            )
+            
+        }
+        .fullScreenCover(isPresented: $showShortBreak) {
+            ShortBreakView(shortBreak: $shortBreak)
+        }
         .sheet(isPresented: $showWhatsNew, content: { WhatsNew() })
+        
         .onAppear(perform: checkForUpdate) // Run checkForUpdate when View Appears
         .onAppear {
             AppReviewRequest.requestReviewIfNeeded()
-            
         }
     }
     
@@ -218,21 +240,6 @@ struct ContentView : View {
         let secondStamp = seconds.count > 1 ? seconds : "0" + seconds
         
         return "\(minuteStamp):\(secondStamp)"
-    }
-    
-    // MARK: - Notification
-    // Method for triggering notification when the application is minimized
-    func Notify() {
-        let content = UNMutableNotificationContent()
-        content.title = "Timer Is Completed"
-        content.body = "Timer Is Completed Successfully In Background !!!"
-        content.sound = UNNotificationSound.default
-        
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
-        
-        let req = UNNotificationRequest(identifier: "MSG", content: content, trigger: trigger)
-        
-        UNUserNotificationCenter.current().add(req, withCompletionHandler: nil)
     }
     
     /// Converts Int (time) to string.

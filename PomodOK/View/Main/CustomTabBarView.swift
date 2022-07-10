@@ -10,6 +10,8 @@ import SwiftUI
 
 struct CustomTabBarView: View {
     
+    var notificationPublisher = NotificationManager()
+    
     @Binding var showingStatisticsView: Bool
     @Binding var showingSettingsView: Bool
     @Binding var start: Bool
@@ -47,11 +49,17 @@ struct CustomTabBarView: View {
             // MARK: - Button Start Timer
             Button(action: {
                 if self.count == self.retrieved * 60 {
+                    
                     self.count = 0
                     withAnimation(.default){
                         self.to = 0
                     }
                 }
+                if notifications {
+                    notificationPublisher.addNotification(identifier: "timerPomodOK", titleNotification: "PomodOK", subtitleNotification: "Timer Is Completed", bodyNotification: "Timer Is Completed Successfully!!!", timeInterval: TimeInterval(retrieved * 60 - count))
+                }
+                
+                print("👉 timeInterval \(retrieved * 60 - count)")
                 self.start.toggle()
                 
             }) {

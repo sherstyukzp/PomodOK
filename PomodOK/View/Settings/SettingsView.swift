@@ -24,6 +24,7 @@ struct SettingsView: View {
     @AppStorage("shortBreak") var shortBreak: Int = 5
     @AppStorage("longBreak") var longBreak: Int = 15
     
+    var notificationPublisher = NotificationManager()
     
     // MARK: - Variables
     let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as! String
@@ -90,6 +91,10 @@ struct SettingsView: View {
                 }
             }
             
+            .onChange(of: isNotificationsEnabled) { newValue in
+                toggleAction()
+            }
+            
             .navigationBarTitle(Text("Settings"), displayMode: .large)
             .navigationBarItems(trailing:
                                     // Butoon Close
@@ -101,6 +106,15 @@ struct SettingsView: View {
                     .foregroundColor(Color(.red))
             }
             )
+        }
+    }
+    
+    // MARK: - Toggle Notification
+    func toggleAction(){
+        if isNotificationsEnabled {
+            notificationPublisher.registerLocal()
+        } else {
+            notificationPublisher.deleteNotification(identifier: "timerPomodOK")
         }
     }
     

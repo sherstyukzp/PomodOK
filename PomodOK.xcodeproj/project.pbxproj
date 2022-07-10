@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0506D1E526447ABB0077C642 /* ShortBreakView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0506D1E426447ABB0077C642 /* ShortBreakView.swift */; };
+		056BF0CC287B1A8E0066EB59 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056BF0CB287B1A8E0066EB59 /* NotificationManager.swift */; };
 		05BE0076270641950004D127 /* CustomTabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BE0075270641950004D127 /* CustomTabBarView.swift */; };
 		05BE007B27064F450004D127 /* HeaderSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BE007A27064F450004D127 /* HeaderSettingView.swift */; };
 		05CBAA0125FF59D00082FFF6 /* WhatsNew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05CBAA0025FF59D00082FFF6 /* WhatsNew.swift */; };
@@ -40,6 +41,7 @@
 
 /* Begin PBXFileReference section */
 		0506D1E426447ABB0077C642 /* ShortBreakView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortBreakView.swift; sourceTree = "<group>"; };
+		056BF0CB287B1A8E0066EB59 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		05BE0075270641950004D127 /* CustomTabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarView.swift; sourceTree = "<group>"; };
 		05BE007A27064F450004D127 /* HeaderSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderSettingView.swift; sourceTree = "<group>"; };
 		05CBAA0025FF59D00082FFF6 /* WhatsNew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WhatsNew.swift; path = PomodOK/Model/WhatsNew.swift; sourceTree = SOURCE_ROOT; };
@@ -95,6 +97,7 @@
 			isa = PBXGroup;
 			children = (
 				C464FB9C2502974100E0336E /* ContentView.swift */,
+				0506D1E426447ABB0077C642 /* ShortBreakView.swift */,
 				05BE0075270641950004D127 /* CustomTabBarView.swift */,
 				C4C0989D259C934500529107 /* PanelPomodoroView.swift */,
 			);
@@ -157,6 +160,7 @@
 				C464FBA62502974C00E0336E /* Info.plist */,
 				C464FB992502974100E0336E /* PomodOK.xcdatamodeld */,
 				C464FBA02502974C00E0336E /* Preview Content */,
+				056BF0CB287B1A8E0066EB59 /* NotificationManager.swift */,
 			);
 			path = PomodOK;
 			sourceTree = "<group>";
@@ -190,7 +194,6 @@
 		C4EB80E4257A77FA0045B192 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				0506D1E426447ABB0077C642 /* ShortBreakView.swift */,
 				05BE0077270642BD0004D127 /* Main */,
 				05BE0079270642DE0004D127 /* Statistics */,
 				05BE0078270642CB0004D127 /* Settings */,
@@ -278,6 +281,7 @@
 				C427373C25822ABB00CC0DCF /* BarYearsView.swift in Sources */,
 				C464FBB72505524700E0336E /* SettingsView.swift in Sources */,
 				C464FB9B2502974100E0336E /* PomodOK.xcdatamodeld in Sources */,
+				056BF0CC287B1A8E0066EB59 /* NotificationManager.swift in Sources */,
 				05BE007B27064F450004D127 /* HeaderSettingView.swift in Sources */,
 				C40354BB25821F70003DF1AC /* StatisticChartMonthsView.swift in Sources */,
 				C427373925822A1800CC0DCF /* StatisticChartYearsView.swift in Sources */,
