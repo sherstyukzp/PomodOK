@@ -7,12 +7,23 @@
 //
 
 import SwiftUI
+import AVFoundation
+import AudioToolbox
 
 struct ShortBreakView: View {
     
     @Environment(\.presentationMode) var presentationMode
+    
+    @AppStorage("isSoundEnabled") var isSoundEnabled: Bool = true
+    @AppStorage("isVibrationEnabled") var isVibrationEnabled: Bool = true
+    
+    var notificationPublisher = NotificationManager()
+    
     @Binding var shortBreak: Int
     @State private var timeBraak: Int = 0
+
+    //--- Sound ID
+    let systemSoundID: SystemSoundID = 1313
     
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     
@@ -33,6 +44,7 @@ struct ShortBreakView: View {
                 Spacer()
                 
                 Button(action: {
+                    notificationPublisher.deleteNotification(identifier: "ShortBreakPomodOK")
                     presentationMode.wrappedValue.dismiss()
                 }) {
                     HStack {
@@ -56,11 +68,16 @@ struct ShortBreakView: View {
             .edgesIgnoringSafeArea(.all)
             .onReceive(timer) { _ in
                 
-                if timeBraak != shortBreak {
+                if timeBraak != (shortBreak * 60) {
                     timeBraak += 1
                     print("timeBraak \(timeBraak)")
                 }
-                if timeBraak == shortBreak {
+                if timeBraak == (shortBreak * 60) {
+                    //--- Воспроизведение стандартного звука после завершения таймера
+                    isSoundEnabled == true ? AudioServicesPlaySystemSound (systemSoundID): nil
+                    //--- Вибро после завершения таймера
+                    isVibrationEnabled == true ? AudioServicesPlaySystemSound(kSystemSoundID_Vibrate): nil
+                    notificationPublisher.deleteNotification(identifier: "ShortBreakPomodOK")
                     presentationMode.wrappedValue.dismiss()
                 }
             }

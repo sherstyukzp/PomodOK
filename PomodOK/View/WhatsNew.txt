@@ -1,1 +1,4 @@
 1. Fix Notification
+2. Fix panel pomodoro
+3. Add show short break
+

@@ -16,14 +16,6 @@ struct PanelPomodoroView: View {
     @Binding var tomato3: Bool
     @Binding var tomato4: Bool
     
-    init(tomato1: Binding<Bool>, tomato2: Binding<Bool>, tomato3: Binding<Bool>, tomato4: Binding<Bool>) {
-        self._tomato1 = tomato1
-        self._tomato2 = tomato2
-        self._tomato3 = tomato3
-        self._tomato4 = tomato4
-        
-    }
-    
     var body: some View {
         ZStack {
             Rectangle()

@@ -27,7 +27,8 @@ struct ContentView : View {
     //--- Settings
     @AppStorage("workSession") var workSession: Int = 25
     @AppStorage("shortBreak") var shortBreak: Int = 5
-    @AppStorage("shortBreak") var longBreak: Int = 15
+    @AppStorage("longBreak") var longBreak: Int = 15
+    @AppStorage("countPomodoro") var countPomodoro: Int = 0 // Кількість виконаних таймерів
     
     @AppStorage("isNotificationsEnabled") var isNotificationsEnabled: Bool = true
     @AppStorage("isSoundEnabled") var isSoundEnabled: Bool = true
@@ -38,16 +39,12 @@ struct ContentView : View {
     
     @State private var showAlert = false // Alert
     @State private var showShortBreak = false // show Short Break
+    @State private var showLongBreak = false // show Short Break
     
     @State var start = false // Старт таймеру
     @State var to : CGFloat = 0 // Повзунок часу
     @State var count = 0 // Скільки залишилося часу
     @State var time = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
-    
-    @State var tomato1 = true
-    @State var tomato2 = false
-    @State var tomato3 = false
-    @State var tomato4 = false
     
     @State private var date = Date()
     
@@ -66,6 +63,7 @@ struct ContentView : View {
         
         return version
     }
+    
     
     // Проверьте, было ли приложение запущено после обновления
     func checkForUpdate() {
@@ -86,8 +84,27 @@ struct ContentView : View {
         NavigationView {
             VStack {
                 // Панель с количеством завершенных томатов
-                PanelPomodoroView(tomato1: $tomato1, tomato2: $tomato2, tomato3: $tomato3, tomato4: $tomato4)
-                    .padding()
+                switch countPomodoro {
+                case 0:
+                    PanelPomodoroView(tomato1: .constant(false), tomato2: .constant(false), tomato3: .constant(false), tomato4: .constant(false))
+                        .padding()
+                case 1:
+                    PanelPomodoroView(tomato1: .constant(true), tomato2: .constant(false), tomato3: .constant(false), tomato4: .constant(false))
+                        .padding()
+                case 2:
+                    PanelPomodoroView(tomato1: .constant(true), tomato2: .constant(true), tomato3: .constant(false), tomato4: .constant(false))
+                        .padding()
+                case 3:
+                    PanelPomodoroView(tomato1: .constant(true), tomato2: .constant(true), tomato3: .constant(true), tomato4: .constant(false))
+                        .padding()
+                case 4:
+                    PanelPomodoroView(tomato1: .constant(true), tomato2: .constant(true), tomato3: .constant(true), tomato4: .constant(true))
+                        .padding()
+                default:
+                    PanelPomodoroView(tomato1: .constant(false), tomato2: .constant(false), tomato3: .constant(false), tomato4: .constant(false))
+                        .padding()
+                }
+                
                 
                 ZStack(alignment: .center) {
                     RoundedRectangle(cornerRadius: 25, style: .continuous)
@@ -129,7 +146,7 @@ struct ContentView : View {
                 }.padding()
                 
                 // MARK: - Tab bar
-                CustomTabBarView(showingStatisticsView: $showingStatisticsView, showingSettingsView: $showingSettingsView, start: $start, retrieved: $workSession, count: $count, to: $to, showShortBreak: $showShortBreak, notifications: $isNotificationsEnabled, sound: $isSoundEnabled, vibration: $isVibrationEnabled).padding(.bottom)
+                CustomTabBarView(showingStatisticsView: $showingStatisticsView, showingSettingsView: $showingSettingsView, start: $start, retrieved: $workSession, count: $count, to: $to, notifications: $isNotificationsEnabled).padding(.bottom)
                 
             }
             
@@ -163,10 +180,9 @@ struct ContentView : View {
                         self.to = CGFloat(self.count) / CGFloat(self.workSession * 60)
                     }
                 } else {
-                    print ("👉  Stop")
+                    print ("👉 Stop")
                     self.start.toggle()
-                    self.showAlert.toggle()
-                    print ("👉 showAlert")
+                    
                     //--- Воспроизведение стандартного звука после завершения таймера
                     isSoundEnabled == true ? AudioServicesPlaySystemSound (systemSoundID): nil
                     //--- Вибро после завершения таймера
@@ -175,8 +191,16 @@ struct ContentView : View {
                     addItem()
                     print ("👉 Save Item")
                     
-                    
                     notificationPublisher.deleteNotification(identifier: "timerPomodOK")
+                    
+                    // Додавання виконаного таймера
+                    if countPomodoro < 4 {
+                        countPomodoro += 1
+                    } else {
+                        countPomodoro = 1
+                    }
+                    self.showAlert.toggle()
+                    print ("👉 showAlert")
                 }
             }
         }
@@ -194,13 +218,27 @@ struct ContentView : View {
                 }),
                 secondaryButton: .default(Text("Break"), action: {
                     print("👉 Break")
-                    self.showShortBreak.toggle()
+                    if countPomodoro < 4 {
+                        if isNotificationsEnabled {
+                            notificationPublisher.addNotification(identifier: "ShortBreakPomodOK", titleNotification: "PomodOK", subtitleNotification: "The end of rest", bodyNotification: "Time to get to work!!!", timeInterval: TimeInterval(shortBreak * 60))
+                        }
+                        self.showShortBreak.toggle()
+                    } else {
+                        if isNotificationsEnabled {
+                            notificationPublisher.addNotification(identifier: "LongBreakPomodOK", titleNotification: "PomodOK", subtitleNotification: "All timers are completed", bodyNotification: "You worked well, it's time to relax well!!!", timeInterval: TimeInterval(longBreak * 60))
+                        }
+                        self.showLongBreak.toggle()
+                    }
+                    
                 })
             )
-            
         }
+        
         .fullScreenCover(isPresented: $showShortBreak) {
             ShortBreakView(shortBreak: $shortBreak)
+        }
+        .fullScreenCover(isPresented: $showLongBreak) {
+            ShortBreakView(shortBreak: $longBreak)
         }
         .sheet(isPresented: $showWhatsNew, content: { WhatsNew() })
         

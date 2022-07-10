@@ -18,11 +18,7 @@ struct CustomTabBarView: View {
     @Binding var retrieved: Int
     @Binding var count: Int
     @Binding var to : CGFloat
-    @Binding var showShortBreak: Bool
-    //@Binding var shortBreak: Int
     @Binding var notifications: Bool
-    @Binding var sound: Bool
-    @Binding var vibration: Bool
     
     var body: some View {
         HStack {
