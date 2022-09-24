@@ -25,10 +25,10 @@ struct StatisticView: View {
     @State private var date = Date()
     @State private var showingTimer = true
     @State private var time = 1500
-    @State var selectedDataType = DateType.hours
+    @State var selectedDataType = DateType.days
     
     enum DateType: String, Equatable, CaseIterable {
-        case hours = "Hours"
+        //case hours = "Hours"
         case days = "Days"
         case months = "Months"
         case years = "Years"
@@ -51,10 +51,10 @@ struct StatisticView: View {
                 
                 switch selectedDataType {
                     
-                case .hours: StatisticChartHoursView()
-                case .days: StatisticChartDaysView()
-                case .months: StatisticChartMonthsView()
-                case .years: StatisticChartYearsView()
+                //case .hours: StatisticChartHoursView()
+                case .days: ChartsDaysView()
+                case .months: ChartsMonthsView()
+                case .years: ChartsYearsView()
                 case .all: AllEntriesView()
                     
                 }
