@@ -34,6 +34,7 @@ struct ChartsYearsView: View {
                 )
                 
             }
+            .foregroundColor(Color("redColor"))
             .frame(height: 250)
             .padding()
         }

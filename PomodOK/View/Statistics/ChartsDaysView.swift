@@ -14,6 +14,7 @@ import Charts
 struct ChartsDaysView: View {
     
     @Environment(\.managedObjectContext) private var viewContext
+  
     
     var body: some View {
         
@@ -50,7 +51,7 @@ struct ChartsDaysView: View {
                     x: .value("Days", "Su"),
                     y: .value("Value", checkItemDaysOfTheWeek(days: "Sunday"))
                 )
-            }
+            }.foregroundColor(Color("redColor"))
             .frame(height: 250)
             .padding()
         }
