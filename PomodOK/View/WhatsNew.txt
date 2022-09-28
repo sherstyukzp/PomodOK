@@ -1,1 +1,2 @@
-1. 
+1. Support iOS 16
+2. Add new Charts
