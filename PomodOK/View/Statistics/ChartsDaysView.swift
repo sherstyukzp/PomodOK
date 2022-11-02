@@ -10,6 +10,10 @@ import SwiftUI
 import CoreData
 import Charts
 
+struct ChartData {
+     var label: String
+     var value: Int
+ }
 
 struct ChartsDaysView: View {
     
@@ -18,47 +22,37 @@ struct ChartsDaysView: View {
     
     var body: some View {
         
+        let chartDataSet = [
+             ChartData(label: "Mo", value: checkItemDaysOfTheWeek(days: "Monday")),
+             ChartData(label: "Tu", value: checkItemDaysOfTheWeek(days: "Tuesday")),
+             ChartData(label: "We", value: checkItemDaysOfTheWeek(days: "Wednesday")),
+             ChartData(label: "Th", value: checkItemDaysOfTheWeek(days: "Thursday")),
+             ChartData(label: "Fr", value: checkItemDaysOfTheWeek(days: "Friday")),
+             ChartData(label: "Sa", value: checkItemDaysOfTheWeek(days: "Saturday")),
+             ChartData(label: "Su", value: checkItemDaysOfTheWeek(days: "Sunday"))
+         ]
+        
         VStack {
             Text("Statistics for the day")
                 .font(Font.system(size:24, design: .default))
                 .padding()
             
-            Chart {
+            Chart(chartDataSet, id: \.label) { item in
                 BarMark(
-                    x: .value("Days", "Mo"),
-                    y: .value("Value", checkItemDaysOfTheWeek(days: "Monday"))
+                    x: .value("Day", item.label),
+                    y: .value("Value", item.value)
                 )
-                BarMark(
-                    x: .value("Days", "Tu"),
-                    y: .value("Value", checkItemDaysOfTheWeek(days: "Tuesday"))
-                )
-                BarMark(
-                    x: .value("Days", "We"),
-                    y: .value("Value", checkItemDaysOfTheWeek(days: "Wednesday"))
-                )
-                BarMark(
-                    x: .value("Days", "Th"),
-                    y: .value("Value", checkItemDaysOfTheWeek(days: "Thursday"))
-                )
-                BarMark(
-                    x: .value("Days", "Fr"),
-                    y: .value("Value", checkItemDaysOfTheWeek(days: "Friday"))
-                )
-                BarMark(
-                    x: .value("Days", "Sa"),
-                    y: .value("Value", checkItemDaysOfTheWeek(days: "Saturday"))
-                )
-                BarMark(
-                    x: .value("Days", "Su"),
-                    y: .value("Value", checkItemDaysOfTheWeek(days: "Sunday"))
-                )
-            }.foregroundColor(Color("redColor"))
+            }
+
+            .foregroundColor(Color("redColor"))
             .frame(height: 250)
             .padding()
         }
         Spacer()
         
     }
+    
+
     
     func checkItemDaysOfTheWeek(days: String) -> Int {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Item")
