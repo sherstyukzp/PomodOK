@@ -11,6 +11,7 @@ import StoreKit
 
 enum AppReviewRequest {
     static var threshold = 3
+    
     @AppStorage("runsSinceLastRequest") static var runsSinceLastRequest = 0
     @AppStorage("version") static var version = ""
     

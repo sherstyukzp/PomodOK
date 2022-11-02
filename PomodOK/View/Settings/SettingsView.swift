@@ -14,6 +14,7 @@ import StoreKit
 struct SettingsView: View {
 
     @Environment(\.presentationMode) var presentationMode
+    @Environment(\.requestReview) var requestReview
     // MARK: - Core Data
     @Environment(\.managedObjectContext) var moc
     
@@ -104,9 +105,13 @@ struct SettingsView: View {
                     }
                     
                     Button(action: {
-                        if let windowScene = UIApplication.shared.windows.first?.windowScene { SKStoreReviewController.requestReview(in: windowScene) }
+                        requestReview()
                     }) {
-                        Text("Rate the application")
+                        HStack {
+                            Text("Rate the application")
+                            Spacer()
+                            Text("⭐️⭐️⭐️⭐️⭐️")
+                        }
                     }
                 }
                 

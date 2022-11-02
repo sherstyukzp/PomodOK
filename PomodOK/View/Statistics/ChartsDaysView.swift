@@ -47,7 +47,6 @@ struct ChartsDaysView: View {
             .frame(height: 250)
             .padding()
             
-            
             HStack {
                 VStack(alignment: .leading, spacing: 10) {
                     let maxDay = chartDataSet.max { a, b in a.value < b.value }
