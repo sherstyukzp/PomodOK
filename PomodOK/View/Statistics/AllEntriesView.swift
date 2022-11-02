@@ -68,6 +68,7 @@ struct AllEntriesView: View {
         withAnimation {
             let newItem = Item(context: viewContext)
             
+            
             newItem.timestamp = self.date
             newItem.hour = ItemFormatter.init().itemFormatterHour.string(from: date)
             newItem.dayWeek = ItemFormatter.init().itemFormatterNameDayOfTheWeek.string(from: date)

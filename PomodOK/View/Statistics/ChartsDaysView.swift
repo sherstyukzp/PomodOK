@@ -22,6 +22,7 @@ struct ChartsDaysView: View {
             Text("Statistics for the day")
                 .font(Font.system(size:24, design: .default))
                 .padding()
+            
             Chart {
                 BarMark(
                     x: .value("Days", "Mo"),

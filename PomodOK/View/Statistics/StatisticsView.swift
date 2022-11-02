@@ -42,8 +42,7 @@ struct StatisticView: View {
     var body: some View {
         NavigationView {
             VStack {
-                
-                Picker("Numbers", selection: $selectedDataType) {
+                Picker("Period", selection: $selectedDataType) {
                     ForEach(DateType.allCases, id:\.self) { value in
                         Text(value.localizedName).tag(value)
                     }
@@ -58,6 +57,8 @@ struct StatisticView: View {
                 case .all: AllEntriesView()
                     
                 }
+                
+                
             }
             .navigationBarTitle(Text("Statistics"), displayMode: .large)
             .navigationBarItems(trailing:

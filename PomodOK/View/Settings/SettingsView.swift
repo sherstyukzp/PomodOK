@@ -5,8 +5,7 @@
 //  Created by Ярослав Шерстюк on 06.09.2020.
 //  Copyright © 2020 Ярослав Шерстюк. All rights reserved.
 //
-// Source
-// https://www.simpleswiftguide.com/how-to-use-userdefaults-in-swiftui/
+
 
 import SwiftUI
 import CoreData
@@ -28,12 +27,11 @@ struct SettingsView: View {
     @AppStorage("shortBreak") var shortBreak: Int = 5
     @AppStorage("longBreak") var longBreak: Int = 15
     
-    @FetchRequest(sortDescriptors: [
-        SortDescriptor(\Item.timestamp, order: .reverse)])
-    var fetchedItems: FetchedResults<Item>
+    @FetchRequest(entity: Item.entity(), sortDescriptors: []) var items: FetchedResults<Item>
+    @State private var isShareSheetShowing = false
     // MARK: - @State
     @State private var showingDeleteAlert = false
-    @State private var isExportCSVSheetShowing = false
+    //@State private var isExportCSVSheetShowing = false
     
     var notificationPublisher = NotificationManager()
     
@@ -75,14 +73,14 @@ struct SettingsView: View {
                     }
                 }
                 
-                if !fetchedItems.isEmpty {
+                if !items.isEmpty {
                     Section(header: HeaderSettingView(imageIcon: "tray.2", text: "Data")) {
                         // Экспорт
-                        Button {
-                            exportOverlayCSV()
-                        } label: {
-                            Label("Export in CSV", systemImage: "square.and.arrow.up")
-                        }
+//                        Button {
+//                            shareButton()
+//                        } label: {
+//                            Label("Export in CSV", systemImage: "square.and.arrow.up")
+//                        }
                         // ивдалення всіх даних
                         Button {
                             self.showingDeleteAlert = true
@@ -115,6 +113,7 @@ struct SettingsView: View {
                 Section(header: HeaderSettingView(imageIcon: "bubble.left", text: "Contact Us")) {
                     Link("Twitter", destination: URL(string: "https://twitter.com/PomodOk")!)
                 }
+                
             }
             
             .onChange(of: isNotificationsEnabled) { newValue in
@@ -140,6 +139,7 @@ struct SettingsView: View {
                       secondaryButton: .cancel()
                 )
             }
+            
         }
     }
     
@@ -158,39 +158,7 @@ struct SettingsView: View {
         }
         
     }
-    // MARK: - Export object CSV
-    func exportOverlayCSV() {
-        let fileName = "PomodOK.csv"
-        let path = NSURL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(fileName)
-        var csvText = "Date\n"
-        
-        for object in fetchedItems {
-            csvText += "\(object.timestamp?.formatted() ?? "Not Item")\n"
-        }
-        
-        do {
-            try csvText.write(to: path!, atomically: true, encoding: String.Encoding.utf8)
-        } catch {
-            print("Failed to create file")
-            print("\(error)")
-        }
-        print(path ?? "not found")
-        
-        var filesToShare = [Any]()
-        filesToShare.append(path!)
-        
-        let av = UIActivityViewController(activityItems: filesToShare, applicationActivities: nil)
-        
-        if let vc = UIApplication.shared.windows.first?.rootViewController{
-            av.popoverPresentationController?.sourceView = vc.view
-            //Setup share activity position on screen on bottom center
-            av.popoverPresentationController?.sourceRect = CGRect(x: UIScreen.main.bounds.width / 2, y: UIScreen.main.bounds.height, width: 0, height: 0)
-            av.popoverPresentationController?.permittedArrowDirections = UIPopoverArrowDirection.down
-            vc.present(av, animated: true, completion: nil)
-        }
-        
-        isExportCSVSheetShowing.toggle()
-    }
+
     
     // MARK: - Toggle Notification
     func toggleAction(){

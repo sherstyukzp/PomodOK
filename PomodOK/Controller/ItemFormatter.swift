@@ -19,11 +19,23 @@ class ItemFormatter {
 
     }()
     
+    let itemFormatterDateFull: DateFormatter = {
+        
+        let date = Date()
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter.dateFormat = "MMM-dd-yyyy"
+        let dateString = dateFormatter.string(from: date)
+        
+        return dateFormatter
+    }()
+    
     // Метод получения название часа (формат: 24)
     let itemFormatterHour: DateFormatter = {
         
         let date = Date()
         let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
         dateFormatter.dateFormat = "HH"
         let hourString = dateFormatter.string(from: date)
         
@@ -35,19 +47,9 @@ class ItemFormatter {
         
         let date = Date()
         let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
         dateFormatter.dateFormat = "EEEE"
         let dayOfTheWeekString = dateFormatter.string(from: date)
-        
-        return dateFormatter
-    }()
-
-    // Метод получения название месяца (формат: October)
-    let itemFormatterNameMonth: DateFormatter = {
-        
-        let date = Date()
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "LLLL"
-        let monthString = dateFormatter.string(from: date)
         
         return dateFormatter
     }()
@@ -57,8 +59,8 @@ class ItemFormatter {
         
         let date = Date()
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MM" // format January, February, March,
-        //let name = dateFormatter.string(from: date)
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter.dateFormat = "MM"
         let index = Calendar.current.component(.month, from: date)
 
         return dateFormatter
@@ -69,6 +71,7 @@ class ItemFormatter {
         
         let date = Date()
         let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
         dateFormatter.dateFormat = "yyyy"
 
         let yearString = dateFormatter.string(from: date)
