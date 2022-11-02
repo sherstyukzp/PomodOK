@@ -30,9 +30,9 @@ struct ChartsDaysView: View {
              ChartData(label: "Fr", value: checkItemDaysOfTheWeek(days: "Friday")),
              ChartData(label: "Sa", value: checkItemDaysOfTheWeek(days: "Saturday")),
              ChartData(label: "Su", value: checkItemDaysOfTheWeek(days: "Sunday"))
-         ]
+        ]
         
-        VStack {
+        VStack(alignment: .center) {
             Text("Statistics for the day")
                 .font(Font.system(size:24, design: .default))
                 .padding()
@@ -43,16 +43,51 @@ struct ChartsDaysView: View {
                     y: .value("Value", item.value)
                 )
             }
-
             .foregroundColor(Color("redColor"))
             .frame(height: 250)
             .padding()
+            
+            
+            HStack {
+                VStack(alignment: .leading, spacing: 10) {
+                    let maxDay = chartDataSet.max { a, b in a.value < b.value }
+                    let minDay = chartDataSet.min { a, b in a.value < b.value }
+                    Divider()
+                    HStack {
+                        Text("The Best Day: ")
+                        Text("\(nameDayFull(day: maxDay?.label ?? ""))")
+                            .foregroundColor(.blue)
+                            .fontWeight(.bold)
+                    }
+                    HStack {
+                        Text("The worst day: ")
+                        Text("\(nameDayFull(day: minDay?.label ?? ""))")
+                            .foregroundColor(.blue)
+                            .fontWeight(.bold)
+                    }
+                }
+                Spacer()
+            }.padding()
         }
         Spacer()
         
     }
     
-
+    
+    func nameDayFull(day: String) -> String {
+        switch day {
+        case "Mo": return "Monday"
+        case "Tu": return "Tuesday"
+        case "We": return "Wednesday"
+        case "Th": return "Thursday"
+        case "Fr": return "Friday"
+        case "Sa": return "Saturday"
+        case "Sa": return "Sunday"
+        default:
+            return ""
+        }
+        
+    }
     
     func checkItemDaysOfTheWeek(days: String) -> Int {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Item")
