@@ -15,27 +15,47 @@ struct ChartsYearsView: View {
     @Environment(\.managedObjectContext) private var viewContext
     
     var body: some View {
+        
+        let chartDataSet = [
+            ChartDataModel(label: "2021", value: checkItemDaysOfTheYear(year: "2021")),
+            ChartDataModel(label: "2022", value: checkItemDaysOfTheYear(year: "2022")),
+            ChartDataModel(label: "2023", value: checkItemDaysOfTheYear(year: "2023"))
+        ]
+        
         VStack {
             Text("Statistics for the year")
                 .font(Font.system(size:24, design: .default))
                 .padding()
-            Chart {
+            Chart(chartDataSet, id: \.label) { item in
                 BarMark(
-                    x: .value("Year", "2021"),
-                    y: .value("Value", checkItemDaysOfTheYear(year: "2021"))
+                    x: .value("Year", item.label),
+                    y: .value("Value", item.value)
                 )
-                BarMark(
-                    x: .value("Year", "2022"),
-                    y: .value("Value", checkItemDaysOfTheYear(year: "2022"))
-                )
-                BarMark(
-                    x: .value("Year", "2023"),
-                    y: .value("Value", checkItemDaysOfTheYear(year: "2023"))
-                )
-                
             }
             .foregroundColor(Color("redColor"))
             .frame(height: 250)
+            .padding()
+            
+            HStack {
+                VStack(alignment: .leading, spacing: 10) {
+                    let maxYear = chartDataSet.max { a, b in a.value < b.value }
+                    let minYear = chartDataSet.min { a, b in a.value < b.value }
+                    Divider()
+                    HStack {
+                        Text("The best year: ")
+                        Text("\(maxYear?.label ?? "")")
+                            .foregroundColor(.blue)
+                            .fontWeight(.bold)
+                    }
+                    HStack {
+                        Text("The worst year: ")
+                        Text("\(minYear?.label ?? "")")
+                            .foregroundColor(.blue)
+                            .fontWeight(.bold)
+                    }
+                }
+                Spacer()
+            }
             .padding()
         }
         Spacer()

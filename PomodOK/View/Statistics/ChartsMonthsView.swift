@@ -38,7 +38,7 @@ struct ChartsMonthsView: View {
             
             Chart(chartDataSet, id: \.label) { item in
                 BarMark(
-                    x: .value("Day", item.label),
+                    x: .value("Month", item.label),
                     y: .value("Value", item.value)
                 )
             }
@@ -65,7 +65,8 @@ struct ChartsMonthsView: View {
                     }
                 }
                 Spacer()
-            }.padding()
+            }
+            .padding()
         }
         Spacer()
     }
