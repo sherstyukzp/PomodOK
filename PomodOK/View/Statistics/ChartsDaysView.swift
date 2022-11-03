@@ -10,26 +10,21 @@ import SwiftUI
 import CoreData
 import Charts
 
-struct ChartData {
-     var label: String
-     var value: Int
- }
 
 struct ChartsDaysView: View {
     
     @Environment(\.managedObjectContext) private var viewContext
   
-    
     var body: some View {
         
         let chartDataSet = [
-             ChartData(label: "Mo", value: checkItemDaysOfTheWeek(days: "Monday")),
-             ChartData(label: "Tu", value: checkItemDaysOfTheWeek(days: "Tuesday")),
-             ChartData(label: "We", value: checkItemDaysOfTheWeek(days: "Wednesday")),
-             ChartData(label: "Th", value: checkItemDaysOfTheWeek(days: "Thursday")),
-             ChartData(label: "Fr", value: checkItemDaysOfTheWeek(days: "Friday")),
-             ChartData(label: "Sa", value: checkItemDaysOfTheWeek(days: "Saturday")),
-             ChartData(label: "Su", value: checkItemDaysOfTheWeek(days: "Sunday"))
+            ChartDataModel(label: "Mo", value: checkItemDaysOfTheWeek(days: "Monday")),
+            ChartDataModel(label: "Tu", value: checkItemDaysOfTheWeek(days: "Tuesday")),
+            ChartDataModel(label: "We", value: checkItemDaysOfTheWeek(days: "Wednesday")),
+            ChartDataModel(label: "Th", value: checkItemDaysOfTheWeek(days: "Thursday")),
+            ChartDataModel(label: "Fr", value: checkItemDaysOfTheWeek(days: "Friday")),
+            ChartDataModel(label: "Sa", value: checkItemDaysOfTheWeek(days: "Saturday")),
+            ChartDataModel(label: "Su", value: checkItemDaysOfTheWeek(days: "Sunday"))
         ]
         
         VStack(alignment: .center) {
@@ -53,7 +48,7 @@ struct ChartsDaysView: View {
                     let minDay = chartDataSet.min { a, b in a.value < b.value }
                     Divider()
                     HStack {
-                        Text("The Best Day: ")
+                        Text("The best day: ")
                         Text("\(nameDayFull(day: maxDay?.label ?? ""))")
                             .foregroundColor(.blue)
                             .fontWeight(.bold)
@@ -85,7 +80,6 @@ struct ChartsDaysView: View {
         default:
             return ""
         }
-        
     }
     
     func checkItemDaysOfTheWeek(days: String) -> Int {

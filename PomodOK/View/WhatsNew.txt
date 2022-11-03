@@ -1,2 +1,4 @@
-1. Support iOS 16
-2. Add new Charts
+1. Support iOS 16;
+2. Update Charts;
+3. In the settings section added the deletion button of all data;
+4. Small corrections of the application.
