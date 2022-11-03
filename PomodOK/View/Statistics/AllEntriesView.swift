@@ -49,10 +49,10 @@ struct AllEntriesView: View {
                 }.id(items.count)
             }
             
-            VStack {
+            HStack {
                 
                 DatePicker(selection: $date, in: ...Date(), displayedComponents: [.hourAndMinute, .date]) {
-                    Text("Total records: \(items.count)")
+//                    Text("Total records: \(items.count)")
                 }
                 
                 Button("Add Item", action: addItem)
