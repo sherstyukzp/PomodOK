@@ -27,6 +27,9 @@ struct StatisticView: View {
     @State private var time = 1500
     @State var selectedDataType = DateType.days
     
+    @State private var startDate = Date()
+    @State private var endDate = Date()
+    
     enum DateType: String, Equatable, CaseIterable {
         //case hours = "Hours"
         case days = "Days"
@@ -51,7 +54,7 @@ struct StatisticView: View {
                 switch selectedDataType {
                     
                     //case .hours: StatisticChartHoursView()
-                case .days: ChartsDaysView()
+                case .days: ChartsDaysView(startDate: $startDate, endDate: $endDate)
                 case .months: ChartsMonthsView()
                 case .years: ChartsYearsView()
                 case .all: AllEntriesView()
@@ -67,12 +70,57 @@ struct StatisticView: View {
                     Menu {
                         Button {
                             
+                            let date = Date()
+                            let calendar = Calendar.current
+                            
+                            let startOfDate = calendar.date(from: DateComponents(year: calendar.component(.year, from: date),
+                                                                                 month: calendar.component(.month, from: date),
+                                                                                 day: calendar.component(.day, from: date),
+                                                                          hour: 0,
+                                                                          minute: 0,
+                                                                          second: 0
+                                                                         ))!
+ 
+                            let endOfDate = calendar.date(from: DateComponents(year: calendar.component(.year, from: date),
+                                                                                 month: calendar.component(.month, from: date),
+                                                                                 day: calendar.component(.day, from: date),
+                                                                          hour: 23,
+                                                                          minute: 59,
+                                                                          second: 59
+                                                                         ))!
+                            
+                            startDate = startOfDate.previous(.monday)
+                            endDate = endOfDate.next(.sunday)
                         } label: {
                             Text("This week")
                         }
                         
                         Button {
+                            let date = Date()
+                            let calendar = Calendar.current
                             
+                            // Add 7 days
+                            let dateLast = Calendar.current.date(byAdding: .day, value: -7, to: date)
+                            
+                            let startOfDate = calendar.date(from: DateComponents(year: calendar.component(.year, from: dateLast!),
+                                                                                 month: calendar.component(.month, from: dateLast!),
+                                                                                 day: calendar.component(.day, from: dateLast!),
+                                                                          hour: 0,
+                                                                          minute: 0,
+                                                                          second: 0
+                                                                         ))!
+ 
+                            let endOfDate = calendar.date(from: DateComponents(year: calendar.component(.year, from: date),
+                                                                                 month: calendar.component(.month, from: date),
+                                                                                 day: calendar.component(.day, from: date),
+                                                                          hour: 23,
+                                                                          minute: 59,
+                                                                          second: 59
+                                                                         ))!
+                            
+                            
+                            startDate = startOfDate.previous(.monday)
+                            endDate = endOfDate.previous(.sunday)
                         } label: {
                             Text("Last week")
                         }

@@ -17,6 +17,8 @@ struct ChartsDaysView: View {
     @Environment(\.calendar) var calendar
     @Environment(\.timeZone) var timeZone
 
+    @Binding var startDate: Date // This week
+    @Binding var endDate: Date // Previous week
     
     var body: some View {
         
@@ -34,6 +36,8 @@ struct ChartsDaysView: View {
             Text("Statistics for the day")
                 .font(Font.system(size:24, design: .default))
                 .padding()
+            Text("startDate: \(startDate.formatted(date: .abbreviated, time: .shortened))")
+            Text("endDate: \(endDate.formatted(date: .abbreviated, time: .shortened))")
            
             Chart(chartDataSet, id: \.label) { item in
                 BarMark(
@@ -86,93 +90,47 @@ struct ChartsDaysView: View {
         }
     }
     
-    func callThisDay(startDate: Date, endDate: Date) -> [Item] {
-        let fetchRequest : NSFetchRequest<Item> = Item.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "date >= %@ AND date < %@", startDate as NSDate, endDate as NSDate)
-        do {
-            return try viewContext.fetch(fetchRequest)
-        } catch {
-            print(error)
-            return []
-        }
-    }
+//    func callThisDay(startDate: Date, endDate: Date) -> [Item] {
+//        let fetchRequest : NSFetchRequest<Item> = Item.fetchRequest()
+//        fetchRequest.predicate = NSPredicate(format: "date >= %@ AND date < %@", startDate as NSDate, endDate as NSDate)
+//        do {
+//            return try viewContext.fetch(fetchRequest)
+//        } catch {
+//            print(error)
+//            return []
+//        }
+//    }
+//
+//    func loadBreakfastItemsFromCoreData(at date: Date) -> [Item] {
+//        let request: NSFetchRequest<Item> = Item.fetchRequest()
+//
+//        let startDate = Calendar.current.startOfDay(for: date)
+//        var components = DateComponents()
+//        components.day = 1
+//        components.second = -1
+//        let endDate = Calendar.current.date(byAdding: components, to: startDate)!
+//
+//        request.predicate = NSPredicate(format: "date >= %@ AND date <= %@", startDate as NSDate, endDate as NSDate)
+//        // Optional: You can sort by date
+//        request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: true)]
+//        do {
+//            return try viewContext.fetch(request)
+//        } catch {
+//            print("Error fetching data from context: \(error)")
+//        }
+//        return []
+//    }
     
-    func loadBreakfastItemsFromCoreData(at date: Date) -> [Item] {
-        let request: NSFetchRequest<Item> = Item.fetchRequest()
-        
-        let startDate = Calendar.current.startOfDay(for: date)
-        var components = DateComponents()
-        components.day = 1
-        components.second = -1
-        let endDate = Calendar.current.date(byAdding: components, to: startDate)!
-        
-        request.predicate = NSPredicate(format: "date >= %@ AND date <= %@", startDate as NSDate, endDate as NSDate)
-        // Optional: You can sort by date
-        request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: true)]
-        do {
-            return try viewContext.fetch(request)
-        } catch {
-            print("Error fetching data from context: \(error)")
-        }
-        return []
-    }
-    
-    #warning("Доделать")
-    
-    func toDate(format: String = "yyyy-MM-dd HH:mm:ssZ") -> Date? {
-
-            let dateFormatter = DateFormatter()
-            dateFormatter.locale = Locale(identifier: "yyyy-MM-dd HH:mm:ssZ")
-            dateFormatter.calendar = Calendar(identifier: .gregorian)
-            dateFormatter.dateFormat = format
-            let date = dateFormatter.date(from: format)
-
-            return date
-
-        }
     
     func checkItemDaysOfTheWeek(days: String) -> Int {
         
-        //let arrWeekDates = Date().getWeekDates() // Get dates of Current and Next week.
+        let df = DateFormatter()
+        df.dateFormat = "yyyy-MM-dd HH:mm:ss Z"
         
-        //let dateFormatter = "yyyy-MM-dd HH:mm:ssZ" // Date format
+        print(df.string(from: startDate)) // 2022-10-31 21:08:17 +0200
         
-        //let dateFormatter = DateFormatter()
-        //dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ssZ"
-        
-        
-        //let thisMon = toDate(format: arrWeekDates.thisWeek.first!.toDate(format: dateFormatter))
-        //let thisSun = toDate(format: arrWeekDates.thisWeek[arrWeekDates.thisWeek.count - 1].toDate(format: dateFormatter))
-        
-        
-        
-        
-        //        let startDate = Calendar.current.startOfDay(for: Date())
-        //        var components = DateComponents()
-        //        components.day = 2
-        //        components.second = -1
-        //        let endDate = Calendar.current.date(byAdding: components, to: startDate)!
-        
-        //
-        let calendar = Calendar.current
+        print(df.string(from: endDate)) // 2022-11-06 21:08:17 +0200
 
-        let startDate = calendar.date(
-            from: DateComponents(
-                timeZone: timeZone,
-                year: 2022,
-                month: 10,
-                day: 31)
-        )!
-        print("startDate \(startDate)") //2022-10-30 22:00:00 +0000
-        let endDate = calendar.date(
-            from: DateComponents(
-                timeZone: timeZone,
-                year: 2022,
-                month: 11,
-                day: 6)
-        )!
-        print("endDate \(endDate)") //2022-11-05 22:00:00 +0000
-        //
         
         let filterDays = NSPredicate(format: "dayWeek BEGINSWITH %@", days)
         let filterPeriod = NSPredicate(format: "timestamp >= %@ AND timestamp <= %@", startDate as NSDate, endDate as NSDate)
@@ -188,6 +146,6 @@ struct ChartsDaysView: View {
 
 struct ChartsDaysView_Previews: PreviewProvider {
     static var previews: some View {
-        ChartsDaysView()
+        ChartsDaysView(startDate: .constant(Date()), endDate: .constant(Date()))
     }
 }
