@@ -50,29 +50,52 @@ struct StatisticView: View {
                 
                 switch selectedDataType {
                     
-                //case .hours: StatisticChartHoursView()
+                    //case .hours: StatisticChartHoursView()
                 case .days: ChartsDaysView()
                 case .months: ChartsMonthsView()
                 case .years: ChartsYearsView()
                 case .all: AllEntriesView()
                     
                 }
-                
-                
             }
+            
             .navigationBarTitle(Text("Statistics"), displayMode: .large)
-            .navigationBarItems(trailing:
-                                    // Butoon Close
-                                Button(action: {
-                self.presentationMode.wrappedValue.dismiss()
-            }) {
-                Text("Close")
-                    .bold()
-                    .foregroundColor(Color(.red))
+            
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    
+                    Menu {
+                        Button {
+                            
+                        } label: {
+                            Text("This week")
+                        }
+                        
+                        Button {
+                            
+                        } label: {
+                            Text("Last week")
+                        }
+                    } label: {
+                        Label("calendar", systemImage: "calendar")
+                    }
+                    
+                    
+                }
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button(action: {
+                        self.presentationMode.wrappedValue.dismiss()
+                    }) {
+                        Text("Close")
+                            .bold()
+                            .foregroundColor(Color(.red))
+                    }
+                }
             }
-            )
         }
+        
     }
+    
 }
 
 struct StatisticView_Previews: PreviewProvider {

@@ -18,6 +18,7 @@
 		05CBAA0425FF5A1F0082FFF6 /* WhatsNew.txt in Resources */ = {isa = PBXBuildFile; fileRef = 05CBAA0325FF5A1F0082FFF6 /* WhatsNew.txt */; };
 		05CBAA0825FF5AC60082FFF6 /* AppReviewRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05CBAA0725FF5AC60082FFF6 /* AppReviewRequest.swift */; };
 		05D745DA2914208300714D4A /* ChartDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D745D92914208300714D4A /* ChartDataModel.swift */; };
+		05F2CC852915813B002F7AF9 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F2CC842915813B002F7AF9 /* Date.swift */; };
 		C40354B225821C61003DF1AC /* BarHoursView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40354B125821C61003DF1AC /* BarHoursView.swift */; };
 		C40354B525821D16003DF1AC /* StatisticChartHoursView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40354B425821D15003DF1AC /* StatisticChartHoursView.swift */; };
 		C40606D0250B851E008302F5 /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40606CF250B851E008302F5 /* UserSettings.swift */; };
@@ -49,6 +50,7 @@
 		05CBAA0325FF5A1F0082FFF6 /* WhatsNew.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = WhatsNew.txt; sourceTree = "<group>"; };
 		05CBAA0725FF5AC60082FFF6 /* AppReviewRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppReviewRequest.swift; path = PomodOK/Model/AppReviewRequest.swift; sourceTree = SOURCE_ROOT; };
 		05D745D92914208300714D4A /* ChartDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartDataModel.swift; sourceTree = "<group>"; };
+		05F2CC842915813B002F7AF9 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		C40354B125821C61003DF1AC /* BarHoursView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarHoursView.swift; sourceTree = "<group>"; };
 		C40354B425821D15003DF1AC /* StatisticChartHoursView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticChartHoursView.swift; sourceTree = "<group>"; };
 		C40606CF250B851E008302F5 /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
@@ -173,6 +175,7 @@
 				C4EB80CD257A6B900045B192 /* DynamicFetchView.swift */,
 				C4EB80D0257A6BB10045B192 /* Persistence.swift */,
 				C458F30C257E5BD900E35AD9 /* ItemFormatter.swift */,
+				05F2CC842915813B002F7AF9 /* Date.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -275,6 +278,7 @@
 				C464FB9B2502974100E0336E /* PomodOK.xcdatamodeld in Sources */,
 				056BF0CC287B1A8E0066EB59 /* NotificationManager.swift in Sources */,
 				05BE007B27064F450004D127 /* HeaderSettingView.swift in Sources */,
+				05F2CC852915813B002F7AF9 /* Date.swift in Sources */,
 				05CBAA0125FF59D00082FFF6 /* WhatsNew.swift in Sources */,
 				C458F30D257E5BD900E35AD9 /* ItemFormatter.swift in Sources */,
 				C4C0989E259C934500529107 /* PanelPomodoroView.swift in Sources */,

@@ -16,6 +16,7 @@ struct ChartsDaysView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.calendar) var calendar
     @Environment(\.timeZone) var timeZone
+
     
     var body: some View {
         
@@ -33,7 +34,7 @@ struct ChartsDaysView: View {
             Text("Statistics for the day")
                 .font(Font.system(size:24, design: .default))
                 .padding()
-            
+           
             Chart(chartDataSet, id: \.label) { item in
                 BarMark(
                     x: .value("Day", item.label),
@@ -69,6 +70,7 @@ struct ChartsDaysView: View {
         
     }
     
+
     
     func nameDayFull(day: String) -> String {
         switch day {
@@ -116,8 +118,34 @@ struct ChartsDaysView: View {
     }
     
     #warning("Доделать")
+    
+    func toDate(format: String = "yyyy-MM-dd HH:mm:ssZ") -> Date? {
+
+            let dateFormatter = DateFormatter()
+            dateFormatter.locale = Locale(identifier: "yyyy-MM-dd HH:mm:ssZ")
+            dateFormatter.calendar = Calendar(identifier: .gregorian)
+            dateFormatter.dateFormat = format
+            let date = dateFormatter.date(from: format)
+
+            return date
+
+        }
+    
     func checkItemDaysOfTheWeek(days: String) -> Int {
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Item")
+        
+        //let arrWeekDates = Date().getWeekDates() // Get dates of Current and Next week.
+        
+        //let dateFormatter = "yyyy-MM-dd HH:mm:ssZ" // Date format
+        
+        //let dateFormatter = DateFormatter()
+        //dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ssZ"
+        
+        
+        //let thisMon = toDate(format: arrWeekDates.thisWeek.first!.toDate(format: dateFormatter))
+        //let thisSun = toDate(format: arrWeekDates.thisWeek[arrWeekDates.thisWeek.count - 1].toDate(format: dateFormatter))
+        
+        
+        
         
         //        let startDate = Calendar.current.startOfDay(for: Date())
         //        var components = DateComponents()
@@ -127,28 +155,30 @@ struct ChartsDaysView: View {
         
         //
         let calendar = Calendar.current
-        
+
         let startDate = calendar.date(
             from: DateComponents(
                 timeZone: timeZone,
                 year: 2022,
                 month: 10,
-                day: 30)
+                day: 31)
         )!
+        print("startDate \(startDate)") //2022-10-30 22:00:00 +0000
         let endDate = calendar.date(
             from: DateComponents(
                 timeZone: timeZone,
                 year: 2022,
                 month: 11,
-                day: 3)
+                day: 6)
         )!
+        print("endDate \(endDate)") //2022-11-05 22:00:00 +0000
         //
         
-        let filterDate = NSPredicate(format: "dayWeek BEGINSWITH %@", days)
+        let filterDays = NSPredicate(format: "dayWeek BEGINSWITH %@", days)
         let filterPeriod = NSPredicate(format: "timestamp >= %@ AND timestamp <= %@", startDate as NSDate, endDate as NSDate)
+        let andPredicate = NSCompoundPredicate(type: .and, subpredicates: [filterDays, filterPeriod])
         
-        let andPredicate = NSCompoundPredicate(type: .and, subpredicates: [filterDate, filterPeriod])
-        
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Item")
         fetchRequest.predicate = andPredicate
         
         return ((try? viewContext.count(for: fetchRequest)) ?? 0)
