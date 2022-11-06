@@ -27,8 +27,8 @@ struct StatisticView: View {
     @State private var time = 1500
     @State var selectedDataType = DateType.days
     
-    @State private var startDate = Date()
-    @State private var endDate = Date()
+    @State private var startDate = Date.today().previous(.monday)
+    @State private var endDate = Date.today().next(.sunday, considerToday: true)
     
     enum DateType: String, Equatable, CaseIterable {
         //case hours = "Hours"
@@ -64,85 +64,86 @@ struct StatisticView: View {
             
             .navigationBarTitle(Text("Statistics"), displayMode: .large)
             
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    
-                    Menu {
-                        Button {
+                .toolbar {
+                    if selectedDataType == .days {
+                        ToolbarItem(placement: .navigationBarLeading) {
+                            Menu {
+                                Button {
+                                    let date = Date()
+                                    let calendar = Calendar.current
+                                    
+                                    let startOfDate = calendar.date(from: DateComponents(year: calendar.component(.year, from: date),
+                                                                                         month: calendar.component(.month, from: date),
+                                                                                         day: calendar.component(.day, from: date),
+                                                                                         hour: 0,
+                                                                                         minute: 0,
+                                                                                         second: 0
+                                                                                        ))!
+                                    
+                                    let endOfDate = calendar.date(from: DateComponents(year: calendar.component(.year, from: date),
+                                                                                       month: calendar.component(.month, from: date),
+                                                                                       day: calendar.component(.day, from: date),
+                                                                                       hour: 23,
+                                                                                       minute: 59,
+                                                                                       second: 59
+                                                                                      ))!
+                                    
+                                    startDate = startOfDate.previous(.monday)
+                                    endDate = endOfDate.next(.sunday)
+                                } label: {
+                                    Text("This week")
+                                }
+                                
+                                Button {
+                                    let date = Date()
+                                    let calendar = Calendar.current
+                                    
+                                    // Add 7 days
+                                    let dateLast = Calendar.current.date(byAdding: .day, value: -7, to: date)
+                                    
+                                    let startOfDate = calendar.date(from: DateComponents(year: calendar.component(.year, from: dateLast!),
+                                                                                         month: calendar.component(.month, from: dateLast!),
+                                                                                         day: calendar.component(.day, from: dateLast!),
+                                                                                         hour: 0,
+                                                                                         minute: 0,
+                                                                                         second: 0
+                                                                                        ))!
+                                    
+                                    let endOfDate = calendar.date(from: DateComponents(year: calendar.component(.year, from: date),
+                                                                                       month: calendar.component(.month, from: date),
+                                                                                       day: calendar.component(.day, from: date),
+                                                                                       hour: 23,
+                                                                                       minute: 59,
+                                                                                       second: 59
+                                                                                      ))!
+                                    
+                                    
+                                    startDate = startOfDate.previous(.monday)
+                                    endDate = endOfDate.previous(.sunday)
+                                } label: {
+                                    Text("Last week")
+                                }
+                            } label: {
+                                Label("calendar", systemImage: "calendar").foregroundColor(Color(.red))
+                            }
                             
-                            let date = Date()
-                            let calendar = Calendar.current
                             
-                            let startOfDate = calendar.date(from: DateComponents(year: calendar.component(.year, from: date),
-                                                                                 month: calendar.component(.month, from: date),
-                                                                                 day: calendar.component(.day, from: date),
-                                                                          hour: 0,
-                                                                          minute: 0,
-                                                                          second: 0
-                                                                         ))!
- 
-                            let endOfDate = calendar.date(from: DateComponents(year: calendar.component(.year, from: date),
-                                                                                 month: calendar.component(.month, from: date),
-                                                                                 day: calendar.component(.day, from: date),
-                                                                          hour: 23,
-                                                                          minute: 59,
-                                                                          second: 59
-                                                                         ))!
-                            
-                            startDate = startOfDate.previous(.monday)
-                            endDate = endOfDate.next(.sunday)
-                        } label: {
-                            Text("This week")
                         }
-                        
-                        Button {
-                            let date = Date()
-                            let calendar = Calendar.current
-                            
-                            // Add 7 days
-                            let dateLast = Calendar.current.date(byAdding: .day, value: -7, to: date)
-                            
-                            let startOfDate = calendar.date(from: DateComponents(year: calendar.component(.year, from: dateLast!),
-                                                                                 month: calendar.component(.month, from: dateLast!),
-                                                                                 day: calendar.component(.day, from: dateLast!),
-                                                                          hour: 0,
-                                                                          minute: 0,
-                                                                          second: 0
-                                                                         ))!
- 
-                            let endOfDate = calendar.date(from: DateComponents(year: calendar.component(.year, from: date),
-                                                                                 month: calendar.component(.month, from: date),
-                                                                                 day: calendar.component(.day, from: date),
-                                                                          hour: 23,
-                                                                          minute: 59,
-                                                                          second: 59
-                                                                         ))!
-                            
-                            
-                            startDate = startOfDate.previous(.monday)
-                            endDate = endOfDate.previous(.sunday)
-                        } label: {
-                            Text("Last week")
-                        }
-                    } label: {
-                        Label("calendar", systemImage: "calendar")
                     }
-                    
-                    
-                }
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(action: {
-                        self.presentationMode.wrappedValue.dismiss()
-                    }) {
-                        Text("Close")
-                            .bold()
-                            .foregroundColor(Color(.red))
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Button(action: {
+                            self.presentationMode.wrappedValue.dismiss()
+                        }) {
+                            Text("Close")
+                                .bold()
+                                .foregroundColor(Color(.red))
+                        }
                     }
                 }
             }
         }
         
-    }
+    
     
 }
 

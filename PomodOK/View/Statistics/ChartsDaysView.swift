@@ -36,8 +36,10 @@ struct ChartsDaysView: View {
             Text("Statistics for the day")
                 .font(Font.system(size:24, design: .default))
                 .padding()
-            Text("startDate: \(startDate.formatted(date: .abbreviated, time: .shortened))")
-            Text("endDate: \(endDate.formatted(date: .abbreviated, time: .shortened))")
+            HStack (alignment: .center){
+                Text("From \(startDate.formatted(date: .abbreviated, time: .omitted))")
+                Text("to \(endDate.formatted(date: .abbreviated, time: .omitted))")
+            }
            
             Chart(chartDataSet, id: \.label) { item in
                 BarMark(
@@ -90,37 +92,6 @@ struct ChartsDaysView: View {
         }
     }
     
-//    func callThisDay(startDate: Date, endDate: Date) -> [Item] {
-//        let fetchRequest : NSFetchRequest<Item> = Item.fetchRequest()
-//        fetchRequest.predicate = NSPredicate(format: "date >= %@ AND date < %@", startDate as NSDate, endDate as NSDate)
-//        do {
-//            return try viewContext.fetch(fetchRequest)
-//        } catch {
-//            print(error)
-//            return []
-//        }
-//    }
-//
-//    func loadBreakfastItemsFromCoreData(at date: Date) -> [Item] {
-//        let request: NSFetchRequest<Item> = Item.fetchRequest()
-//
-//        let startDate = Calendar.current.startOfDay(for: date)
-//        var components = DateComponents()
-//        components.day = 1
-//        components.second = -1
-//        let endDate = Calendar.current.date(byAdding: components, to: startDate)!
-//
-//        request.predicate = NSPredicate(format: "date >= %@ AND date <= %@", startDate as NSDate, endDate as NSDate)
-//        // Optional: You can sort by date
-//        request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: true)]
-//        do {
-//            return try viewContext.fetch(request)
-//        } catch {
-//            print("Error fetching data from context: \(error)")
-//        }
-//        return []
-//    }
-    
     
     func checkItemDaysOfTheWeek(days: String) -> Int {
         
@@ -132,9 +103,9 @@ struct ChartsDaysView: View {
         print(df.string(from: endDate)) // 2022-11-06 21:08:17 +0200
 
         
-        let filterDays = NSPredicate(format: "dayWeek BEGINSWITH %@", days)
+        let filterNameDays = NSPredicate(format: "dayWeek BEGINSWITH %@", days)
         let filterPeriod = NSPredicate(format: "timestamp >= %@ AND timestamp <= %@", startDate as NSDate, endDate as NSDate)
-        let andPredicate = NSCompoundPredicate(type: .and, subpredicates: [filterDays, filterPeriod])
+        let andPredicate = NSCompoundPredicate(type: .and, subpredicates: [filterNameDays, filterPeriod])
         
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Item")
         fetchRequest.predicate = andPredicate
