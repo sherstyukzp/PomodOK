@@ -52,14 +52,14 @@ struct ChartsMonthsView: View {
                     let minMonth = chartDataSet.min { a, b in a.value < b.value }
                     Divider()
                     HStack {
-                        Text("The best month: ")
-                        Text("\(nameMonthFull(month: maxMonth?.label ?? ""))")
+                        Text("The best month:")
+                        Text(" \(nameMonthFull(month: maxMonth?.label ?? ""))")
                             .foregroundColor(.blue)
                             .fontWeight(.bold)
                     }
                     HStack {
-                        Text("The worst month: ")
-                        Text("\(nameMonthFull(month: minMonth?.label ?? ""))")
+                        Text("The worst month:")
+                        Text(" \(nameMonthFull(month: minMonth?.label ?? ""))")
                             .foregroundColor(.blue)
                             .fontWeight(.bold)
                     }

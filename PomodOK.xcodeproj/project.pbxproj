@@ -12,6 +12,7 @@
 		0570B33C28DF4E1C00458CF0 /* ChartsDaysView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0570B33B28DF4E1C00458CF0 /* ChartsDaysView.swift */; };
 		0570B33E28DF586500458CF0 /* ChartsYearsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0570B33D28DF586500458CF0 /* ChartsYearsView.swift */; };
 		0570B34228DF5B1400458CF0 /* ChartsMonthsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0570B34128DF5B1400458CF0 /* ChartsMonthsView.swift */; };
+		0570F59029C63ABD00E4C84F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0570F59229C63ABD00E4C84F /* Localizable.strings */; };
 		05BE0076270641950004D127 /* CustomTabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BE0075270641950004D127 /* CustomTabBarView.swift */; };
 		05BE007B27064F450004D127 /* HeaderSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BE007A27064F450004D127 /* HeaderSettingView.swift */; };
 		05CBAA0125FF59D00082FFF6 /* WhatsNew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05CBAA0025FF59D00082FFF6 /* WhatsNew.swift */; };
@@ -44,6 +45,22 @@
 		0570B33B28DF4E1C00458CF0 /* ChartsDaysView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartsDaysView.swift; sourceTree = "<group>"; };
 		0570B33D28DF586500458CF0 /* ChartsYearsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartsYearsView.swift; sourceTree = "<group>"; };
 		0570B34128DF5B1400458CF0 /* ChartsMonthsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartsMonthsView.swift; sourceTree = "<group>"; };
+		0570F58629C6329200E4C84F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		0570F59129C63ABD00E4C84F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		0570F59329C63FB000E4C84F /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/Localizable.strings; sourceTree = "<group>"; };
+		0570F59429C63FC600E4C84F /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
+		0570F59529C6402A00E4C84F /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		0570F59629C6467900E4C84F /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Localizable.strings; sourceTree = "<group>"; };
+		0570F59729C646FA00E4C84F /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
+		0570F59829C6476C00E4C84F /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Localizable.strings; sourceTree = "<group>"; };
+		0570F59929C6493400E4C84F /* zh-HK */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-HK"; path = "zh-HK.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		0570F59A29C649DD00E4C84F /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		0570F59B29C64A4600E4C84F /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		0570F59C29C64CDF00E4C84F /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/Localizable.strings; sourceTree = "<group>"; };
+		0570F59D29C64D7800E4C84F /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
+		0570F59E29C64F4600E4C84F /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Localizable.strings; sourceTree = "<group>"; };
+		0570F59F29C64FE800E4C84F /* ru-BY */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "ru-BY"; path = "ru-BY.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		0570F5A029C650F100E4C84F /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 		05BE0075270641950004D127 /* CustomTabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarView.swift; sourceTree = "<group>"; };
 		05BE007A27064F450004D127 /* HeaderSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderSettingView.swift; sourceTree = "<group>"; };
 		05CBAA0025FF59D00082FFF6 /* WhatsNew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WhatsNew.swift; path = PomodOK/Model/WhatsNew.swift; sourceTree = SOURCE_ROOT; };
@@ -128,6 +145,7 @@
 		C464FB892502974100E0336E = {
 			isa = PBXGroup;
 			children = (
+				0570F59229C63ABD00E4C84F /* Localizable.strings */,
 				C464FB942502974100E0336E /* PomodOK */,
 				C464FB932502974100E0336E /* Products */,
 			);
@@ -242,6 +260,20 @@
 			knownRegions = (
 				en,
 				Base,
+				uk,
+				ru,
+				fr,
+				it,
+				de,
+				pl,
+				"zh-HK",
+				"zh-Hans",
+				"zh-Hant",
+				cs,
+				es,
+				sv,
+				"ru-BY",
+				ja,
 			);
 			mainGroup = C464FB892502974100E0336E;
 			productRefGroup = C464FB932502974100E0336E /* Products */;
@@ -258,6 +290,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0570F59029C63ABD00E4C84F /* Localizable.strings in Resources */,
 				C464FBA52502974C00E0336E /* LaunchScreen.storyboard in Resources */,
 				05CBAA0425FF5A1F0082FFF6 /* WhatsNew.txt in Resources */,
 				C464FBA22502974C00E0336E /* Preview Assets.xcassets in Resources */,
@@ -303,10 +336,33 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		0570F59229C63ABD00E4C84F /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0570F59129C63ABD00E4C84F /* en */,
+				0570F59329C63FB000E4C84F /* uk */,
+				0570F59429C63FC600E4C84F /* ru */,
+				0570F59529C6402A00E4C84F /* fr */,
+				0570F59629C6467900E4C84F /* it */,
+				0570F59729C646FA00E4C84F /* de */,
+				0570F59829C6476C00E4C84F /* pl */,
+				0570F59929C6493400E4C84F /* zh-HK */,
+				0570F59A29C649DD00E4C84F /* zh-Hans */,
+				0570F59B29C64A4600E4C84F /* zh-Hant */,
+				0570F59C29C64CDF00E4C84F /* cs */,
+				0570F59D29C64D7800E4C84F /* es */,
+				0570F59E29C64F4600E4C84F /* sv */,
+				0570F59F29C64FE800E4C84F /* ru-BY */,
+				0570F5A029C650F100E4C84F /* ja */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		C464FBA32502974C00E0336E /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				C464FBA42502974C00E0336E /* Base */,
+				0570F58629C6329200E4C84F /* en */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -318,6 +374,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -364,7 +421,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.7;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -378,6 +435,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -418,7 +476,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.7;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;

@@ -42,14 +42,14 @@ struct ChartsYearsView: View {
                     let minYear = chartDataSet.min { a, b in a.value < b.value }
                     Divider()
                     HStack {
-                        Text("The best year: ")
-                        Text("\(maxYear?.label ?? "")")
+                        Text("The best year:")
+                        Text(" \(maxYear?.label ?? "")")
                             .foregroundColor(.blue)
                             .fontWeight(.bold)
                     }
                     HStack {
-                        Text("The worst year: ")
-                        Text("\(minYear?.label ?? "")")
+                        Text("The worst year:")
+                        Text(" \(minYear?.label ?? "")")
                             .foregroundColor(.blue)
                             .fontWeight(.bold)
                     }

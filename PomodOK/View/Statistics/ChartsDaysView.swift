@@ -57,14 +57,14 @@ struct ChartsDaysView: View {
                     let minDay = chartDataSet.min { a, b in a.value < b.value }
                     Divider()
                     HStack {
-                        Text("The best day: ")
-                        Text("\(nameDayFull(day: maxDay?.label ?? ""))")
+                        Text("The best day:")
+                        Text(" \(nameDayFull(day: maxDay?.label ?? ""))")
                             .foregroundColor(.blue)
                             .fontWeight(.bold)
                     }
                     HStack {
-                        Text("The worst day: ")
-                        Text("\(nameDayFull(day: minDay?.label ?? ""))")
+                        Text("The worst day:")
+                        Text(" \(nameDayFull(day: minDay?.label ?? ""))")
                             .foregroundColor(.blue)
                             .fontWeight(.bold)
                     }

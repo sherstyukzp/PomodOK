@@ -64,13 +64,23 @@ struct SettingsView: View {
                 Section(header: HeaderSettingView(imageIcon: "deskclock", text: "TIMER")) {
                     
                     Stepper(value: $workSession, in: 1...60) {
-                        Text("Work Session \(workSession) min")
+                        HStack {
+                            Text("Work Session")
+                            Text(" \(workSession) min")
+                        }
                     }
                     Stepper(value: $shortBreak, in: 1...60) {
-                        Text("Short Break \(shortBreak) min")
+                        HStack {
+                            Text("Short Break")
+                            Text(" \(shortBreak) min")
+                        }
                     }
                     Stepper(value: $longBreak, in: 1...60) {
-                        Text("Long Break \(longBreak) min")
+                        HStack{
+                            Text("Long Break")
+                            Text(" \(longBreak) min")
+                        }
+                        
                     }
                 }
                 

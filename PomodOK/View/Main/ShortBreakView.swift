@@ -70,7 +70,6 @@ struct ShortBreakView: View {
                 
                 if timeBraak != (shortBreak * 60) {
                     timeBraak += 1
-                    print("timeBraak \(timeBraak)")
                 }
                 if timeBraak == (shortBreak * 60) {
                     //--- Воспроизведение стандартного звука после завершения таймера

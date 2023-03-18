@@ -112,7 +112,7 @@ struct ContentView : View {
                         .shadow(color: Color("redColor").opacity(0.4), radius: 5, x: 0, y: 5)
                     
                     VStack {
-                        Text("Work session")
+                        Text("Work Session")
                             .foregroundColor(Color.white)
                             .font(.system(size: 32))
                             .fontWeight(.medium)
@@ -150,7 +150,7 @@ struct ContentView : View {
                 
             }
             
-            .navigationBarTitle(Text("Cycle"), displayMode: .large)
+            .navigationBarTitle(Text("PomodOK"), displayMode: .large)
             .navigationBarItems(trailing:
                                     // Butoon Restart
                                 Button(action: {
@@ -258,8 +258,6 @@ struct ContentView : View {
             newItem.dayWeek = ItemFormatter.init().itemFormatterNameDayOfTheWeek.string(from: date)
             newItem.month = ItemFormatter.init().itemFormatterNameMonthNumber.string(from: date)
             newItem.year = ItemFormatter.init().itemFormatterNameYear.string(from: date)
-            
-            print ("👉 SaveData")
             
             do {
                 try viewContext.save()
