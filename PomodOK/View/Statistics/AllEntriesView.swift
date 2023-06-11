@@ -41,7 +41,8 @@ struct AllEntriesView: View {
                     Section(header: Text( self.dateFormatter.string(from: section[0].timestamp!))) {
                         ForEach(section, id: \.self) { item in
                             HStack {
-                                Text("Item at \(item.timestamp!, formatter: ItemFormatter.init().itemFormatter)")
+                                Text("Item at")
+                                Text("\(item.timestamp!, formatter: ItemFormatter.init().itemFormatter)")
                             }
                         }
                         .onDelete(perform: deleteItems)
@@ -67,8 +68,6 @@ struct AllEntriesView: View {
     private func addItem() {
         withAnimation {
             let newItem = Item(context: viewContext)
-            
-            
             newItem.timestamp = self.date
             newItem.hour = ItemFormatter.init().itemFormatterHour.string(from: date)
             newItem.dayWeek = ItemFormatter.init().itemFormatterNameDayOfTheWeek.string(from: date)

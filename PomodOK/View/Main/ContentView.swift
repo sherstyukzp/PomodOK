@@ -105,7 +105,6 @@ struct ContentView : View {
                         .padding()
                 }
                 
-                
                 ZStack(alignment: .center) {
                     RoundedRectangle(cornerRadius: 25, style: .continuous)
                         .fill(Color("redColor"))
@@ -137,7 +136,12 @@ struct ContentView : View {
                                     .foregroundColor(.white)
                                     .fontWeight(.bold)
                                 
-                                Text("Of \(workSession) min")
+                                HStack {
+                                    Text("Of")
+                                    Text("\(workSession)")
+                                    Text("min")
+                                }
+                                
                                     .font(.title)
                                     .foregroundColor(.white)
                             }

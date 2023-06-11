@@ -49,7 +49,7 @@ struct SettingsView: View {
     var body: some View {
         NavigationView {
             Form {
-                Section(header: HeaderSettingView(imageIcon: "bell", text: "NOTIFICATIONS")) {
+                Section(header: Label("NOTIFICATIONS", systemImage: "bell")) {
                     Toggle(isOn: $isNotificationsEnabled) {
                         Text("Push notifications")
                     }
@@ -61,31 +61,37 @@ struct SettingsView: View {
                     }
                 }
                 
-                Section(header: HeaderSettingView(imageIcon: "deskclock", text: "TIMER")) {
-                    
+                Section(header: Label("TIMER", systemImage: "deskclock")) {
                     Stepper(value: $workSession, in: 1...60) {
                         HStack {
                             Text("Work Session")
-                            Text(" \(workSession) min")
+                            Spacer()
+                            Text("\(workSession)")
+                            Text("min")
                         }
                     }
                     Stepper(value: $shortBreak, in: 1...60) {
                         HStack {
                             Text("Short Break")
-                            Text(" \(shortBreak) min")
+                            Spacer()
+                            Text("\(shortBreak)")
+                            Text("min")
+                            
                         }
                     }
                     Stepper(value: $longBreak, in: 1...60) {
                         HStack{
                             Text("Long Break")
-                            Text(" \(longBreak) min")
+                            Spacer()
+                            Text("\(longBreak)")
+                            Text("min")
                         }
                         
                     }
                 }
                 
                 if !items.isEmpty {
-                    Section(header: HeaderSettingView(imageIcon: "tray.2", text: "Data")) {
+                    Section(header: Label("Data", systemImage: "tray.2")) {
                         // Экспорт
 //                        Button {
 //                            shareButton()
@@ -101,7 +107,7 @@ struct SettingsView: View {
                     }
                 }
                 
-                Section(header: HeaderSettingView(imageIcon: "info.circle", text: "About")) {
+                Section(header: Label("About", systemImage: "info.circle")) {
                     HStack {
                         Text("Software Version")
                         Spacer()
@@ -125,7 +131,7 @@ struct SettingsView: View {
                     }
                 }
                 
-                Section(header: HeaderSettingView(imageIcon: "bubble.left", text: "Contact Us")) {
+                Section(header: Label("Contact Us", systemImage: "bubble.left")) {
                     Link("Twitter", destination: URL(string: "https://twitter.com/PomodOk")!)
                 }
                 

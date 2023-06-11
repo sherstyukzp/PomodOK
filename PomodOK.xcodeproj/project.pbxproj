@@ -61,6 +61,7 @@
 		0570F59E29C64F4600E4C84F /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Localizable.strings; sourceTree = "<group>"; };
 		0570F59F29C64FE800E4C84F /* ru-BY */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "ru-BY"; path = "ru-BY.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		0570F5A029C650F100E4C84F /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
+		0583E4402A36277300572B37 /* PomodOK.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PomodOK.entitlements; sourceTree = "<group>"; };
 		05BE0075270641950004D127 /* CustomTabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarView.swift; sourceTree = "<group>"; };
 		05BE007A27064F450004D127 /* HeaderSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderSettingView.swift; sourceTree = "<group>"; };
 		05CBAA0025FF59D00082FFF6 /* WhatsNew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WhatsNew.swift; path = PomodOK/Model/WhatsNew.swift; sourceTree = SOURCE_ROOT; };
@@ -162,6 +163,7 @@
 		C464FB942502974100E0336E /* PomodOK */ = {
 			isa = PBXGroup;
 			children = (
+				0583E4402A36277300572B37 /* PomodOK.entitlements */,
 				C464FB952502974100E0336E /* AppDelegate.swift */,
 				C464FB972502974100E0336E /* SceneDelegate.swift */,
 				C4EB80E2257A77890045B192 /* Model */,
@@ -490,8 +492,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = PomodOK/PomodOK.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 108;
+				CURRENT_PROJECT_VERSION = 109;
 				DEVELOPMENT_ASSET_PATHS = "\"PomodOK/Preview Content\"";
 				DEVELOPMENT_TEAM = U6LJ73DDJU;
 				ENABLE_PREVIEWS = YES;
@@ -502,7 +505,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.8;
+				MARKETING_VERSION = 1.0.9;
 				PRODUCT_BUNDLE_IDENTIFIER = com.YaroslavSherstyuk.PomodOK;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -514,8 +517,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = PomodOK/PomodOK.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 108;
+				CURRENT_PROJECT_VERSION = 109;
 				DEVELOPMENT_ASSET_PATHS = "\"PomodOK/Preview Content\"";
 				DEVELOPMENT_TEAM = U6LJ73DDJU;
 				ENABLE_PREVIEWS = YES;
@@ -526,7 +530,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.8;
+				MARKETING_VERSION = 1.0.9;
 				PRODUCT_BUNDLE_IDENTIFIER = com.YaroslavSherstyuk.PomodOK;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

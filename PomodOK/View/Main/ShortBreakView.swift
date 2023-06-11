@@ -21,7 +21,7 @@ struct ShortBreakView: View {
     
     @Binding var shortBreak: Int
     @State private var timeBraak: Int = 0
-
+    
     //--- Sound ID
     let systemSoundID: SystemSoundID = 1313
     
@@ -31,11 +31,15 @@ struct ShortBreakView: View {
         ZStack {
             VStack {
                 Spacer()
-                Text ("Relax for another \(shortBreak) minutes")
-                    .font(.system(size: 50))
-                    .foregroundColor(.gray)
-                    .multilineTextAlignment(.leading)
-                    .padding(.horizontal, 20.0)
+                HStack {
+                    Text ("Relax for another")
+                    Text ("\(shortBreak)")
+                    Text ("minutes")
+                }
+                .font(.system(size: 50))
+                .foregroundColor(.gray)
+                .multilineTextAlignment(.leading)
+                .padding(.horizontal, 20.0)
                 Spacer()
                 Image("relaxing")
                     .resizable()

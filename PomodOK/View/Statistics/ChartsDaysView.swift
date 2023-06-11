@@ -37,8 +37,10 @@ struct ChartsDaysView: View {
                 .font(Font.system(size:24, design: .default))
                 .padding()
             HStack (alignment: .center){
-                Text("From \(startDate.formatted(date: .abbreviated, time: .omitted))")
-                Text("to \(endDate.formatted(date: .abbreviated, time: .omitted))")
+                Text("From")
+                Text("\(startDate.formatted(date: .abbreviated, time: .omitted))")
+                Text("to")
+                Text("\(endDate.formatted(date: .abbreviated, time: .omitted))")
             }
            
             Chart(chartDataSet, id: \.label) { item in
