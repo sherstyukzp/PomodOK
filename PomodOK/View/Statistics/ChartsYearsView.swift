@@ -1,31 +1,29 @@
-//
-//  ChartsYearsView.swift
-//  PomodOK
-//
-//  Created by Ярослав Шерстюк on 24.09.2022.
-//  Copyright © 2022 Ярослав Шерстюк. All rights reserved.
-//
-
 import SwiftUI
-import CoreData
+import SwiftData
 import Charts
 
 struct ChartsYearsView: View {
-    
-    @Environment(\.managedObjectContext) private var viewContext
-    
+
+    @Query(sort: \PomodoroSession.timestamp) private var sessions: [PomodoroSession]
+
+    private var years: [Int] {
+        let cal = Calendar.current
+        let currentYear = cal.component(.year, from: Date())
+        guard let first = sessions.first else { return [currentYear] }
+        let firstYear = cal.component(.year, from: first.timestamp)
+        return Array(firstYear...currentYear)
+    }
+
     var body: some View {
-        
-        let chartDataSet = [
-            ChartDataModel(label: "2021", value: checkItemDaysOfTheYear(year: "2021")),
-            ChartDataModel(label: "2022", value: checkItemDaysOfTheYear(year: "2022")),
-            ChartDataModel(label: "2023", value: checkItemDaysOfTheYear(year: "2023"))
-        ]
-        
+        let chartDataSet = years.map {
+            ChartDataModel(label: "\($0)", value: countSessions(year: $0))
+        }
+
         VStack {
             Text("Statistics for the year")
-                .font(Font.system(size:24, design: .default))
+                .font(Font.system(size: 24, design: .default))
                 .padding()
+
             Chart(chartDataSet, id: \.label) { item in
                 BarMark(
                     x: .value("Year", item.label),
@@ -35,21 +33,21 @@ struct ChartsYearsView: View {
             .foregroundColor(Color("redColor"))
             .frame(height: 250)
             .padding()
-            
+
             HStack {
                 VStack(alignment: .leading, spacing: 10) {
-                    let maxYear = chartDataSet.max { a, b in a.value < b.value }
-                    let minYear = chartDataSet.min { a, b in a.value < b.value }
+                    let maxYear = chartDataSet.max { $0.value < $1.value }
+                    let minYear = chartDataSet.min { $0.value < $1.value }
                     Divider()
                     HStack {
                         Text("The best year:")
-                        Text(" \(maxYear?.label ?? "")")
+                        Text(maxYear?.label ?? "")
                             .foregroundColor(.blue)
                             .fontWeight(.bold)
                     }
                     HStack {
                         Text("The worst year:")
-                        Text(" \(minYear?.label ?? "")")
+                        Text(minYear?.label ?? "")
                             .foregroundColor(.blue)
                             .fontWeight(.bold)
                     }
@@ -60,17 +58,18 @@ struct ChartsYearsView: View {
         }
         Spacer()
     }
-    
-    func checkItemDaysOfTheYear(year: String) -> Int {
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Item")
-        fetchRequest.predicate = NSPredicate(format: "year BEGINSWITH %@", year)
-        return ((try? viewContext.count(for: fetchRequest)) ?? 0)
+
+    private func countSessions(year: Int) -> Int {
+        let cal = Calendar.current
+        return sessions.filter {
+            cal.component(.year, from: $0.timestamp) == year
+        }.count
     }
-    
 }
 
 struct ChartsYearsView_Previews: PreviewProvider {
     static var previews: some View {
         ChartsYearsView()
+            .modelContainer(for: [PomodoroSession.self, PomodoroTask.self], inMemory: true)
     }
 }

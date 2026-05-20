@@ -1,48 +1,38 @@
-//
-//  ChartsDaysView.swift
-//  PomodOK
-//
-//  Created by Ярослав Шерстюк on 24.09.2022.
-//  Copyright © 2022 Ярослав Шерстюк. All rights reserved.
-//
-
 import SwiftUI
-import CoreData
+import SwiftData
 import Charts
 
-
 struct ChartsDaysView: View {
-    
-    @Environment(\.managedObjectContext) private var viewContext
-    @Environment(\.calendar) var calendar
-    @Environment(\.timeZone) var timeZone
 
-    @Binding var startDate: Date // This week
-    @Binding var endDate: Date // Previous week
-    
+    @Query(sort: \PomodoroSession.timestamp) private var sessions: [PomodoroSession]
+    @Environment(\.calendar) var calendar
+
+    @Binding var startDate: Date
+    @Binding var endDate: Date
+
     var body: some View {
-        
         let chartDataSet = [
-            ChartDataModel(label: "Mo", value: checkItemDaysOfTheWeek(days: "Monday")),
-            ChartDataModel(label: "Tu", value: checkItemDaysOfTheWeek(days: "Tuesday")),
-            ChartDataModel(label: "We", value: checkItemDaysOfTheWeek(days: "Wednesday")),
-            ChartDataModel(label: "Th", value: checkItemDaysOfTheWeek(days: "Thursday")),
-            ChartDataModel(label: "Fr", value: checkItemDaysOfTheWeek(days: "Friday")),
-            ChartDataModel(label: "Sa", value: checkItemDaysOfTheWeek(days: "Saturday")),
-            ChartDataModel(label: "Su", value: checkItemDaysOfTheWeek(days: "Sunday"))
+            ChartDataModel(label: "Mo", value: countSessions(weekday: 2)),
+            ChartDataModel(label: "Tu", value: countSessions(weekday: 3)),
+            ChartDataModel(label: "We", value: countSessions(weekday: 4)),
+            ChartDataModel(label: "Th", value: countSessions(weekday: 5)),
+            ChartDataModel(label: "Fr", value: countSessions(weekday: 6)),
+            ChartDataModel(label: "Sa", value: countSessions(weekday: 7)),
+            ChartDataModel(label: "Su", value: countSessions(weekday: 1)),
         ]
-        
+
         VStack(alignment: .center) {
             Text("Statistics for the day")
-                .font(Font.system(size:24, design: .default))
+                .font(Font.system(size: 24, design: .default))
                 .padding()
-            HStack (alignment: .center){
+
+            HStack {
                 Text("From")
-                Text("\(startDate.formatted(date: .abbreviated, time: .omitted))")
+                Text(startDate.formatted(date: .abbreviated, time: .omitted))
                 Text("to")
-                Text("\(endDate.formatted(date: .abbreviated, time: .omitted))")
+                Text(endDate.formatted(date: .abbreviated, time: .omitted))
             }
-           
+
             Chart(chartDataSet, id: \.label) { item in
                 BarMark(
                     x: .value("Day", item.label),
@@ -52,35 +42,41 @@ struct ChartsDaysView: View {
             .foregroundColor(Color("redColor"))
             .frame(height: 250)
             .padding()
-            
+
             HStack {
                 VStack(alignment: .leading, spacing: 10) {
-                    let maxDay = chartDataSet.max { a, b in a.value < b.value }
-                    let minDay = chartDataSet.min { a, b in a.value < b.value }
+                    let maxDay = chartDataSet.max { $0.value < $1.value }
+                    let minDay = chartDataSet.min { $0.value < $1.value }
                     Divider()
                     HStack {
                         Text("The best day:")
-                        Text(" \(nameDayFull(day: maxDay?.label ?? ""))")
+                        Text(nameDayFull(day: maxDay?.label ?? ""))
                             .foregroundColor(.blue)
                             .fontWeight(.bold)
                     }
                     HStack {
                         Text("The worst day:")
-                        Text(" \(nameDayFull(day: minDay?.label ?? ""))")
+                        Text(nameDayFull(day: minDay?.label ?? ""))
                             .foregroundColor(.blue)
                             .fontWeight(.bold)
                     }
                 }
                 Spacer()
-            }.padding()
+            }
+            .padding()
         }
         Spacer()
-        
     }
-    
 
-    
-    func nameDayFull(day: String) -> String {
+    private func countSessions(weekday: Int) -> Int {
+        sessions.filter { session in
+            session.timestamp >= startDate &&
+            session.timestamp <= endDate &&
+            calendar.component(.weekday, from: session.timestamp) == weekday
+        }.count
+    }
+
+    private func nameDayFull(day: String) -> String {
         switch day {
         case "Mo": return "Monday"
         case "Tu": return "Tuesday"
@@ -89,36 +85,14 @@ struct ChartsDaysView: View {
         case "Fr": return "Friday"
         case "Sa": return "Saturday"
         case "Su": return "Sunday"
-        default:
-            return ""
+        default: return ""
         }
     }
-    
-    
-    func checkItemDaysOfTheWeek(days: String) -> Int {
-        
-        let df = DateFormatter()
-        df.dateFormat = "yyyy-MM-dd HH:mm:ss Z"
-        
-        print(df.string(from: startDate)) // 2022-10-31 21:08:17 +0200
-        
-        print(df.string(from: endDate)) // 2022-11-06 21:08:17 +0200
-
-        
-        let filterNameDays = NSPredicate(format: "dayWeek BEGINSWITH %@", days)
-        let filterPeriod = NSPredicate(format: "timestamp >= %@ AND timestamp <= %@", startDate as NSDate, endDate as NSDate)
-        let andPredicate = NSCompoundPredicate(type: .and, subpredicates: [filterNameDays, filterPeriod])
-        
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Item")
-        fetchRequest.predicate = andPredicate
-        
-        return ((try? viewContext.count(for: fetchRequest)) ?? 0)
-    }
-    
 }
 
 struct ChartsDaysView_Previews: PreviewProvider {
     static var previews: some View {
         ChartsDaysView(startDate: .constant(Date()), endDate: .constant(Date()))
+            .modelContainer(for: [PomodoroSession.self, PomodoroTask.self], inMemory: true)
     }
 }

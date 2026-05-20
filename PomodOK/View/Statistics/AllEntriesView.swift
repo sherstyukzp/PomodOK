@@ -1,105 +1,72 @@
-//
-//  AllEntriesView.swift
-//  PomodOK
-//
-//  Created by Ярослав Шерстюк on 10.12.2020.
-//  Copyright © 2020 Ярослав Шерстюк. All rights reserved.
-//
-
 import SwiftUI
-import CoreData
+import SwiftData
 
 struct AllEntriesView: View {
-    
-    // MARK: - Variables
-    @Environment(\.managedObjectContext) private var viewContext
-    
-    @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \Item.timestamp, ascending: true)],
-        animation: .default)
-    private var items: FetchedResults<Item>
-    
-    @State private var date = Date()
-    
-    var dateFormatter: DateFormatter {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .short
-        return formatter
+
+    @Query(sort: \PomodoroSession.timestamp, order: .reverse) private var sessions: [PomodoroSession]
+    @Environment(\.modelContext) private var modelContext
+
+    private let dateFormatter: DateFormatter = {
+        let f = DateFormatter()
+        f.dateStyle = .short
+        return f
+    }()
+
+    // Groups sessions by calendar date, preserving reverse-chronological order.
+    private var groupedSessions: [(date: String, sessions: [PomodoroSession])] {
+        var groups: [(date: String, sessions: [PomodoroSession])] = []
+        var seen: Set<String> = []
+        for session in sessions {
+            let key = dateFormatter.string(from: session.timestamp)
+            if !seen.contains(key) {
+                seen.insert(key)
+                groups.append((date: key, sessions: []))
+            }
+            if let idx = groups.firstIndex(where: { $0.date == key }) {
+                groups[idx].sessions.append(session)
+            }
+        }
+        return groups
     }
-    
-    func update(_ result : FetchedResults<Item>)-> [[Item]] {
-        return  Dictionary(grouping: result){ (element : Item)  in
-            dateFormatter.string(from: element.timestamp!)
-        }.values.map{$0}
-    }
-    
-    // MARK: - Body
+
     var body: some View {
-        VStack {
-            List {
-                ForEach(update(items), id: \.self) { (section: [Item]) in
-                    Section(header: Text( self.dateFormatter.string(from: section[0].timestamp!))) {
-                        ForEach(section, id: \.self) { item in
-                            HStack {
-                                Text("Item at")
-                                Text("\(item.timestamp!, formatter: ItemFormatter.init().itemFormatter)")
+        List {
+            ForEach(groupedSessions, id: \.date) { group in
+                Section(header: Text(group.date)) {
+                    ForEach(group.sessions) { session in
+                        HStack {
+                            Image(systemName: "timer")
+                                .foregroundStyle(Color("redColor"))
+                            VStack(alignment: .leading, spacing: 2) {
+                                Text(session.timestamp, style: .time)
+                                if let taskTitle = session.task?.title {
+                                    Text(taskTitle)
+                                        .font(.caption)
+                                        .foregroundStyle(.secondary)
+                                }
                             }
+                            Spacer()
+                            Text("\(session.durationMinutes) min")
+                                .foregroundStyle(.secondary)
                         }
-                        .onDelete(perform: deleteItems)
                     }
-                }.id(items.count)
-            }
-            
-            HStack {
-                
-                DatePicker(selection: $date, in: ...Date(), displayedComponents: [.hourAndMinute, .date]) {
-//                    Text("Total records: \(items.count)")
+                    .onDelete { offsets in deleteSession(in: group.sessions, at: offsets) }
                 }
-                
-                Button("Add Item", action: addItem)
-            }
-            .padding()
-        }
-        
-    }
-    
-    //MARK: - Core Data
-    //MARK: - Save Item
-    private func addItem() {
-        withAnimation {
-            let newItem = Item(context: viewContext)
-            newItem.timestamp = self.date
-            newItem.hour = ItemFormatter.init().itemFormatterHour.string(from: date)
-            newItem.dayWeek = ItemFormatter.init().itemFormatterNameDayOfTheWeek.string(from: date)
-            newItem.month = ItemFormatter.init().itemFormatterNameMonthNumber.string(from: date)
-            newItem.year = ItemFormatter.init().itemFormatterNameYear.string(from: date)
-            
-            do {
-                try viewContext.save()
-            } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                let nsError = error as NSError
-                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
             }
         }
     }
-    
-    //MARK: - Delete Item
-    private func deleteItems(offsets: IndexSet) {
-        withAnimation {
-            offsets.map { items[$0] }.forEach(viewContext.delete)
-            
-            do {
-                try viewContext.save()
-            } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                let nsError = error as NSError
-                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-            }
+
+    private func deleteSession(in sessionList: [PomodoroSession], at offsets: IndexSet) {
+        for offset in offsets {
+            modelContext.delete(sessionList[offset])
         }
+        try? modelContext.save()
     }
 }
 
-
+struct AllEntriesView_Previews: PreviewProvider {
+    static var previews: some View {
+        AllEntriesView()
+            .modelContainer(for: [PomodoroSession.self, PomodoroTask.self], inMemory: true)
+    }
+}

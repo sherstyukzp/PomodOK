@@ -31,15 +31,18 @@ struct ShortBreakView: View {
         ZStack {
             VStack {
                 Spacer()
-                HStack {
-                    Text ("Relax for another")
-                    Text ("\(shortBreak)")
-                    Text ("minutes")
+                VStack(alignment: .leading) {
+                    Text ("Relax for")
+                    HStack {
+                        Text ("\(shortBreak)")
+                        Text ("minutes")
+                    }
+                    
                 }
                 .font(.system(size: 50))
                 .foregroundColor(.gray)
                 .multilineTextAlignment(.leading)
-                .padding(.horizontal, 20.0)
+                .padding(.horizontal)
                 Spacer()
                 Image("relaxing")
                     .resizable()
