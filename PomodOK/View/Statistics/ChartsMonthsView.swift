@@ -21,7 +21,7 @@ struct ChartsMonthsView: View {
             VStack(alignment: .leading, spacing: 16) {
                 // Metric toggle
                 Picker("Metric", selection: $metric) {
-                    ForEach(ChartMetric.allCases, id: \.self) { Text($0.rawValue).tag($0) }
+                    ForEach(ChartMetric.allCases, id: \.self) { Text($0.localizedName).tag($0) }
                 }
                 .pickerStyle(.segmented)
                 .padding(.horizontal)

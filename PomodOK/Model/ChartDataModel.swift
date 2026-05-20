@@ -1,4 +1,5 @@
 import Foundation
+import SwiftUI
 
 struct ChartDataModel {
     var label: String
@@ -8,4 +9,6 @@ struct ChartDataModel {
 enum ChartMetric: String, CaseIterable {
     case sessions = "Sessions"
     case minutes = "Minutes"
+
+    var localizedName: LocalizedStringKey { LocalizedStringKey(rawValue) }
 }

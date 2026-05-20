@@ -124,10 +124,13 @@ struct AllEntriesView: View {
         .padding(.vertical, 4)
         .overlay(alignment: .bottomLeading) {
             if !groupedSessions.isEmpty {
-                Text("Best day: \(bestDaySummary)")
-                    .font(.caption2)
-                    .foregroundStyle(.secondary)
-                    .offset(y: 20)
+                HStack(spacing: 4) {
+                    Text("Best day:")
+                    Text(bestDaySummary)
+                }
+                .font(.caption2)
+                .foregroundStyle(.secondary)
+                .offset(y: 20)
             }
         }
         .padding(.bottom, groupedSessions.isEmpty ? 0 : 18)

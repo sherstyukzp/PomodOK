@@ -25,10 +25,10 @@ struct SummaryView: View {
 
     private var keyMetricsGrid: some View {
         LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 12) {
-            StatCard(icon: "timer", title: "Pomodoros", value: "\(sessions.count)", color: Color("redColor"))
-            StatCard(icon: "clock.fill", title: "Focus Time", value: formatMinutes(totalMinutes), color: .orange)
-            StatCard(icon: "checkmark.circle.fill", title: "Tasks Done", value: "\(completedTasks.count)/\(tasks.count)", color: .green)
-            StatCard(icon: "flame.fill", title: "Day Streak", value: "\(currentStreak) days", color: .red)
+            StatCard(icon: "timer", titleKey: "Pomodoros", value: "\(sessions.count)", color: Color("redColor"))
+            StatCard(icon: "clock.fill", titleKey: "Focus Time", value: formatMinutes(totalMinutes), color: .orange)
+            StatCard(icon: "checkmark.circle.fill", titleKey: "Tasks Done", value: "\(completedTasks.count)/\(tasks.count)", color: .green)
+            StatCard(icon: "flame.fill", titleKey: "Day Streak", value: "\(currentStreak)", suffixKey: "days", color: .red)
         }
         .padding(.horizontal)
     }
@@ -42,32 +42,48 @@ struct SummaryView: View {
                 .padding(.horizontal)
 
             VStack(spacing: 8) {
-                insightRow(icon: "calendar", title: "Today", value: "\(todaySessionCount) sessions · \(formatMinutes(todayMinutes))", hint: todayVsAverageText)
-                insightRow(icon: "timer.square", title: "Average session", value: formatMinutes(averageSessionMinutes), hint: "Based on all completed sessions")
-                insightRow(icon: "sparkles", title: "Best weekday", value: bestWeekdayLabel, hint: "Most focused minutes across your history")
-                insightRow(icon: "target", title: "Plan completion", value: "\(completionRate)%", hint: "Completed vs planned pomodoros across tasks")
+                insightRow(icon: "calendar", titleKey: "Today", hintKey: todayVsAverageKey) {
+                    HStack(spacing: 4) {
+                        Text("\(todaySessionCount)")
+                        Text("sessions")
+                        Text("·")
+                        Text(formatMinutes(todayMinutes))
+                    }
+                    .font(.subheadline.weight(.semibold))
+                }
+                insightRow(icon: "timer.square", titleKey: "Average session", hintKey: "Based on all completed sessions") {
+                    Text(formatMinutes(averageSessionMinutes))
+                        .font(.subheadline.weight(.semibold))
+                }
+                insightRow(icon: "sparkles", titleKey: "Best weekday", hintKey: "Most focused minutes across your history") {
+                    Text(bestWeekdayLabel)
+                        .font(.subheadline.weight(.semibold))
+                }
+                insightRow(icon: "target", titleKey: "Plan completion", hintKey: "Completed vs planned pomodoros across tasks") {
+                    Text("\(completionRate)%")
+                        .font(.subheadline.weight(.semibold))
+                }
             }
             .padding(.horizontal)
         }
     }
 
-    private func insightRow(icon: String, title: String, value: String, hint: String) -> some View {
+    private func insightRow<Value: View>(icon: String, titleKey: LocalizedStringKey, hintKey: LocalizedStringKey, @ViewBuilder value: () -> Value) -> some View {
         HStack(spacing: 12) {
             Image(systemName: icon)
                 .foregroundStyle(Color("redColor"))
                 .frame(width: 22)
 
             VStack(alignment: .leading, spacing: 2) {
-                Text(title)
+                Text(titleKey)
                     .font(.caption)
                     .foregroundStyle(.secondary)
-                Text(value)
-                    .font(.subheadline.weight(.semibold))
+                value()
             }
 
             Spacer(minLength: 8)
 
-            Text(hint)
+            Text(hintKey)
                 .font(.caption2)
                 .multilineTextAlignment(.trailing)
                 .foregroundStyle(.secondary)
@@ -87,8 +103,8 @@ struct SummaryView: View {
                 .padding(.horizontal)
 
             HStack(spacing: 12) {
-                periodCard(title: "This Week", sessions: thisWeekSessions, highlighted: true)
-                periodCard(title: "Last Week", sessions: lastWeekSessions, highlighted: false)
+                periodCard(titleKey: "This Week", sessions: thisWeekSessions, highlighted: true)
+                periodCard(titleKey: "Last Week", sessions: lastWeekSessions, highlighted: false)
             }
             .padding(.horizontal)
 
@@ -96,7 +112,8 @@ struct SummaryView: View {
                 HStack {
                     Image(systemName: "chart.bar.xaxis")
                         .foregroundStyle(Color("redColor"))
-                    Text("Most productive at \(topHour)")
+                    Text("Most productive at")
+                    Text(topHour)
                         .fontWeight(.bold)
                 }
                 .font(.subheadline)
@@ -106,9 +123,9 @@ struct SummaryView: View {
         }
     }
 
-    private func periodCard(title: String, sessions: [PomodoroSession], highlighted: Bool) -> some View {
+    private func periodCard(titleKey: LocalizedStringKey, sessions: [PomodoroSession], highlighted: Bool) -> some View {
         VStack(alignment: .leading, spacing: 6) {
-            Text(title)
+            Text(titleKey)
                 .font(.caption)
                 .foregroundStyle(.secondary)
             Text("\(sessions.count)")
@@ -134,9 +151,12 @@ struct SummaryView: View {
                 Text("Tasks")
                     .font(.headline)
                 Spacer()
-                Text("\(completedTasks.count) of \(tasks.count) completed")
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
+                HStack(spacing: 3) {
+                    Text("\(completedTasks.count)/\(tasks.count)")
+                    Text("completed")
+                }
+                .font(.caption)
+                .foregroundStyle(.secondary)
             }
             .padding(.horizontal)
 
@@ -259,15 +279,12 @@ struct SummaryView: View {
         return Double(last7.count) / 7.0
     }
 
-    private var todayVsAverageText: String {
+    private var todayVsAverageKey: LocalizedStringKey {
         let diff = Double(todaySessionCount) - sevenDayAverageSessions
         if abs(diff) < 0.25 {
             return "On your 7-day average"
         }
-        if diff > 0 {
-            return String(format: "%.1f above 7-day avg", diff)
-        }
-        return String(format: "%.1f below 7-day avg", abs(diff))
+        return diff > 0 ? "Above 7-day average" : "Below 7-day average"
     }
 
     private var averageSessionMinutes: Int {
@@ -308,20 +325,36 @@ struct SummaryView: View {
 
 private struct StatCard: View {
     let icon: String
-    let title: String
+    let titleKey: LocalizedStringKey
     let value: String
+    let suffixKey: LocalizedStringKey?
     let color: Color
+
+    init(icon: String, titleKey: LocalizedStringKey, value: String, suffixKey: LocalizedStringKey? = nil, color: Color) {
+        self.icon = icon
+        self.titleKey = titleKey
+        self.value = value
+        self.suffixKey = suffixKey
+        self.color = color
+    }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             Image(systemName: icon)
                 .font(.title3)
                 .foregroundStyle(color)
-            Text(value)
-                .font(.title2.bold())
-                .minimumScaleFactor(0.7)
-                .lineLimit(1)
-            Text(title)
+            HStack(spacing: 4) {
+                Text(value)
+                    .font(.title2.bold())
+                    .minimumScaleFactor(0.7)
+                    .lineLimit(1)
+                if let suffixKey {
+                    Text(suffixKey)
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
+            }
+            Text(titleKey)
                 .font(.caption)
                 .foregroundStyle(.secondary)
         }

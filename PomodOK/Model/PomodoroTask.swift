@@ -8,7 +8,7 @@ enum TaskPriority: String, CaseIterable, Codable, Identifiable {
 
     var id: String { rawValue }
 
-    var title: String {
+    var titleKey: LocalizedStringKey {
         switch self {
         case .high: return "High"
         case .medium: return "Medium"
@@ -38,7 +38,7 @@ enum TaskFilter: String, CaseIterable, Identifiable {
 
     var id: String { rawValue }
 
-    var title: String {
+    var titleKey: LocalizedStringKey {
         switch self {
         case .all: return "All"
         case .high: return "High"

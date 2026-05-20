@@ -54,7 +54,7 @@ struct TasksView: View {
                     Section("All and Priorities") {
                         Picker("Filter", selection: $selectedFilter) {
                             ForEach(TaskFilter.allCases) { filter in
-                                Text(filter.title).tag(filter)
+                                Text(filter.titleKey).tag(filter)
                             }
                         }
                         .pickerStyle(.segmented)
@@ -114,7 +114,7 @@ struct TasksView: View {
 
                     Picker("Priority", selection: $newTaskPriority) {
                         ForEach(TaskPriority.allCases) { priority in
-                            Label(priority.title, systemImage: priority.symbol)
+                            Label(priority.titleKey, systemImage: priority.symbol)
                                 .tag(priority)
                         }
                     }
