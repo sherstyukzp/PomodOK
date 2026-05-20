@@ -12,6 +12,7 @@
 		052E647D2FBDD5DF00F594A9 /* PomodoroTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 052E647C2FBDD5DF00F594A9 /* PomodoroTask.swift */; };
 		052E647F2FBDD5DF00F594A9 /* PomodoroSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 052E647E2FBDD5DF00F594A9 /* PomodoroSession.swift */; };
 		052E64832FBDE8FE00F594A9 /* PomodOKApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 052E64822FBDE8FE00F594A9 /* PomodOKApp.swift */; };
+		052E64852FBDEABF00F594A9 /* SummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 052E64842FBDEABF00F594A9 /* SummaryView.swift */; };
 		056BF0CC287B1A8E0066EB59 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056BF0CB287B1A8E0066EB59 /* NotificationManager.swift */; };
 		0570B33C28DF4E1C00458CF0 /* ChartsDaysView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0570B33B28DF4E1C00458CF0 /* ChartsDaysView.swift */; };
 		0570B33E28DF586500458CF0 /* ChartsYearsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0570B33D28DF586500458CF0 /* ChartsYearsView.swift */; };
@@ -43,6 +44,7 @@
 		052E647C2FBDD5DF00F594A9 /* PomodoroTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomodoroTask.swift; sourceTree = "<group>"; };
 		052E647E2FBDD5DF00F594A9 /* PomodoroSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomodoroSession.swift; sourceTree = "<group>"; };
 		052E64822FBDE8FE00F594A9 /* PomodOKApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomodOKApp.swift; sourceTree = "<group>"; };
+		052E64842FBDEABF00F594A9 /* SummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryView.swift; sourceTree = "<group>"; };
 		056BF0CB287B1A8E0066EB59 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		0570B33B28DF4E1C00458CF0 /* ChartsDaysView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartsDaysView.swift; sourceTree = "<group>"; };
 		0570B33D28DF586500458CF0 /* ChartsYearsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartsYearsView.swift; sourceTree = "<group>"; };
@@ -136,6 +138,7 @@
 				C427373F25822D6000CC0DCF /* AllEntriesView.swift */,
 				C40354B425821D15003DF1AC /* StatisticChartHoursView.swift */,
 				C40354B125821C61003DF1AC /* BarHoursView.swift */,
+				052E64842FBDEABF00F594A9 /* SummaryView.swift */,
 			);
 			path = Statistics;
 			sourceTree = "<group>";
@@ -306,6 +309,7 @@
 				C464FBB72505524700E0336E /* SettingsView.swift in Sources */,
 				052E64832FBDE8FE00F594A9 /* PomodOKApp.swift in Sources */,
 				056BF0CC287B1A8E0066EB59 /* NotificationManager.swift in Sources */,
+				052E64852FBDEABF00F594A9 /* SummaryView.swift in Sources */,
 				05BE007B27064F450004D127 /* HeaderSettingView.swift in Sources */,
 				05F2CC8729159531002F7AF9 /* Date.swift in Sources */,
 				05CBAA0125FF59D00082FFF6 /* WhatsNew.swift in Sources */,

@@ -5,6 +5,7 @@ import Charts
 struct ChartsYearsView: View {
 
     @Query(sort: \PomodoroSession.timestamp) private var sessions: [PomodoroSession]
+    @State private var metric: ChartMetric = .sessions
 
     private var years: [Int] {
         let cal = Calendar.current
@@ -15,55 +16,80 @@ struct ChartsYearsView: View {
     }
 
     var body: some View {
-        let chartDataSet = years.map {
-            ChartDataModel(label: "\($0)", value: countSessions(year: $0))
+        let chartData = years.map {
+            ChartDataModel(label: "\($0)", value: value(year: $0))
         }
+        let total = chartData.reduce(0) { $0 + $1.value }
 
-        VStack {
-            Text("Statistics for the year")
-                .font(Font.system(size: 24, design: .default))
-                .padding()
+        ScrollView {
+            VStack(alignment: .leading, spacing: 16) {
+                Picker("Metric", selection: $metric) {
+                    ForEach(ChartMetric.allCases, id: \.self) { Text($0.rawValue).tag($0) }
+                }
+                .pickerStyle(.segmented)
+                .padding(.horizontal)
 
-            Chart(chartDataSet, id: \.label) { item in
-                BarMark(
-                    x: .value("Year", item.label),
-                    y: .value("Value", item.value)
-                )
-            }
-            .foregroundColor(Color("redColor"))
-            .frame(height: 250)
-            .padding()
-
-            HStack {
-                VStack(alignment: .leading, spacing: 10) {
-                    let maxYear = chartDataSet.max { $0.value < $1.value }
-                    let minYear = chartDataSet.min { $0.value < $1.value }
-                    Divider()
-                    HStack {
-                        Text("The best year:")
-                        Text(maxYear?.label ?? "")
-                            .foregroundColor(.blue)
-                            .fontWeight(.bold)
-                    }
-                    HStack {
-                        Text("The worst year:")
-                        Text(minYear?.label ?? "")
-                            .foregroundColor(.blue)
-                            .fontWeight(.bold)
+                Chart(chartData, id: \.label) { item in
+                    BarMark(
+                        x: .value("Year", item.label),
+                        y: .value(metric.rawValue, item.value)
+                    )
+                    .foregroundStyle(Color("redColor").gradient)
+                    .cornerRadius(6)
+                    .annotation(position: .top) {
+                        if item.value > 0 {
+                            Text(metric == .minutes ? formatMinutes(item.value) : "\(item.value)")
+                                .font(.caption2)
+                                .foregroundStyle(.secondary)
+                        }
                     }
                 }
-                Spacer()
+                .frame(height: 220)
+                .padding(.horizontal)
+
+                HStack(spacing: 20) {
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text(metric == .minutes ? formatMinutes(total) : "\(total)")
+                            .font(.title2.bold())
+                            .foregroundStyle(Color("redColor"))
+                        Text("All time")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                    }
+
+                    if let best = chartData.max(by: { $0.value < $1.value }), best.value > 0 {
+                        Divider().frame(height: 36)
+                        VStack(alignment: .leading, spacing: 2) {
+                            Text(best.label)
+                                .font(.title2.bold())
+                                .foregroundStyle(.blue)
+                            Text("Best year")
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
+                        }
+                    }
+                }
+                .padding(.horizontal)
+                .padding(.top, 4)
             }
-            .padding()
+            .padding(.vertical)
         }
-        Spacer()
     }
 
-    private func countSessions(year: Int) -> Int {
+    private func value(year: Int) -> Int {
         let cal = Calendar.current
-        return sessions.filter {
-            cal.component(.year, from: $0.timestamp) == year
-        }.count
+        let filtered = sessions.filter { cal.component(.year, from: $0.timestamp) == year }
+        return metric == .sessions
+            ? filtered.count
+            : filtered.reduce(0) { $0 + $1.durationMinutes }
+    }
+
+    private func formatMinutes(_ total: Int) -> String {
+        guard total > 0 else { return "0m" }
+        let h = total / 60, m = total % 60
+        if h == 0 { return "\(m)m" }
+        if m == 0 { return "\(h)h" }
+        return "\(h)h \(m)m"
     }
 }
 

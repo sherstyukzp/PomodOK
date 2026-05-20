@@ -5,86 +5,114 @@ import Charts
 struct ChartsMonthsView: View {
 
     @Query(sort: \PomodoroSession.timestamp) private var sessions: [PomodoroSession]
+    @State private var metric: ChartMetric = .sessions
+
+    private let monthLabels = ["Jan","Feb","Mar","Apr","May","Jun",
+                               "Jul","Aug","Sep","Oct","Nov","Dec"]
 
     var body: some View {
         let currentYear = Calendar.current.component(.year, from: Date())
-        let chartDataSet = [
-            ChartDataModel(label: "Jan", value: countSessions(month: 1,  year: currentYear)),
-            ChartDataModel(label: "Feb", value: countSessions(month: 2,  year: currentYear)),
-            ChartDataModel(label: "Mar", value: countSessions(month: 3,  year: currentYear)),
-            ChartDataModel(label: "Apr", value: countSessions(month: 4,  year: currentYear)),
-            ChartDataModel(label: "May", value: countSessions(month: 5,  year: currentYear)),
-            ChartDataModel(label: "Jun", value: countSessions(month: 6,  year: currentYear)),
-            ChartDataModel(label: "Jul", value: countSessions(month: 7,  year: currentYear)),
-            ChartDataModel(label: "Aug", value: countSessions(month: 8,  year: currentYear)),
-            ChartDataModel(label: "Sep", value: countSessions(month: 9,  year: currentYear)),
-            ChartDataModel(label: "Oct", value: countSessions(month: 10, year: currentYear)),
-            ChartDataModel(label: "Nov", value: countSessions(month: 11, year: currentYear)),
-            ChartDataModel(label: "Dec", value: countSessions(month: 12, year: currentYear)),
-        ]
+        let chartData = monthLabels.enumerated().map { idx, label in
+            ChartDataModel(label: label, value: value(month: idx + 1, year: currentYear))
+        }
+        let total = chartData.reduce(0) { $0 + $1.value }
 
-        VStack {
-            Text("Statistics for the month")
-                .font(Font.system(size: 24, design: .default))
-                .padding()
+        ScrollView {
+            VStack(alignment: .leading, spacing: 16) {
+                // Metric toggle
+                Picker("Metric", selection: $metric) {
+                    ForEach(ChartMetric.allCases, id: \.self) { Text($0.rawValue).tag($0) }
+                }
+                .pickerStyle(.segmented)
+                .padding(.horizontal)
 
-            Chart(chartDataSet, id: \.label) { item in
-                BarMark(
-                    x: .value("Month", item.label),
-                    y: .value("Value", item.value)
-                )
-            }
-            .foregroundColor(Color("redColor"))
-            .frame(height: 250)
-            .padding()
+                Text("Year \(currentYear)")
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
+                    .padding(.horizontal)
 
-            HStack {
-                VStack(alignment: .leading, spacing: 10) {
-                    let maxMonth = chartDataSet.max { $0.value < $1.value }
-                    let minMonth = chartDataSet.min { $0.value < $1.value }
-                    Divider()
-                    HStack {
-                        Text("The best month:")
-                        Text(nameMonthFull(month: maxMonth?.label ?? ""))
-                            .foregroundColor(.blue)
-                            .fontWeight(.bold)
+                // Chart
+                Chart(chartData, id: \.label) { item in
+                    BarMark(
+                        x: .value("Month", item.label),
+                        y: .value(metric.rawValue, item.value)
+                    )
+                    .foregroundStyle(Color("redColor").gradient)
+                    .cornerRadius(6)
+                }
+                .frame(height: 220)
+                .padding(.horizontal)
+
+                // Summary row
+                HStack(spacing: 20) {
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text(metric == .minutes ? formatMinutes(total) : "\(total)")
+                            .font(.title2.bold())
+                            .foregroundStyle(Color("redColor"))
+                        Text("Year total")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
                     }
-                    HStack {
-                        Text("The worst month:")
-                        Text(nameMonthFull(month: minMonth?.label ?? ""))
-                            .foregroundColor(.blue)
-                            .fontWeight(.bold)
+
+                    Divider().frame(height: 36)
+
+                    if let best = chartData.max(by: { $0.value < $1.value }), best.value > 0 {
+                        VStack(alignment: .leading, spacing: 2) {
+                            Text(nameMonthFull(month: best.label))
+                                .font(.title2.bold())
+                                .foregroundStyle(.blue)
+                            Text("Best month")
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
+                        }
+                    }
+
+                    if let worst = chartData.filter({ $0.value > 0 }).min(by: { $0.value < $1.value }) {
+                        Divider().frame(height: 36)
+                        VStack(alignment: .leading, spacing: 2) {
+                            Text(nameMonthFull(month: worst.label))
+                                .font(.title2.bold())
+                                .foregroundStyle(.orange)
+                            Text("Least active")
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
+                        }
                     }
                 }
-                Spacer()
+                .padding(.horizontal)
+                .padding(.top, 4)
             }
-            .padding()
+            .padding(.vertical)
         }
-        Spacer()
     }
 
-    private func countSessions(month: Int, year: Int) -> Int {
+    private func value(month: Int, year: Int) -> Int {
         let cal = Calendar.current
-        return sessions.filter {
+        let filtered = sessions.filter {
             cal.component(.year, from: $0.timestamp) == year &&
             cal.component(.month, from: $0.timestamp) == month
-        }.count
+        }
+        return metric == .sessions
+            ? filtered.count
+            : filtered.reduce(0) { $0 + $1.durationMinutes }
+    }
+
+    private func formatMinutes(_ total: Int) -> String {
+        guard total > 0 else { return "0m" }
+        let h = total / 60, m = total % 60
+        if h == 0 { return "\(m)m" }
+        if m == 0 { return "\(h)h" }
+        return "\(h)h \(m)m"
     }
 
     private func nameMonthFull(month: String) -> String {
         switch month {
-        case "Jan": return "January"
-        case "Feb": return "February"
-        case "Mar": return "March"
-        case "Apr": return "April"
-        case "May": return "May"
-        case "Jun": return "June"
-        case "Jul": return "July"
-        case "Aug": return "August"
-        case "Sep": return "September"
-        case "Oct": return "October"
-        case "Nov": return "November"
-        case "Dec": return "December"
+        case "Jan": return "January";  case "Feb": return "February"
+        case "Mar": return "March";    case "Apr": return "April"
+        case "May": return "May";      case "Jun": return "June"
+        case "Jul": return "July";     case "Aug": return "August"
+        case "Sep": return "September";case "Oct": return "October"
+        case "Nov": return "November"; case "Dec": return "December"
         default: return ""
         }
     }

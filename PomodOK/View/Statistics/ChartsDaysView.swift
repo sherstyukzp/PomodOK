@@ -9,71 +9,106 @@ struct ChartsDaysView: View {
 
     @Binding var startDate: Date
     @Binding var endDate: Date
+    @State private var metric: ChartMetric = .sessions
+
+    private let weekdays: [(label: String, weekday: Int)] = [
+        ("Mo", 2), ("Tu", 3), ("We", 4), ("Th", 5), ("Fr", 6), ("Sa", 7), ("Su", 1)
+    ]
 
     var body: some View {
-        let chartDataSet = [
-            ChartDataModel(label: "Mo", value: countSessions(weekday: 2)),
-            ChartDataModel(label: "Tu", value: countSessions(weekday: 3)),
-            ChartDataModel(label: "We", value: countSessions(weekday: 4)),
-            ChartDataModel(label: "Th", value: countSessions(weekday: 5)),
-            ChartDataModel(label: "Fr", value: countSessions(weekday: 6)),
-            ChartDataModel(label: "Sa", value: countSessions(weekday: 7)),
-            ChartDataModel(label: "Su", value: countSessions(weekday: 1)),
-        ]
+        let chartData = weekdays.map { day in
+            ChartDataModel(label: day.label, value: value(weekday: day.weekday))
+        }
+        let total = chartData.reduce(0) { $0 + $1.value }
 
-        VStack(alignment: .center) {
-            Text("Statistics for the day")
-                .font(Font.system(size: 24, design: .default))
-                .padding()
+        ScrollView {
+            VStack(alignment: .leading, spacing: 16) {
+                // Metric toggle
+                Picker("Metric", selection: $metric) {
+                    ForEach(ChartMetric.allCases, id: \.self) { Text($0.rawValue).tag($0) }
+                }
+                .pickerStyle(.segmented)
+                .padding(.horizontal)
 
-            HStack {
-                Text("From")
-                Text(startDate.formatted(date: .abbreviated, time: .omitted))
-                Text("to")
-                Text(endDate.formatted(date: .abbreviated, time: .omitted))
-            }
+                // Date range
+                HStack {
+                    Image(systemName: "calendar")
+                        .foregroundStyle(Color("redColor"))
+                    Text(startDate.formatted(date: .abbreviated, time: .omitted))
+                    Text("→")
+                    Text(endDate.formatted(date: .abbreviated, time: .omitted))
+                }
+                .font(.subheadline)
+                .foregroundStyle(.secondary)
+                .padding(.horizontal)
 
-            Chart(chartDataSet, id: \.label) { item in
-                BarMark(
-                    x: .value("Day", item.label),
-                    y: .value("Value", item.value)
-                )
-            }
-            .foregroundColor(Color("redColor"))
-            .frame(height: 250)
-            .padding()
-
-            HStack {
-                VStack(alignment: .leading, spacing: 10) {
-                    let maxDay = chartDataSet.max { $0.value < $1.value }
-                    let minDay = chartDataSet.min { $0.value < $1.value }
-                    Divider()
-                    HStack {
-                        Text("The best day:")
-                        Text(nameDayFull(day: maxDay?.label ?? ""))
-                            .foregroundColor(.blue)
-                            .fontWeight(.bold)
-                    }
-                    HStack {
-                        Text("The worst day:")
-                        Text(nameDayFull(day: minDay?.label ?? ""))
-                            .foregroundColor(.blue)
-                            .fontWeight(.bold)
+                // Chart
+                Chart(chartData, id: \.label) { item in
+                    BarMark(
+                        x: .value("Day", item.label),
+                        y: .value(metric.rawValue, item.value)
+                    )
+                    .foregroundStyle(Color("redColor").gradient)
+                    .cornerRadius(6)
+                    .annotation(position: .top) {
+                        if item.value > 0 {
+                            Text(metric == .minutes ? formatMinutes(item.value) : "\(item.value)")
+                                .font(.caption2)
+                                .foregroundStyle(.secondary)
+                        }
                     }
                 }
-                Spacer()
+                .frame(height: 220)
+                .padding(.horizontal)
+
+                // Summary row
+                HStack(spacing: 20) {
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text(metric == .minutes ? formatMinutes(total) : "\(total)")
+                            .font(.title2.bold())
+                            .foregroundStyle(Color("redColor"))
+                        Text("Total")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                    }
+
+                    Divider().frame(height: 36)
+
+                    if let best = chartData.max(by: { $0.value < $1.value }), best.value > 0 {
+                        VStack(alignment: .leading, spacing: 2) {
+                            Text(nameDayFull(day: best.label))
+                                .font(.title2.bold())
+                                .foregroundStyle(.blue)
+                            Text("Best day")
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
+                        }
+                    }
+                }
+                .padding(.horizontal)
+                .padding(.top, 4)
             }
-            .padding()
+            .padding(.vertical)
         }
-        Spacer()
     }
 
-    private func countSessions(weekday: Int) -> Int {
-        sessions.filter { session in
+    private func value(weekday: Int) -> Int {
+        let filtered = sessions.filter { session in
             session.timestamp >= startDate &&
             session.timestamp <= endDate &&
             calendar.component(.weekday, from: session.timestamp) == weekday
-        }.count
+        }
+        return metric == .sessions
+            ? filtered.count
+            : filtered.reduce(0) { $0 + $1.durationMinutes }
+    }
+
+    private func formatMinutes(_ total: Int) -> String {
+        guard total > 0 else { return "0m" }
+        let h = total / 60, m = total % 60
+        if h == 0 { return "\(m)m" }
+        if m == 0 { return "\(h)h" }
+        return "\(h)h \(m)m"
     }
 
     private func nameDayFull(day: String) -> String {
